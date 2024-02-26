@@ -17,6 +17,8 @@ import utility.SchemaUtil.UserTypes;
 public class EmployeeOperations {
 	private EmployeeRecord employee;
 	private API api = new MySQLAPI();
+	
+	private final double MINIMUM_DEPOSIT_AMOUNT = 2000.0;
 
 	public EmployeeOperations(EmployeeRecord employee) throws AppException {
 		ValidatorUtil.validateObject(employee);
@@ -48,17 +50,17 @@ public class EmployeeOperations {
 
 	public Account createNewCustomerAndAccount(CustomerRecord customer, String accountType, double depositAmount)
 			throws AppException {
+		ValidatorUtil.validateObject(accountType);
+		ValidatorUtil.validateObject(customer);
 		int customerID = api.createUser(customer);
+		customer.setUserID(customerID);
+		api.createCustomer(customer);
+		return createAccountForExistingCustomer(customerID, accountType, depositAmount);
+	}
+
+	public Account createAccountForExistingCustomer(int customerID, String accountType, double depositAmount)
+			throws AppException {
 		int accountNumber = api.createAccount(customerID, accountType, employee.getBranchID(), depositAmount);
 		return api.getAccountDetails(accountNumber);
 	}
-
-//	public boolean createNewCustomer(CustomerRecord customer) throws AppException {
-//		if (api.createNewUserRecord(customer)) {
-//			if (api.createNewCustomerRecord(customer)) {
-//				return true;
-//			}
-//		}
-//		return false;
-//	}
 }

@@ -78,11 +78,9 @@ public class AppRunner {
 							CustomerRunner.run((CustomerRecord) user);
 						}
 					}
-
 				}
 					break;
 				}
-
 			} catch (Exception e) {
 				LoggingUtil.logSever(e);
 			}

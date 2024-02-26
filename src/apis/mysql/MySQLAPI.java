@@ -126,26 +126,6 @@ final public class MySQLAPI implements API {
 	}
 
 	@Override
-	public boolean createCustomer(CustomerRecord customer) throws AppException {
-		ValidatorUtil.validateObject(customer);
-		ValidatorUtil.validatePostiveNumber(customer.getUserID());
-
-		String createNewCustomerRecordQuery = "INSERT INTO customers VALUE(" + customer.getUserID() + ", "
-				+ customer.getAadhaarNumber() + ", '" + customer.getPanNumber() + "')";
-
-		try (Statement statement = ServerConnection.getServerConnection().createStatement()) {
-			int affectedRows = statement.executeUpdate(createNewCustomerRecordQuery);
-			if (affectedRows == 1) {
-				return true;
-			} else {
-				throw new AppException(APIExceptionMessage.USER_CREATION_FAILED);
-			}
-		} catch (SQLException e) {
-			throw new AppException(e.getMessage());
-		}
-	}
-
-	@Override
 	public List<Account> viewAccountsInBranch(int branchID) throws AppException {
 		List<Account> accounts = new ArrayList<Account>();
 		try (PreparedStatement statement = ServerConnection.getServerConnection()
@@ -205,14 +185,67 @@ final public class MySQLAPI implements API {
 
 	@Override
 	public int createUser(UserRecord user) throws AppException {
-		// TODO Auto-generated method stub
-		return 0;
+		ValidatorUtil.validateObject(user);
+		try (PreparedStatement statement = ServerConnection.getServerConnection()
+				.prepareStatement(MySQLQuery.CREATE_USER_PS.getQuery())) {
+			statement.setString(1, user.getFirstName());
+			statement.setString(2, user.getLastName());
+			statement.setString(3, user.getGender().toString());
+			statement.setString(4, user.getAddress());
+			statement.setLong(5, user.getMobileNumber());
+			statement.setString(6, user.getEmail());
+
+			int response = statement.executeUpdate();
+			try (ResultSet keys = statement.getGeneratedKeys()) {
+				if (keys.next() && response == 1) {
+					return keys.getInt(1);
+				} else {
+					throw new AppException(APIExceptionMessage.USER_CREATION_FAILED);
+				}
+			}
+		} catch (SQLException e) {
+			throw new AppException(e.getMessage());
+		}
+	}
+
+	@Override
+	public boolean createCustomer(CustomerRecord customer) throws AppException {
+		ValidatorUtil.validateObject(customer);
+		ValidatorUtil.validatePostiveNumber(customer.getUserID());
+		try (PreparedStatement statement = ServerConnection.getServerConnection()
+				.prepareStatement(MySQLQuery.CREATE_CUSTOMER_PS.getQuery())) {
+			statement.setInt(1, customer.getUserID());
+			statement.setLong(2, customer.getAadhaarNumber());
+			statement.setString(3, customer.getPanNumber());
+			int response = statement.executeUpdate();
+			if (response == 1) {
+				return true;
+			} else {
+				throw new AppException(APIExceptionMessage.USER_CREATION_FAILED);
+			}
+		} catch (SQLException e) {
+			throw new AppException(e.getMessage());
+		}
 	}
 
 	@Override
 	public boolean createEmployee(EmployeeRecord employee) throws AppException {
-		// TODO Auto-generated method stub
-		return false;
+		ValidatorUtil.validateObject(employee);
+		ValidatorUtil.validatePostiveNumber(employee.getUserID());
+		try (PreparedStatement statement = ServerConnection.getServerConnection()
+				.prepareStatement(MySQLQuery.CREATE_EMPLOYEE_PS.getQuery())) {
+			statement.setString(1, employee.getFirstName());
+			statement.setString(2, employee.getLastName());
+			statement.setString(3, employee.getGender().toString());
+			int response = statement.executeUpdate();
+			if (response == 1) {
+				return true;
+			} else {
+				throw new AppException(APIExceptionMessage.USER_CREATION_FAILED);
+			}
+		} catch (SQLException e) {
+			throw new AppException(e.getMessage());
+		}
 	}
 }
 

@@ -9,9 +9,11 @@ public enum APIExceptionMessage {
 	CANNOT_FETCH_DETAILS("Unable to fetch details at the moment. Please try again later"),
 
 	USER_CREATION_FAILED("Unable to create user record at the moment. Please try again later"),
+	EMPLOYEE_CREATION_FAILED("Unable to create employee record at the moment. Please try again later"),
+
 	ACCOUNT_CREATION_FAILED("Failed to create a new Account. Please try again later."),
 	CUSTOMER_CREATION_FAILED("Unable to create customer record at the moment. Pleasy try again later"),
-	
+
 	UNKNOWN_ERROR("An unexpected error occured. Please try again after sometime");
 
 	private String message;

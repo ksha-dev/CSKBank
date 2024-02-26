@@ -8,7 +8,10 @@ public enum MySQLQuery {
 	USER_ACCOUNT_DETAILS_PS("SELECT * FROM accounts WHERE user_id = ?"),
 	ACCOUNT_TRANSACTION_DETAILS_PS("SELECT * FROM transactions WHERE viewer_account_number = ? LIMIT 10"),
 	ACCOUNT_DETAILS_PS("SELECT * FROM accounts WHERE account_number = ?"),
-	ACCOUNTS_IN_BRANCH_PS("SELECT * FROM accounts WHERE branch_id = ?");
+	ACCOUNTS_IN_BRANCH_PS("SELECT * FROM accounts WHERE branch_id = ?"),
+	CREATE_USER_PS("INSERT INTO users(first_name, last_name, gender, address, mobile, email) VALUES(?,?,?,?,?,?);"),
+	CREATE_EMPLOYEE_PS("INSERT INTO employees VALUES(?,?,?);"),
+	CREATE_CUSTOMER_PS("INSERT INTO customers VALUES(?,?,?);");
 
 	private String query;
 
