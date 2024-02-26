@@ -13,7 +13,7 @@ import exceptions.AppException;
 
 public class LoggingUtil {
 	private static final String DEFAULT_LOGGER_NAME = ZonedDateTime.now().format(DateTimeFormatter.ISO_OFFSET_DATE_TIME)
-			+ "_BankOfZoho.log";
+			+ "_CSK_Bank.log";
 	public static final Logger DEFAULT_LOGGER = Logger.getLogger(DEFAULT_LOGGER_NAME);
 	public static final String DEFAULT_FILE_PATH = System.getProperty("user.dir");
 	public static final String DEFAULT_SEPARATOR = File.separator;
