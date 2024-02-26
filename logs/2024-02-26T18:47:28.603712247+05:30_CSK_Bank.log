@@ -1,0 +1,107 @@
+------------------------------
+     WELCOME TO CSK BANK
+------------------------------ 
+===============HOME===============
+Enter a number to perform the following operation : 
+1 - Sign in to access your information
+2 - Apply for a new account
+
+To exit, enter 0
+------------------------------ 
+Enter your choice :  
+Enter your User ID (or 0 to exit):  
+Enter your password :  
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Statement of Account
+4 - Transfer Amount
+5 - Update Profile
+
+To logout, enter 0
+------------------------------ 
+Enter your choice (0 to 5):  
+---------------------------------------- 
+CUSTOMER DETAILS                         
+---------------------------------------- 
+FIRST NAME           : Ponvel 
+LAST NAME            : K 
+DATE OF BIRTH        : 2000-10-21 
+GENDER               : MALE 
+ADDRESS              : Erode 
+MAIL ID              : povel@gmail.com 
+STATUS               : ACTIVE 
+AADHAAR              : 123456789012 
+PAN                  : ABCPK9034F 
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Statement of Account
+4 - Transfer Amount
+5 - Update Profile
+
+To logout, enter 0
+------------------------------ 
+Enter your choice (0 to 5):  
+Accounts mapped to the user : 1 
+---------------------------------------- 
+ACCOUNT DETAILS 
+---------------------------------------- 
+ACCOUNT NUMBER       : 12345678901236 
+ACCOUNT BALANCE      : 10000.0 
+ACCOUNT TYPE         : SAVINGS 
+ACCOUNT STATUS       : ACTIVE 
+CUSTOMER ID          : 8 
+OPENING DATE         : 1970-01-02 
+BRANCH CODE          : 1 
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Statement of Account
+4 - Transfer Amount
+5 - Update Profile
+
+To logout, enter 0
+------------------------------ 
+Enter your choice (0 to 5):  
+The choice is invalid 
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Statement of Account
+4 - Transfer Amount
+5 - Update Profile
+
+To logout, enter 0
+------------------------------ 
+Enter your choice (0 to 5):  
+Enter your choice (0 to 5):  
+An integer value is expected. Please enter a valid integer. 
+Enter your choice (0 to 5):  
+Enter your choice (0 to 5):  
+Accounts mapped to the user : 1 
+---------------------------------------- 
+ACCOUNT DETAILS 
+---------------------------------------- 
+ACCOUNT NUMBER       : 12345678901236 
+ACCOUNT BALANCE      : 10000.0 
+ACCOUNT TYPE         : SAVINGS 
+ACCOUNT STATUS       : ACTIVE 
+CUSTOMER ID          : 8 
+OPENING DATE         : 1970-01-02 
+BRANCH CODE          : 1 
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Statement of Account
+4 - Transfer Amount
+5 - Update Profile
+
+To logout, enter 0
+------------------------------ 
+Enter your choice (0 to 5):  

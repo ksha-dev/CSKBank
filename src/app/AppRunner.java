@@ -12,6 +12,7 @@ import operations.HomeOperations;
 import utility.InputUtil;
 import utility.LoggingUtil;
 import utility.ValidatorUtil;
+import utility.SchemaUtil.UserTypes;
 
 public class AppRunner {
 	public static final Logger log = LoggingUtil.DEFAULT_LOGGER;
@@ -71,9 +72,9 @@ public class AppRunner {
 						}
 					}
 					if (!ValidatorUtil.isObjectNull(user)) {
-						if (user instanceof EmployeeRecord) {
+						if (user.getType().equals(UserTypes.EMPLOYEE)) {
 							EmployeeRunner.run((EmployeeRecord) user);
-						} else if (user instanceof CustomerRecord) {
+						} else if (user.getType().equals(UserTypes.CUSTOMER)) {
 							CustomerRunner.run((CustomerRecord) user);
 						}
 					}
