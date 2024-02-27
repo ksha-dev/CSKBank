@@ -2,8 +2,8 @@ package operations;
 
 import java.util.List;
 
-import apis.API;
-import apis.mysql.MySQLAPI;
+import api.GeneralAPI;
+import apis.mysql.MySQLGeneralAPI;
 import exceptions.APIExceptionMessage;
 import exceptions.AppException;
 import helpers.Account;
@@ -12,10 +12,10 @@ import helpers.Transaction;
 import utility.ValidatorUtil;
 
 public class CustomerOperations {
-	
+
 	private CustomerRecord currentCustomer;
 
-	private API api = new MySQLAPI();
+	private GeneralAPI api = new MySQLGeneralAPI();
 
 	public CustomerOperations(CustomerRecord customer) throws AppException {
 		ValidatorUtil.validateObject(customer);
@@ -43,5 +43,10 @@ public class CustomerOperations {
 		List<Transaction> listOfTransactions;
 		listOfTransactions = api.getTransactionsOfAccount(accountNumber);
 		return listOfTransactions;
+	}
+
+	public double getAccountBalance(long accountNumber) throws AppException {
+		ValidatorUtil.validatePostiveNumber(accountNumber);
+		return api.getBalanceInAccount(accountNumber);
 	}
 }

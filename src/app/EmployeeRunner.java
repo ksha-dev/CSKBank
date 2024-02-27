@@ -187,14 +187,17 @@ public class EmployeeRunner {
 
 					log.info("Enter 'y' to confirm creation, 'N' to cancel");
 					if (InputUtil.getString().charAt(0) == 'y') {
-						Account createAccount = new Account();
-						log.info("Enter type of account : 1 - SAVINGS, 2 - SALARY, 3 - CURRENT");
-						
+						Account account = activity.createNewCustomerAndAccount(customer, "SAVINGS", 10000.0);
+						customer = activity.getCustomerRecord(customer.getUserID());
+
+						log.info("-".repeat(40));
+						log.info("CUSTOMER AND ACCOUNT HAS BEEN CREATED SUCCESSFULLY");
+						customer.logUserRecord();
+						account.logAccount();
 					} else {
 						log.info("Operation cancelled.");
 					}
 					break;
-					
 
 				default:
 					log.info("The choice is invalid");

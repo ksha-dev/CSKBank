@@ -2,8 +2,8 @@ package operations;
 
 import java.util.List;
 
-import apis.API;
-import apis.mysql.MySQLAPI;
+import api.EmployeeAPI;
+import apis.mysql.MySQLEmployeeAPI;
 import exceptions.APIExceptionMessage;
 import exceptions.ActivityExceptionMessages;
 import exceptions.AppException;
@@ -16,8 +16,8 @@ import utility.SchemaUtil.UserTypes;
 
 public class EmployeeOperations {
 	private EmployeeRecord employee;
-	private API api = new MySQLAPI();
-	
+	private EmployeeAPI api = new MySQLEmployeeAPI();
+
 	private final double MINIMUM_DEPOSIT_AMOUNT = 2000.0;
 
 	public EmployeeOperations(EmployeeRecord employee) throws AppException {
@@ -52,6 +52,11 @@ public class EmployeeOperations {
 			throws AppException {
 		ValidatorUtil.validateObject(accountType);
 		ValidatorUtil.validateObject(customer);
+		if (depositAmount < MINIMUM_DEPOSIT_AMOUNT) {
+			throw new AppException(
+					"The deposit amount must meet the minimum required amount. The minimum deposit amount is Rs. "
+							+ MINIMUM_DEPOSIT_AMOUNT);
+		}
 		int customerID = api.createUser(customer);
 		customer.setUserID(customerID);
 		api.createCustomer(customer);
@@ -60,7 +65,7 @@ public class EmployeeOperations {
 
 	public Account createAccountForExistingCustomer(int customerID, String accountType, double depositAmount)
 			throws AppException {
-		int accountNumber = api.createAccount(customerID, accountType, employee.getBranchID(), depositAmount);
+		long accountNumber = api.createAccount(customerID, accountType, employee.getBranchID(), depositAmount);
 		return api.getAccountDetails(accountNumber);
 	}
 }

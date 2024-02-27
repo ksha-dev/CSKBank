@@ -12,7 +12,7 @@ import java.util.logging.SimpleFormatter;
 import exceptions.AppException;
 
 public class LoggingUtil {
-	private static final String DEFAULT_LOGGER_NAME = ZonedDateTime.now().format(DateTimeFormatter.ISO_OFFSET_DATE_TIME)
+	private static final String DEFAULT_LOGGER_NAME = ZonedDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
 			+ "_CSK_Bank.log";
 	public static final Logger DEFAULT_LOGGER = Logger.getLogger(DEFAULT_LOGGER_NAME);
 	public static final String DEFAULT_FILE_PATH = System.getProperty("user.dir");
@@ -21,7 +21,7 @@ public class LoggingUtil {
 
 	static {
 //		System.setProperty("java.util.logging.SimpleFormatter.format", "[%1$tF %1$tT] [%4$-7s] %5$s %n");
-	System.setProperty("java.util.logging.SimpleFormatter.format", "%5$s %n");
+		System.setProperty("java.util.logging.SimpleFormatter.format", "%5$s\n");
 
 		try {
 			checkPath(DEFAULT_LOGGER_PATH);
