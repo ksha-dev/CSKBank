@@ -1,0 +1,381 @@
+------------------------------
+     WELCOME TO CSK BANK
+------------------------------ 
+===============HOME===============
+Enter a number to perform the following operation : 
+1 - Sign in to access your information
+2 - Apply for a new account
+
+To exit, enter 0
+------------------------------ 
+Enter your choice :  
+An integer value is expected. Please enter a valid integer. 
+Enter your User ID (or 0 to exit):  
+Enter your password :  
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Statement of Account
+4 - Transfer Amount
+5 - Update Profile
+
+To logout, enter 0
+------------------------------ 
+Enter your choice (0 to 5):  
+---------------------------------------- 
+CUSTOMER DETAILS                         
+---------------------------------------- 
+FIRST NAME           : Karthi 
+LAST NAME            : T 
+DATE OF BIRTH        : 1953-04-29 
+GENDER               : MALE 
+ADDRESS              : Madhurai 
+MAIL ID              : karthi.t@gmail.com 
+STATUS               : ACTIVE 
+AADHAAR              : 923857698234 
+PAN                  : LHIPS3478J 
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Statement of Account
+4 - Transfer Amount
+5 - Update Profile
+
+To logout, enter 0
+------------------------------ 
+Enter your choice (0 to 5):  
+Accounts mapped to the user : 1 
+---------------------------------------- 
+ACCOUNT DETAILS 
+---------------------------------------- 
+ACCOUNT NUMBER       : 12345678901239 
+ACCOUNT BALANCE      : 10000.0 
+ACCOUNT TYPE         : SAVINGS 
+ACCOUNT STATUS       : ACTIVE 
+CUSTOMER ID          : 12 
+OPENING DATE         : 2024-02-27 
+BRANCH CODE          : 1 
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Statement of Account
+4 - Transfer Amount
+5 - Update Profile
+
+To logout, enter 0
+------------------------------ 
+Enter your choice (0 to 5):  
+The choice is invalid 
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Statement of Account
+4 - Transfer Amount
+5 - Update Profile
+
+To logout, enter 0
+------------------------------ 
+Enter your choice (0 to 5):  
+Enter 'YES' to confirm logout :  
+Logged out successfully. 
+---------------------------------------- 
+===============HOME===============
+Enter a number to perform the following operation : 
+1 - Sign in to access your information
+2 - Apply for a new account
+
+To exit, enter 0
+------------------------------ 
+Enter your choice :  
+Enter your User ID (or 0 to exit):  
+Enter your password :  
+
+===============EMPLOYEE PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - View list of accounts of your branch
+3 - View a customer details of an account
+4 - Open a new account for a new customer
+
+To logout, enter 0
+------------------------------ 
+Enter your choice (0 to 4):  
+---------------------------------------- 
+EMPLOYEE DETAILS                         
+---------------------------------------- 
+FIRST NAME           : Admin 
+LAST NAME            : User 
+DATE OF BIRTH        : 2024-02-19 
+GENDER               : MALE 
+ADDRESS              : CSK Bank, Head Office, Cheppak 
+MAIL ID              : admin@cskbank.com 
+STATUS               : ACTIVE 
+BRANCH ID            : 1 
+
+===============EMPLOYEE PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - View list of accounts of your branch
+3 - View a customer details of an account
+4 - Open a new account for a new customer
+
+To logout, enter 0
+------------------------------ 
+Enter your choice (0 to 4):  
+---------------------------------------- 
+ACCOUNT DETAILS 
+---------------------------------------- 
+ACCOUNT NUMBER       : 1234567890 
+ACCOUNT BALANCE      : 0.0 
+ACCOUNT TYPE         : SAVINGS 
+ACCOUNT STATUS       : ACTIVE 
+CUSTOMER ID          : 1 
+OPENING DATE         : 1970-01-01 
+BRANCH CODE          : 1 
+---------------------------------------- 
+ACCOUNT DETAILS 
+---------------------------------------- 
+ACCOUNT NUMBER       : 12345678901234 
+ACCOUNT BALANCE      : 0.0 
+ACCOUNT TYPE         : SAVINGS 
+ACCOUNT STATUS       : ACTIVE 
+CUSTOMER ID          : 1 
+OPENING DATE         : 1970-01-01 
+BRANCH CODE          : 1 
+---------------------------------------- 
+ACCOUNT DETAILS 
+---------------------------------------- 
+ACCOUNT NUMBER       : 12345678901236 
+ACCOUNT BALANCE      : 10000.0 
+ACCOUNT TYPE         : SAVINGS 
+ACCOUNT STATUS       : ACTIVE 
+CUSTOMER ID          : 8 
+OPENING DATE         : 1970-01-02 
+BRANCH CODE          : 1 
+---------------------------------------- 
+ACCOUNT DETAILS 
+---------------------------------------- 
+ACCOUNT NUMBER       : 12345678901237 
+ACCOUNT BALANCE      : 10000.0 
+ACCOUNT TYPE         : SAVINGS 
+ACCOUNT STATUS       : ACTIVE 
+CUSTOMER ID          : 10 
+OPENING DATE         : 2024-02-27 
+BRANCH CODE          : 1 
+---------------------------------------- 
+ACCOUNT DETAILS 
+---------------------------------------- 
+ACCOUNT NUMBER       : 12345678901238 
+ACCOUNT BALANCE      : 10000.0 
+ACCOUNT TYPE         : SAVINGS 
+ACCOUNT STATUS       : ACTIVE 
+CUSTOMER ID          : 11 
+OPENING DATE         : 2024-02-27 
+BRANCH CODE          : 1 
+---------------------------------------- 
+ACCOUNT DETAILS 
+---------------------------------------- 
+ACCOUNT NUMBER       : 12345678901239 
+ACCOUNT BALANCE      : 10000.0 
+ACCOUNT TYPE         : SAVINGS 
+ACCOUNT STATUS       : ACTIVE 
+CUSTOMER ID          : 12 
+OPENING DATE         : 2024-02-27 
+BRANCH CODE          : 1 
+
+===============EMPLOYEE PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - View list of accounts of your branch
+3 - View a customer details of an account
+4 - Open a new account for a new customer
+
+To logout, enter 0
+------------------------------ 
+Enter your choice (0 to 4):  
+Enter Customer ID to fetch details :  
+---------------------------------------- 
+CUSTOMER DETAILS                         
+---------------------------------------- 
+FIRST NAME           : Karthi 
+LAST NAME            : T 
+DATE OF BIRTH        : 1953-04-29 
+GENDER               : MALE 
+ADDRESS              : Madhurai 
+MAIL ID              : karthi.t@gmail.com 
+STATUS               : ACTIVE 
+AADHAAR              : 923857698234 
+PAN                  : LHIPS3478J 
+
+===============EMPLOYEE PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - View list of accounts of your branch
+3 - View a customer details of an account
+4 - Open a new account for a new customer
+
+To logout, enter 0
+------------------------------ 
+Enter your choice (0 to 4):  
+Enter Customer ID to fetch details :  
+No matching records were found. 
+
+===============EMPLOYEE PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - View list of accounts of your branch
+3 - View a customer details of an account
+4 - Open a new account for a new customer
+
+To logout, enter 0
+------------------------------ 
+Enter your choice (0 to 4):  
+Enter the following details :  
+Enter First name :  
+Enter Last name :  
+Enter Gender :  
+Enter Phone number name :  
+The mobile number should contain 10 digits. First digit should be between 7 and 9 
+Enter Phone number name :  
+Enter Email :  
+Enter Address :  
+Enter Date of birth in DDMMYYYY Format :  
+Enter Aadhaar Number :  
+Enter PAN Number :  
+The PAN number is invalid. Make sure it is the correct PAN number 
+Enter PAN Number :  
+---------------------------------------- 
+null DETAILS                             
+---------------------------------------- 
+FIRST NAME           : Surya 
+LAST NAME            : Kumar 
+DATE OF BIRTH        : 1999-04-12 
+GENDER               : MALE 
+ADDRESS              : Pallladam 
+MAIL ID              : suryakumar@hotmail.com 
+STATUS               : null 
+AADHAAR              : 987698769876 
+PAN                  : NAUTY3847H 
+Enter 'y' to confirm creation, 'N' to cancel 
+---------------------------------------- 
+CUSTOMER AND ACCOUNT HAS BEEN CREATED SUCCESSFULLY 
+---------------------------------------- 
+CUSTOMER DETAILS                         
+---------------------------------------- 
+FIRST NAME           : Surya 
+LAST NAME            : Kumar 
+DATE OF BIRTH        : 1999-04-12 
+GENDER               : MALE 
+ADDRESS              : Pallladam 
+MAIL ID              : suryakumar@hotmail.com 
+STATUS               : ACTIVE 
+AADHAAR              : 987698769876 
+PAN                  : NAUTY3847H 
+---------------------------------------- 
+ACCOUNT DETAILS 
+---------------------------------------- 
+ACCOUNT NUMBER       : 12345678901240 
+ACCOUNT BALANCE      : 10000.0 
+ACCOUNT TYPE         : SAVINGS 
+ACCOUNT STATUS       : ACTIVE 
+CUSTOMER ID          : 13 
+OPENING DATE         : 2024-02-27 
+BRANCH CODE          : 1 
+
+===============EMPLOYEE PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - View list of accounts of your branch
+3 - View a customer details of an account
+4 - Open a new account for a new customer
+
+To logout, enter 0
+------------------------------ 
+Enter your choice (0 to 4):  
+Enter 'YES' to confirm logout :  
+Logged out successfully. 
+---------------------------------------- 
+===============HOME===============
+Enter a number to perform the following operation : 
+1 - Sign in to access your information
+2 - Apply for a new account
+
+To exit, enter 0
+------------------------------ 
+Enter your choice :  
+Enter your User ID (or 0 to exit):  
+Enter your password :  
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Statement of Account
+4 - Transfer Amount
+5 - Update Profile
+
+To logout, enter 0
+------------------------------ 
+Enter your choice (0 to 5):  
+---------------------------------------- 
+CUSTOMER DETAILS                         
+---------------------------------------- 
+FIRST NAME           : Surya 
+LAST NAME            : Kumar 
+DATE OF BIRTH        : 1999-04-12 
+GENDER               : MALE 
+ADDRESS              : Pallladam 
+MAIL ID              : suryakumar@hotmail.com 
+STATUS               : ACTIVE 
+AADHAAR              : 987698769876 
+PAN                  : NAUTY3847H 
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Statement of Account
+4 - Transfer Amount
+5 - Update Profile
+
+To logout, enter 0
+------------------------------ 
+Enter your choice (0 to 5):  
+Accounts mapped to the user : 1 
+---------------------------------------- 
+ACCOUNT DETAILS 
+---------------------------------------- 
+ACCOUNT NUMBER       : 12345678901240 
+ACCOUNT BALANCE      : 10000.0 
+ACCOUNT TYPE         : SAVINGS 
+ACCOUNT STATUS       : ACTIVE 
+CUSTOMER ID          : 13 
+OPENING DATE         : 2024-02-27 
+BRANCH CODE          : 1 
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Statement of Account
+4 - Transfer Amount
+5 - Update Profile
+
+To logout, enter 0
+------------------------------ 
+Enter your choice (0 to 5):  
+Enter 'YES' to confirm logout :  
+Logged out successfully. 
+---------------------------------------- 
+===============HOME===============
+Enter a number to perform the following operation : 
+1 - Sign in to access your information
+2 - Apply for a new account
+
+To exit, enter 0
+------------------------------ 
+Enter your choice :  
+---------------------------------------- 
+Thank you for visiting us 
+---------------------------------------- 

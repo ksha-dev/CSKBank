@@ -1,0 +1,80 @@
+------------------------------
+     WELCOME TO CSK BANK
+------------------------------
+===============HOME===============
+Enter a number to perform the following operation : 
+1 - Sign in to access your information
+2 - Apply for a new account
+
+To exit, enter 0
+------------------------------
+Enter your choice : 
+Enter your User ID (or 0 to exit): 
+Enter your password : 
+The user record for the given information does not exist.
+You have 3 more attemps to login
+Enter your User ID (or 0 to exit): 
+----------------------------------------
+===============HOME===============
+Enter a number to perform the following operation : 
+1 - Sign in to access your information
+2 - Apply for a new account
+
+To exit, enter 0
+------------------------------
+Enter your choice : 
+Enter your User ID (or 0 to exit): 
+Enter your password : 
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Balance of an Account
+4 - Transfer Amount
+5 - Update Profile
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 5): 
+The choice is invalid
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Balance of an Account
+4 - Transfer Amount
+5 - Update Profile
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 5): 
+Please select an account to view balance
+1 -> 12345678901236
+Enter the associated number : 
+null
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Balance of an Account
+4 - Transfer Amount
+5 - Update Profile
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 5): 
+An integer value is expected. Please enter a valid integer.
+Enter 'YES' to confirm logout : 
+Logged out successfully.
+----------------------------------------
+===============HOME===============
+Enter a number to perform the following operation : 
+1 - Sign in to access your information
+2 - Apply for a new account
+
+To exit, enter 0
+------------------------------
+Enter your choice : 
+----------------------------------------
+Thank you for visiting us
+----------------------------------------

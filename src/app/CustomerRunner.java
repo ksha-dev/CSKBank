@@ -77,6 +77,7 @@ public class CustomerRunner {
 						int selectedNumber = InputUtil.getPositiveInteger();
 						if (selectedNumber <= numberOfAccounts && selectedNumber > 0) {
 							accounts.get(selectedNumber - 1).logAccount();
+						
 						} else {
 							log.info("Invalid Selection");
 						}
