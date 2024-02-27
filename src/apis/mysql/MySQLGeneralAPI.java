@@ -1,6 +1,5 @@
 package apis.mysql;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,10 +11,9 @@ import api.GeneralAPI;
 import exceptions.APIExceptionMessage;
 import exceptions.AppException;
 import helpers.Account;
-import helpers.CustomerRecord;
-import helpers.EmployeeRecord;
 import helpers.Transaction;
 import helpers.UserRecord;
+import utility.SchemaUtil;
 import utility.ValidatorUtil;
 
 public class MySQLGeneralAPI implements GeneralAPI {
@@ -27,7 +25,7 @@ public class MySQLGeneralAPI implements GeneralAPI {
 			statement.setInt(1, userID);
 			try (ResultSet authenticationResult = statement.executeQuery()) {
 				if (authenticationResult.next()) {
-					if (authenticationResult.getString(2).equals(password)) {
+					if (authenticationResult.getString(2).equals(SchemaUtil.passwordHasher(password))) {
 						return true;
 					} else {
 						throw new AppException(APIExceptionMessage.USER_AUNTHENTICATION_FAILED);

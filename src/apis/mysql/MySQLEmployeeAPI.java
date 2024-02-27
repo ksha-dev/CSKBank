@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import exceptions.AppException;
 import helpers.Account;
 import helpers.CustomerRecord;
 import helpers.UserRecord;
+import utility.SchemaUtil;
 import utility.ValidatorUtil;
 
 public class MySQLEmployeeAPI extends MySQLGeneralAPI implements EmployeeAPI {
@@ -33,25 +35,13 @@ public class MySQLEmployeeAPI extends MySQLGeneralAPI implements EmployeeAPI {
 		return accounts;
 	}
 
-	private static int passwordLength = 8;
-
-	private static String randomPasswordGenerator() {
-		String alphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "0123456789" + "abcdefghijklmnopqrstuvxyz";
-		StringBuilder s = new StringBuilder(passwordLength);
-		int y;
-		for (y = 0; y < passwordLength; y++) {
-			int index = (int) (alphaNumericString.length() * Math.random());
-			s.append(alphaNumericString.charAt(index));
-		}
-		return s.toString();
-	}
-
-	private void createCredentialRecord(int userId) throws AppException {
-		ValidatorUtil.validatePostiveNumber(userId);
+	private void createCredentialRecord(UserRecord user) throws AppException {
+		ValidatorUtil.validatePostiveNumber(user.getUserID());
 		try (PreparedStatement statement = ServerConnection.getServerConnection()
 				.prepareStatement(MySQLQuery.CREATE_CREDENTIAL_PS.getQuery())) {
-			statement.setInt(1, userId);
-			statement.setString(2, randomPasswordGenerator());
+			statement.setInt(1, user.getUserID());
+			statement.setString(2, SchemaUtil.passwordHasher(user.getFirstName().substring(0, 3) + "@"
+					+ user.getDateOfBirth().format(DateTimeFormatter.BASIC_ISO_DATE).substring(4, 8)));
 			statement.executeUpdate();
 		} catch (SQLException e) {
 			throw new AppException(e.getMessage());
@@ -112,7 +102,8 @@ public class MySQLEmployeeAPI extends MySQLGeneralAPI implements EmployeeAPI {
 		try {
 			ServerConnection.getServerConnection().setAutoCommit(false);
 			int userID = createUserRecord(user);
-			createCredentialRecord(userID);
+			user.setUserID(userID);
+			createCredentialRecord(user);
 			ServerConnection.getServerConnection().commit();
 			return userID;
 		} catch (AppException | SQLException e) {
