@@ -1,0 +1,92 @@
+------------------------------
+     WELCOME TO CSK BANK
+------------------------------
+===============HOME===============
+Enter a number to perform the following operation : 
+1 - Sign in to access your information
+2 - Apply for a new account
+
+To exit, enter 0
+------------------------------
+Enter your choice : 
+Enter your User ID (or 0 to exit): 
+Enter your password : 
+
+===============EMPLOYEE PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - View list of accounts of your branch
+3 - View a customer details of an account
+4 - Open a new account for a new customer
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 4): 
+Enter 'YES' to confirm logout : 
+Logout cancelled
+
+===============EMPLOYEE PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - View list of accounts of your branch
+3 - View a customer details of an account
+4 - Open a new account for a new customer
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 4): 
+----------------------------------------
+ACCOUNT DETAILS
+----------------------------------------
+ACCOUNT NUMBER       : 1
+ACCOUNT BALANCE      : 10000.0
+ACCOUNT TYPE         : SAVINGS
+ACCOUNT STATUS       : ACTIVE
+CUSTOMER ID          : 2
+OPENING DATE         : 2024-02-27
+BRANCH CODE          : 1
+----------------------------------------
+ACCOUNT DETAILS
+----------------------------------------
+ACCOUNT NUMBER       : 2
+ACCOUNT BALANCE      : 10000.0
+ACCOUNT TYPE         : SAVINGS
+ACCOUNT STATUS       : ACTIVE
+CUSTOMER ID          : 3
+OPENING DATE         : 2024-02-27
+BRANCH CODE          : 1
+----------------------------------------
+ACCOUNT DETAILS
+----------------------------------------
+ACCOUNT NUMBER       : 3
+ACCOUNT BALANCE      : 10000.0
+ACCOUNT TYPE         : SAVINGS
+ACCOUNT STATUS       : ACTIVE
+CUSTOMER ID          : 4
+OPENING DATE         : 2024-02-27
+BRANCH CODE          : 1
+
+===============EMPLOYEE PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - View list of accounts of your branch
+3 - View a customer details of an account
+4 - Open a new account for a new customer
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 4): 
+Enter 'YES' to confirm logout : 
+Logged out successfully.
+----------------------------------------
+===============HOME===============
+Enter a number to perform the following operation : 
+1 - Sign in to access your information
+2 - Apply for a new account
+
+To exit, enter 0
+------------------------------
+Enter your choice : 
+----------------------------------------
+Thank you for visiting us
+----------------------------------------

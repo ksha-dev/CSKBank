@@ -10,8 +10,8 @@ public enum InvalidInputMessage {
 	INVALID_DOB("The date of birth cannot exceed the current date and time and should be valid"),
 	INVALID_PASSWORD(
 			"The password must contain a minimum of 8 characters with both upper and lower case, start with a letter, have a special character and a number"),
-	INVALID_INTEGER_INPUT("An integer value is expected. Please enter a valid integer."),
-	POSITIVE_INTEGER_REQUIRED("A positive integer value is expected. Please enter a positive integer."),
+	INVALID_INTEGER_INPUT("A number is expected. Please enter a valid integer."),
+	POSITIVE_INTEGER_REQUIRED("A positive value value is expected. Please enter a positive integer."),
 
 	NULL_OBJECT_ENCOUNTERED("A valid object is expected. Please provide an appropriate object");
 

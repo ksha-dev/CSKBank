@@ -22,32 +22,10 @@ Enter a number to perform the following operation :
 To logout, enter 0
 ------------------------------
 Enter your choice (0 to 5): 
-Please select an account to view balance
-1 -> 12345678901236
-Enter the associated number : 
-----------------------------------------
-ACCOUNT DETAILS
-----------------------------------------
-ACCOUNT NUMBER       : 12345678901236
-ACCOUNT BALANCE      : 10000.0
-ACCOUNT TYPE         : SAVINGS
-ACCOUNT STATUS       : ACTIVE
-CUSTOMER ID          : 8
-OPENING DATE         : 1970-01-02
-BRANCH CODE          : 1
-===============CUSTOMER PORTAL===============
-Enter a number to perform the following operation : 
-1 - View Profile Details
-2 - Accounts
-3 - View Balance of an Account
-4 - Transfer Amount
-5 - Update Profile
-
-To logout, enter 0
-------------------------------
-Enter your choice (0 to 5): 
-Enter 'YES' to confirm logout : 
-Logout cancelled
+Enter Account number of the account to transfer the money into : 
+Enter the amount to tranfer : 
+Enter Remarks : 
+No value specified for parameter 2
 ===============CUSTOMER PORTAL===============
 Enter a number to perform the following operation : 
 1 - View Profile Details
@@ -70,6 +48,3 @@ Enter a number to perform the following operation :
 To exit, enter 0
 ------------------------------
 Enter your choice : 
-----------------------------------------
-Thank you for visiting us
-----------------------------------------

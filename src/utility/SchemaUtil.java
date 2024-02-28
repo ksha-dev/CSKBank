@@ -3,8 +3,21 @@ package utility;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.logging.Logger;
+
+import exceptions.AppException;
+import helpers.Account;
 
 public class SchemaUtil {
+
+	public static Logger log = LoggingUtil.DEFAULT_LOGGER;
 
 //	public static enum Schemas {
 //		USERS("users"), EMPLOYEES("employees"), CUSTOMERS("customers"), ACCOUNTS("accounts"),
@@ -45,6 +58,10 @@ public class SchemaUtil {
 		ACTIVE, INACTIVE, BLOCKED
 	}
 
+	public static enum TransactionType {
+		CREDIT, DEBIT
+	}
+
 	public static enum Gender {
 		MALE, FEMALE, OTHER;
 
@@ -56,6 +73,10 @@ public class SchemaUtil {
 			}
 			return string.toString();
 		}
+	}
+	
+	public static  ZonedDateTime convertLongToLocalDate(long dateTime) {
+		return ZonedDateTime.ofInstant(Instant.ofEpochMilli(dateTime), ZoneId.systemDefault());
 	}
 
 	public static String passwordHasher(String password) {
@@ -73,5 +94,21 @@ public class SchemaUtil {
 		} catch (Exception ex) {
 		}
 		return null;
+	}
+
+	public static void showListOfAccounts(List<Account> accounts) throws AppException {
+		int numberOfAccounts = accounts.size();
+		if (accounts.isEmpty()) {
+			log.info("No accounts found");
+		} else {
+			log.info("SNO | ACCOUNT NUMBER | CUSTOMER ID | START DATE |  BALANCE   | STATUS");
+			log.info("-".repeat(70));
+			for (int i = 0; i < numberOfAccounts; i++) {
+				Account account = accounts.get(i);
+				log.info(String.format("%3d | %014d | %11d | %s | %10.2f | %s", i + 1, account.getAccountNumber(),
+						account.getUserID(), account.getOpeningDate().format(DateTimeFormatter.ISO_LOCAL_DATE),
+						account.getBalance(), account.getStatus()));
+			}
+		}
 	}
 }

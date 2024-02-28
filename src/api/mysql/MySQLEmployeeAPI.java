@@ -1,4 +1,4 @@
-package apis.mysql;
+package api.mysql;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,35 +18,6 @@ import utility.SchemaUtil;
 import utility.ValidatorUtil;
 
 public class MySQLEmployeeAPI extends MySQLGeneralAPI implements EmployeeAPI {
-	@Override
-	public List<Account> viewAccountsInBranch(int branchID) throws AppException {
-		List<Account> accounts = new ArrayList<Account>();
-		try (PreparedStatement statement = ServerConnection.getServerConnection()
-				.prepareStatement(MySQLQuery.ACCOUNTS_IN_BRANCH_PS.getQuery())) {
-			statement.setInt(1, branchID);
-			try (ResultSet accountRS = statement.executeQuery()) {
-				while (accountRS.next()) {
-					accounts.add(MySQLUtil.convertToAccount(accountRS));
-				}
-			}
-		} catch (SQLException e) {
-			throw new AppException(e.getMessage());
-		}
-		return accounts;
-	}
-
-	private void createCredentialRecord(UserRecord user) throws AppException {
-		ValidatorUtil.validatePostiveNumber(user.getUserID());
-		try (PreparedStatement statement = ServerConnection.getServerConnection()
-				.prepareStatement(MySQLQuery.CREATE_CREDENTIAL_PS.getQuery())) {
-			statement.setInt(1, user.getUserID());
-			statement.setString(2, SchemaUtil.passwordHasher(user.getFirstName().substring(0, 3) + "@"
-					+ user.getDateOfBirth().format(DateTimeFormatter.BASIC_ISO_DATE).substring(4, 8)));
-			statement.executeUpdate();
-		} catch (SQLException e) {
-			throw new AppException(e.getMessage());
-		}
-	}
 
 	private int createUserRecord(UserRecord user) throws AppException {
 		ValidatorUtil.validateObject(user);
@@ -73,23 +44,33 @@ public class MySQLEmployeeAPI extends MySQLGeneralAPI implements EmployeeAPI {
 		}
 	}
 
-	@Override
-	public long createAccount(int customerID, String type, int branchID, double deposiAmount) throws AppException {
+	private void createCredentialRecord(UserRecord user) throws AppException {
+		ValidatorUtil.validatePostiveNumber(user.getUserID());
 		try (PreparedStatement statement = ServerConnection.getServerConnection()
-				.prepareStatement(MySQLQuery.CREATE_ACCOUNT_PS.getQuery(), Statement.RETURN_GENERATED_KEYS)) {
-			statement.setInt(1, customerID);
-			statement.setString(2, type);
-			statement.setInt(3, branchID);
-			statement.setLong(4, System.currentTimeMillis());
-			statement.setDouble(5, deposiAmount);
+				.prepareStatement(MySQLQuery.CREATE_CREDENTIAL_PS.getQuery())) {
+			statement.setInt(1, user.getUserID());
+			statement.setString(2, SchemaUtil.passwordHasher(user.getFirstName().substring(0, 3) + "@"
+					+ user.getDateOfBirth().format(DateTimeFormatter.BASIC_ISO_DATE).substring(4, 8)));
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			throw new AppException(e.getMessage());
+		}
+	}
 
+	@Override
+	public boolean createCustomer(CustomerRecord customer) throws AppException {
+		ValidatorUtil.validateObject(customer);
+		ValidatorUtil.validatePostiveNumber(customer.getUserID());
+		try (PreparedStatement statement = ServerConnection.getServerConnection()
+				.prepareStatement(MySQLQuery.CREATE_CUSTOMER_PS.getQuery())) {
+			statement.setInt(1, customer.getUserID());
+			statement.setLong(2, customer.getAadhaarNumber());
+			statement.setString(3, customer.getPanNumber());
 			int response = statement.executeUpdate();
-			try (ResultSet key = statement.getGeneratedKeys()) {
-				if (key.next() && response == 1) {
-					return key.getLong(1);
-				} else {
-					throw new AppException(APIExceptionMessage.ACCOUNT_CREATION_FAILED);
-				}
+			if (response == 1) {
+				return true;
+			} else {
+				throw new AppException(APIExceptionMessage.USER_CREATION_FAILED);
 			}
 		} catch (SQLException e) {
 			throw new AppException(e.getMessage());
@@ -123,26 +104,46 @@ public class MySQLEmployeeAPI extends MySQLGeneralAPI implements EmployeeAPI {
 	}
 
 	@Override
-	public boolean createCustomer(CustomerRecord customer) throws AppException {
-		ValidatorUtil.validateObject(customer);
-		ValidatorUtil.validatePostiveNumber(customer.getUserID());
+	public long createAccount(int customerID, String type, int branchID, double deposiAmount) throws AppException {
 		try (PreparedStatement statement = ServerConnection.getServerConnection()
-				.prepareStatement(MySQLQuery.CREATE_CUSTOMER_PS.getQuery())) {
-			statement.setInt(1, customer.getUserID());
-			statement.setLong(2, customer.getAadhaarNumber());
-			statement.setString(3, customer.getPanNumber());
+				.prepareStatement(MySQLQuery.CREATE_ACCOUNT_PS.getQuery(), Statement.RETURN_GENERATED_KEYS)) {
+			statement.setInt(1, customerID);
+			statement.setString(2, type);
+			statement.setInt(3, branchID);
+			statement.setLong(4, System.currentTimeMillis());
+			statement.setDouble(5, deposiAmount);
+
 			int response = statement.executeUpdate();
-			if (response == 1) {
-				return true;
-			} else {
-				throw new AppException(APIExceptionMessage.USER_CREATION_FAILED);
+			try (ResultSet key = statement.getGeneratedKeys()) {
+				if (key.next() && response == 1) {
+					return key.getLong(1);
+				} else {
+					throw new AppException(APIExceptionMessage.ACCOUNT_CREATION_FAILED);
+				}
 			}
 		} catch (SQLException e) {
 			throw new AppException(e.getMessage());
 		}
 	}
 
-//	@Override
+	@Override
+	public List<Account> viewAccountsInBranch(int branchID) throws AppException {
+		List<Account> accounts = new ArrayList<Account>();
+		try (PreparedStatement statement = ServerConnection.getServerConnection()
+				.prepareStatement(MySQLQuery.ACCOUNTS_IN_BRANCH_PS.getQuery())) {
+			statement.setInt(1, branchID);
+			try (ResultSet accountRS = statement.executeQuery()) {
+				while (accountRS.next()) {
+					accounts.add(MySQLUtil.convertToAccount(accountRS));
+				}
+			}
+		} catch (SQLException e) {
+			throw new AppException(e.getMessage());
+		}
+		return accounts;
+	}
+
+}
 //	public boolean createEmployee(EmployeeRecord employee) throws AppException {
 //		ValidatorUtil.validateObject(employee);
 //		ValidatorUtil.validatePostiveNumber(employee.getUserID());
@@ -161,4 +162,4 @@ public class MySQLEmployeeAPI extends MySQLGeneralAPI implements EmployeeAPI {
 //			throw new AppException(e.getMessage());
 //		}
 //	}
-}
+//	

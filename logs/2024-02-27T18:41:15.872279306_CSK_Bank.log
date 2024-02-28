@@ -1,0 +1,98 @@
+------------------------------
+     WELCOME TO CSK BANK
+------------------------------
+===============HOME===============
+Enter a number to perform the following operation : 
+1 - Sign in to access your information
+2 - Apply for a new account
+
+To exit, enter 0
+------------------------------
+Enter your choice : 
+Enter your User ID (or 0 to exit): 
+Enter your password : 
+
+===============EMPLOYEE PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - View list of accounts of your branch
+3 - View a customer details of an account
+4 - Open a new account for a new customer
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 4): 
+Enter the following details : 
+Enter First name : 
+Enter Last name : 
+Enter Gender : 
+Enter Phone number name : 
+Enter Email : 
+Enter Address : 
+Enter Date of birth in DDMMYYYY Format : 
+Enter Aadhaar Number : 
+Enter PAN Number : 
+The PAN number is invalid. Make sure it is the correct PAN number
+Enter PAN Number : 
+----------------------------------------
+null DETAILS                            
+----------------------------------------
+FIRST NAME           : Mani
+LAST NAME            : Kandan
+DATE OF BIRTH        : 2000-05-12
+GENDER               : MALE
+ADDRESS              : Bangalore
+MAIL ID              : manikandan@office.com
+STATUS               : null
+AADHAAR              : 112233112233
+PAN                  : ITFAG7593K
+Enter 'y' to confirm creation, 'N' to cancel
+----------------------------------------
+CUSTOMER AND ACCOUNT HAS BEEN CREATED SUCCESSFULLY
+----------------------------------------
+CUSTOMER DETAILS                        
+----------------------------------------
+FIRST NAME           : Mani
+LAST NAME            : Kandan
+DATE OF BIRTH        : 2000-05-12
+GENDER               : MALE
+ADDRESS              : Bangalore
+MAIL ID              : manikandan@office.com
+STATUS               : ACTIVE
+AADHAAR              : 112233112233
+PAN                  : ITFAG7593K
+----------------------------------------
+ACCOUNT DETAILS
+----------------------------------------
+ACCOUNT NUMBER       : 12345678901242
+ACCOUNT BALANCE      : 10000.0
+ACCOUNT TYPE         : SAVINGS
+ACCOUNT STATUS       : ACTIVE
+CUSTOMER ID          : 18
+OPENING DATE         : 2024-02-27
+BRANCH CODE          : 1
+
+===============EMPLOYEE PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - View list of accounts of your branch
+3 - View a customer details of an account
+4 - Open a new account for a new customer
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 4): 
+Enter 'YES' to confirm logout : 
+Logged out successfully.
+----------------------------------------
+===============HOME===============
+Enter a number to perform the following operation : 
+1 - Sign in to access your information
+2 - Apply for a new account
+
+To exit, enter 0
+------------------------------
+Enter your choice : 
+----------------------------------------
+Thank you for visiting us
+----------------------------------------

@@ -3,7 +3,7 @@ package operations;
 import java.util.List;
 
 import api.GeneralAPI;
-import apis.mysql.MySQLGeneralAPI;
+import api.mysql.MySQLGeneralAPI;
 import exceptions.APIExceptionMessage;
 import exceptions.AppException;
 import helpers.Account;
@@ -48,5 +48,10 @@ public class CustomerOperations {
 	public double getAccountBalance(long accountNumber) throws AppException {
 		ValidatorUtil.validatePostiveNumber(accountNumber);
 		return api.getBalanceInAccount(accountNumber);
+	}
+	
+	public long tranferMoney(Transaction helperTransaction, boolean isTransferOutsideBank) throws AppException {
+		ValidatorUtil.validateObject(helperTransaction);
+		return api.transferAmount(helperTransaction, isTransferOutsideBank);
 	}
 }

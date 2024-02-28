@@ -1,7 +1,7 @@
 package operations;
 
 import api.GeneralAPI;
-import apis.mysql.MySQLGeneralAPI;
+import api.mysql.MySQLGeneralAPI;
 import exceptions.AppException;
 import helpers.UserRecord;
 

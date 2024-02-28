@@ -1,4 +1,4 @@
-package apis.mysql;
+package api.mysql;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -76,7 +76,8 @@ class MySQLUtil {
 		ValidatorUtil.validateObject(transactionRS);
 		Transaction transaction = null;
 		try {
-			transaction = new Transaction(transactionRS.getLong(1));
+			transaction = new Transaction();
+			transaction.setTransactionID(transactionRS.getLong(1));
 			transaction.setUserID(transactionRS.getInt(2));
 			transaction.setViewerAccountNumber(transactionRS.getLong(3));
 			transaction.setTransactedAccountNumber(transactionRS.getLong(4));
@@ -85,7 +86,6 @@ class MySQLUtil {
 			transaction.setclosingBalance(transactionRS.getDouble(7));
 			transaction.setDateTime(transactionRS.getLong(8));
 			transaction.setRemarks(transactionRS.getString(9));
-			transaction.setStatus(transactionRS.getString(10));
 		} catch (SQLException e) {
 		}
 		return transaction;

@@ -2,6 +2,7 @@ package app;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -12,6 +13,7 @@ import helpers.EmployeeRecord;
 import operations.EmployeeOperations;
 import utility.InputUtil;
 import utility.LoggingUtil;
+import utility.SchemaUtil;
 
 public class EmployeeRunner {
 
@@ -54,149 +56,28 @@ public class EmployeeRunner {
 					activity.getEmployeeRecord().logUserRecord();
 					break;
 
-				case 2:
+				case 2: {
 					List<Account> accounts = activity.getListOfAccountsInBranch();
-					if (accounts.isEmpty()) {
-						log.info("No accounts have been openned in your branch");
-					} else {
-						accounts.forEach((account) -> account.logAccount());
-					}
+					SchemaUtil.showListOfAccounts(accounts);
+				}
 					break;
 
 				case 3: {
-					log.info("Enter Customer ID to fetch details : ");
-					int customerID = InputUtil.getPositiveInteger();
-					activity.getCustomerRecord(customerID).logUserRecord();
+					List<Account> accounts = activity.getListOfAccountsInBranch();
+					int numberOfAccounts = accounts.size();
+					SchemaUtil.showListOfAccounts(accounts);
+					log.info("Enter the serial number of the account number you want to view the customer : ");
+					int serialNumber = InputUtil.getPositiveInteger();
+					if (serialNumber > 0 && serialNumber <= numberOfAccounts) {
+						activity.getCustomerRecord(accounts.get(serialNumber-1).getUserID()).logUserRecord();
+					} else {
+						log.info(serialNumber + "");
+					}
 				}
 					break;
 
 				case 4:
-					CustomerRecord customer = new CustomerRecord();
-					log.info("Enter the following details : ");
-
-					boolean checkStatusOfField = false;
-					while (!checkStatusOfField) {
-						try {
-							log.info("Enter First name : ");
-							customer.setFirstName(InputUtil.getString());
-							checkStatusOfField = true;
-						} catch (AppException e) {
-							log.info(e.getMessage());
-						}
-					}
-
-					checkStatusOfField = false;
-					while (!checkStatusOfField) {
-						try {
-							log.info("Enter Last name : ");
-							customer.setLastName(InputUtil.getString());
-							checkStatusOfField = true;
-						} catch (AppException e) {
-							log.info(e.getMessage());
-						}
-					}
-
-					checkStatusOfField = false;
-					while (!checkStatusOfField) {
-						try {
-							log.info("Enter Gender : ");
-							customer.setGender(InputUtil.getString());
-							checkStatusOfField = true;
-						} catch (AppException e) {
-							log.info(e.getMessage());
-						}
-					}
-
-					checkStatusOfField = false;
-					while (!checkStatusOfField) {
-						try {
-							log.info("Enter Phone number name : ");
-							customer.setMobileNumber(InputUtil.getPositiveLong());
-							checkStatusOfField = true;
-						} catch (AppException e) {
-							log.info(e.getMessage());
-						}
-					}
-
-					checkStatusOfField = false;
-					while (!checkStatusOfField) {
-						try {
-							log.info("Enter Email : ");
-							customer.setEmail(InputUtil.getString());
-							checkStatusOfField = true;
-						} catch (AppException e) {
-							log.info(e.getMessage());
-						}
-					}
-
-					checkStatusOfField = false;
-					while (!checkStatusOfField) {
-						try {
-							log.info("Enter Address : ");
-							customer.setAddress(InputUtil.getString());
-							checkStatusOfField = true;
-						} catch (AppException e) {
-							log.info(e.getMessage());
-						}
-					}
-
-					checkStatusOfField = false;
-					while (!checkStatusOfField) {
-						try {
-							log.info("Enter Date of birth in DDMMYYYY Format : ");
-							String dateOfBirth = InputUtil.getString();
-							if (dateOfBirth.length() != 8) {
-								throw new AppException(
-										"The date of birth entered is incorrect. Please follow the given order");
-							}
-							int date = Integer.parseInt(dateOfBirth.substring(0, 2));
-							int month = Integer.parseInt(dateOfBirth.substring(2, 4));
-							int year = Integer.parseInt(dateOfBirth.substring(4, 8));
-
-							customer.setDateOfBirth(
-									ZonedDateTime.of(year, month, date, 0, 0, 0, 0, ZoneId.systemDefault()));
-							checkStatusOfField = true;
-						} catch (Exception e) {
-							log.info(e.getMessage());
-						}
-					}
-
-					checkStatusOfField = false;
-					while (!checkStatusOfField) {
-						try {
-							log.info("Enter Aadhaar Number : ");
-							customer.setAadhaarNumber(InputUtil.getPositiveLong());
-							checkStatusOfField = true;
-						} catch (AppException e) {
-							log.info(e.getMessage());
-						}
-					}
-
-					checkStatusOfField = false;
-					while (!checkStatusOfField) {
-						try {
-							log.info("Enter PAN Number : ");
-							customer.setPanNumber(InputUtil.getString());
-							checkStatusOfField = true;
-						} catch (AppException e) {
-							log.info(e.getMessage());
-						}
-					}
-
-					customer.logUserRecord();
-
-					log.info("Enter 'y' to confirm creation, 'N' to cancel");
-					if (InputUtil.getString().charAt(0) == 'y') {
-						Account account = activity.createNewCustomerAndAccount(customer, "SAVINGS", 10000.0);
-						customer = activity.getCustomerRecord(customer.getUserID());
-
-						log.info("-".repeat(40));
-						log.info("CUSTOMER AND ACCOUNT HAS BEEN CREATED SUCCESSFULLY");
-						customer.logUserRecord();
-						account.logAccount();
-					} else {
-						log.info("Operation cancelled.");
-					}
+					createCustomer(activity);
 					break;
 
 				default:
@@ -204,8 +85,125 @@ public class EmployeeRunner {
 					break;
 				}
 			} catch (Exception e) {
+				e.printStackTrace();
 				log.info(e.getMessage());
 			}
+		}
+	}
+
+	private static void createCustomer(EmployeeOperations activity) throws AppException {
+		CustomerRecord customer = new CustomerRecord();
+		log.info("Enter the following details : ");
+		boolean checkStatusOfField = false;
+		while (!checkStatusOfField) {
+			try {
+				log.info("Enter First name : ");
+				customer.setFirstName(InputUtil.getString());
+				checkStatusOfField = true;
+			} catch (AppException e) {
+				log.info(e.getMessage());
+			}
+		}
+		checkStatusOfField = false;
+		while (!checkStatusOfField) {
+			try {
+				log.info("Enter Last name : ");
+				customer.setLastName(InputUtil.getString());
+				checkStatusOfField = true;
+			} catch (AppException e) {
+				log.info(e.getMessage());
+			}
+		}
+		checkStatusOfField = false;
+		while (!checkStatusOfField) {
+			try {
+				log.info("Enter Gender : ");
+				customer.setGender(InputUtil.getString());
+				checkStatusOfField = true;
+			} catch (AppException e) {
+				log.info(e.getMessage());
+			}
+		}
+		checkStatusOfField = false;
+		while (!checkStatusOfField) {
+			try {
+				log.info("Enter Phone number name : ");
+				customer.setMobileNumber(InputUtil.getPositiveLong());
+				checkStatusOfField = true;
+			} catch (AppException e) {
+				log.info(e.getMessage());
+			}
+		}
+		checkStatusOfField = false;
+		while (!checkStatusOfField) {
+			try {
+				log.info("Enter Email : ");
+				customer.setEmail(InputUtil.getString());
+				checkStatusOfField = true;
+			} catch (AppException e) {
+				log.info(e.getMessage());
+			}
+		}
+		checkStatusOfField = false;
+		while (!checkStatusOfField) {
+			try {
+				log.info("Enter Address : ");
+				customer.setAddress(InputUtil.getString());
+				checkStatusOfField = true;
+			} catch (AppException e) {
+				log.info(e.getMessage());
+			}
+		}
+		checkStatusOfField = false;
+		while (!checkStatusOfField) {
+			try {
+				log.info("Enter Date of birth in DDMMYYYY Format : ");
+				String dateOfBirth = InputUtil.getString();
+				if (dateOfBirth.length() != 8) {
+					throw new AppException("The date of birth entered is incorrect. Please follow the given order");
+				}
+				int date = Integer.parseInt(dateOfBirth.substring(0, 2));
+				int month = Integer.parseInt(dateOfBirth.substring(2, 4));
+				int year = Integer.parseInt(dateOfBirth.substring(4, 8));
+
+				customer.setDateOfBirth(ZonedDateTime.of(year, month, date, 0, 0, 0, 0, ZoneId.systemDefault()));
+				checkStatusOfField = true;
+			} catch (Exception e) {
+				log.info(e.getMessage());
+			}
+		}
+		checkStatusOfField = false;
+		while (!checkStatusOfField) {
+			try {
+				log.info("Enter Aadhaar Number : ");
+				customer.setAadhaarNumber(InputUtil.getPositiveLong());
+				checkStatusOfField = true;
+			} catch (AppException e) {
+				log.info(e.getMessage());
+			}
+		}
+		checkStatusOfField = false;
+		while (!checkStatusOfField) {
+			try {
+				log.info("Enter PAN Number : ");
+				customer.setPanNumber(InputUtil.getString());
+				checkStatusOfField = true;
+			} catch (AppException e) {
+				log.info(e.getMessage());
+			}
+		}
+		customer.logUserRecord();
+		log.info("Enter 'y' to confirm creation, 'N' to cancel");
+		if (InputUtil.getString().charAt(0) == 'y') {
+			Account account = activity.createNewCustomerAndAccount(customer, "SAVINGS", 10000.0);
+			customer = activity.getCustomerRecord(customer.getUserID());
+
+			log.info("-".repeat(40));
+			log.info("CUSTOMER AND ACCOUNT HAS BEEN CREATED SUCCESSFULLY");
+			customer.logUserRecord();
+			account.logAccount();
+		} else {
+			log.info("Operation cancelled.");
 		}
 	}
 }

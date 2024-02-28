@@ -1,6 +1,6 @@
-package apis.mysql;
+package api.mysql;
 
-public enum MySQLQuery {
+enum MySQLQuery {
 	USE_DATABASE("USE CSKBank;"), USER_DETAILS_PS("SELECT * FROM users WHERE user_id = ?;"),
 	CREDENTIAL_CHECK_PS("SELECT * FROM credentials WHERE user_id = ?;"),
 	CUSTOMER_DETAILS_PS("SELECT * FROM customers WHERE user_id = ?;"),
@@ -14,7 +14,11 @@ public enum MySQLQuery {
 	CREATE_CREDENTIAL_PS("INSERT INTO credentials VALUE(?,?);"),
 	CREATE_EMPLOYEE_PS("INSERT INTO employees VALUES(?,?,?);"),
 	CREATE_CUSTOMER_PS("INSERT INTO customers VALUES(?,?,?);"),
-	CREATE_ACCOUNT_PS("INSERT INTO accounts(user_id, type, branch_id, opening_date, balance) VALUES(?,?,?,?,?);");
+	CREATE_ACCOUNT_PS("INSERT INTO accounts(user_id, type, branch_id, opening_date, balance) VALUES(?,?,?,?,?);"),
+
+	CREATE_TRANSACTION_PS("INSERT INTO transactions VALUES(?,?,?,?,?,?,?,?,?);"),
+	CREATE_NEW_TRANSACTION_PS(
+			"INSERT INTO transactions(user_id, viewer_account_number, transacted_account_number, transacted_amount, transaction_type, closing_balance, time_stamp, remarks) VALUE(?,?,?,?,?,?,?,?)");
 
 	private String query;
 

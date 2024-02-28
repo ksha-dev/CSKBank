@@ -1,0 +1,144 @@
+------------------------------
+     WELCOME TO CSK BANK
+------------------------------
+===============HOME===============
+Enter a number to perform the following operation : 
+1 - Sign in to access your information
+2 - Apply for a new account
+
+To exit, enter 0
+------------------------------
+Enter your choice : 
+Enter your User ID (or 0 to exit): 
+Enter your password : 
+
+===============EMPLOYEE PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - View list of accounts of your branch
+3 - View a customer details of an account
+4 - Open a new account for a new customer
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 4): 
+----------------------------------------
+EMPLOYEE DETAILS                        
+----------------------------------------
+FIRST NAME           : ADMIN
+LAST NAME            : USER
+DATE OF BIRTH        : 1970-01-01
+GENDER               : MALE
+ADDRESS              : Address
+MAIL ID              : admin@email.com
+STATUS               : ACTIVE
+BRANCH ID            : 1
+
+===============EMPLOYEE PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - View list of accounts of your branch
+3 - View a customer details of an account
+4 - Open a new account for a new customer
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 4): 
+----------------------------------------
+EMPLOYEE DETAILS                        
+----------------------------------------
+FIRST NAME           : ADMIN
+LAST NAME            : USER
+DATE OF BIRTH        : 1970-01-01
+GENDER               : MALE
+ADDRESS              : Address
+MAIL ID              : admin@email.com
+STATUS               : ACTIVE
+BRANCH ID            : 1
+
+===============EMPLOYEE PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - View list of accounts of your branch
+3 - View a customer details of an account
+4 - Open a new account for a new customer
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 4): 
+No accounts have been openned in your branch
+
+===============EMPLOYEE PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - View list of accounts of your branch
+3 - View a customer details of an account
+4 - Open a new account for a new customer
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 4): 
+Enter Customer ID to fetch details : 
+No matching records were found.
+
+===============EMPLOYEE PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - View list of accounts of your branch
+3 - View a customer details of an account
+4 - Open a new account for a new customer
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 4): 
+Enter the following details : 
+Enter First name : 
+Enter Last name : 
+Enter Gender : 
+Enter Phone number name : 
+Enter Email : 
+Enter Address : 
+Enter Date of birth in DDMMYYYY Format : 
+Enter Aadhaar Number : 
+Enter PAN Number : 
+The PAN number is invalid. Make sure it is the correct PAN number
+Enter PAN Number : 
+----------------------------------------
+null DETAILS                            
+----------------------------------------
+FIRST NAME           : Sharan
+LAST NAME            : K
+DATE OF BIRTH        : 2002-02-20
+GENDER               : MALE
+ADDRESS              : Erode
+MAIL ID              : shara@gmail.com
+STATUS               : null
+AADHAAR              : 515503333984
+PAN                  : LFGTK4830O
+Enter 'y' to confirm creation, 'N' to cancel
+A valid object is expected. Please provide an appropriate object
+
+===============EMPLOYEE PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - View list of accounts of your branch
+3 - View a customer details of an account
+4 - Open a new account for a new customer
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 4): 
+Enter 'YES' to confirm logout : 
+Logged out successfully.
+----------------------------------------
+===============HOME===============
+Enter a number to perform the following operation : 
+1 - Sign in to access your information
+2 - Apply for a new account
+
+To exit, enter 0
+------------------------------
+Enter your choice : 
+----------------------------------------
+Thank you for visiting us
+----------------------------------------

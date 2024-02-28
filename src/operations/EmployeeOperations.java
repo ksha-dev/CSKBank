@@ -3,7 +3,7 @@ package operations;
 import java.util.List;
 
 import api.EmployeeAPI;
-import apis.mysql.MySQLEmployeeAPI;
+import api.mysql.MySQLEmployeeAPI;
 import exceptions.APIExceptionMessage;
 import exceptions.ActivityExceptionMessages;
 import exceptions.AppException;
@@ -41,11 +41,10 @@ public class EmployeeOperations {
 
 	public CustomerRecord getCustomerRecord(int customerID) throws AppException {
 		UserRecord user = api.getUserDetails(customerID);
-		if (user instanceof CustomerRecord) {
-			return (CustomerRecord) user;
-		} else {
+		if (!(user instanceof CustomerRecord)) {
 			throw new AppException(APIExceptionMessage.NO_RECORDS_FOUND);
 		}
+		return (CustomerRecord) user;
 	}
 
 	public Account createNewCustomerAndAccount(CustomerRecord customer, String accountType, double depositAmount)

@@ -25,5 +25,5 @@ public interface GeneralAPI {
 		
 	public List<Transaction> getTransactionsOfAccount(long accountNumber) throws AppException;
 	
-	public boolean transferAmount(long accountNumber, double amount) throws AppException;
+	public long transferAmount(Transaction transaction, boolean isTransferOutsideBank) throws AppException;
 }

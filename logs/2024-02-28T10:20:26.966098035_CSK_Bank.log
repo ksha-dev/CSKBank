@@ -11,6 +11,18 @@ To exit, enter 0
 Enter your choice : 
 Enter your User ID (or 0 to exit): 
 Enter your password : 
+The password must contain a minimum of 8 characters with both upper and lower case, start with a letter, have a special character and a number
+----------------------------------------
+===============HOME===============
+Enter a number to perform the following operation : 
+1 - Sign in to access your information
+2 - Apply for a new account
+
+To exit, enter 0
+------------------------------
+Enter your choice : 
+Enter your User ID (or 0 to exit): 
+Enter your password : 
 ===============CUSTOMER PORTAL===============
 Enter a number to perform the following operation : 
 1 - View Profile Details
@@ -22,32 +34,11 @@ Enter a number to perform the following operation :
 To logout, enter 0
 ------------------------------
 Enter your choice (0 to 5): 
-Please select an account to view balance
-1 -> 12345678901236
-Enter the associated number : 
-----------------------------------------
-ACCOUNT DETAILS
-----------------------------------------
-ACCOUNT NUMBER       : 12345678901236
-ACCOUNT BALANCE      : 10000.0
-ACCOUNT TYPE         : SAVINGS
-ACCOUNT STATUS       : ACTIVE
-CUSTOMER ID          : 8
-OPENING DATE         : 1970-01-02
-BRANCH CODE          : 1
-===============CUSTOMER PORTAL===============
-Enter a number to perform the following operation : 
-1 - View Profile Details
-2 - Accounts
-3 - View Balance of an Account
-4 - Transfer Amount
-5 - Update Profile
-
-To logout, enter 0
-------------------------------
-Enter your choice (0 to 5): 
-Enter 'YES' to confirm logout : 
-Logout cancelled
+SNO | ACCOUNT NUMBER | CUSTOMER ID | START DATE |  BALANCE   | STATUS
+----------------------------------------------------------------------
+  1 | 00000000000001 |           2 | 2024-02-27 |   10000.00 | ACTIVE
+Enter the associated serial number : 
+[]
 ===============CUSTOMER PORTAL===============
 Enter a number to perform the following operation : 
 1 - View Profile Details

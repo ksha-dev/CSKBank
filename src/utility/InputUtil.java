@@ -65,5 +65,31 @@ public class InputUtil {
 	public static String getString() {
 		return scanner.nextLine();
 	}
+	
+	public static double getDouble() {
+		Double value = null;
+
+		while (ValidatorUtil.isObjectNull(value)) {
+			try {
+				value = scanner.nextDouble();
+			} catch (InputMismatchException e) {
+				LoggingUtil.DEFAULT_LOGGER.warning(InvalidInputMessage.INVALID_INTEGER_INPUT.toString());
+			} finally {
+				scanner.nextLine();
+			}
+		}
+		return value;
+	}
+
+	public static double getPositiveDouble() {
+		Double value = null;
+		do {
+			value = getDouble();
+			if (value < 0) {
+				LoggingUtil.DEFAULT_LOGGER.warning(InvalidInputMessage.POSITIVE_INTEGER_REQUIRED.toString());
+			}
+		} while (value < 0);
+		return value;
+	}
 
 }

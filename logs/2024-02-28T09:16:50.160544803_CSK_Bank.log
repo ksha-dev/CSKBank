@@ -11,54 +11,31 @@ To exit, enter 0
 Enter your choice : 
 Enter your User ID (or 0 to exit): 
 Enter your password : 
-===============CUSTOMER PORTAL===============
+
+===============EMPLOYEE PORTAL===============
 Enter a number to perform the following operation : 
 1 - View Profile Details
-2 - Accounts
-3 - View Balance of an Account
-4 - Transfer Amount
-5 - Update Profile
+2 - View list of accounts of your branch
+3 - View a customer details of an account
+4 - Open a new account for a new customer
 
 To logout, enter 0
 ------------------------------
-Enter your choice (0 to 5): 
-Please select an account to view balance
-1 -> 12345678901236
-Enter the associated number : 
-----------------------------------------
-ACCOUNT DETAILS
-----------------------------------------
-ACCOUNT NUMBER       : 12345678901236
-ACCOUNT BALANCE      : 10000.0
-ACCOUNT TYPE         : SAVINGS
-ACCOUNT STATUS       : ACTIVE
-CUSTOMER ID          : 8
-OPENING DATE         : 1970-01-02
-BRANCH CODE          : 1
-===============CUSTOMER PORTAL===============
+Enter your choice (0 to 4): 
+SNO | ACCOUNT NUMBER | CUSTOMER ID | START DATE |  BALANCE   | STATUS
+------------------------------------------------------------
+Conversion = '6'
+
+===============EMPLOYEE PORTAL===============
 Enter a number to perform the following operation : 
 1 - View Profile Details
-2 - Accounts
-3 - View Balance of an Account
-4 - Transfer Amount
-5 - Update Profile
+2 - View list of accounts of your branch
+3 - View a customer details of an account
+4 - Open a new account for a new customer
 
 To logout, enter 0
 ------------------------------
-Enter your choice (0 to 5): 
-Enter 'YES' to confirm logout : 
-Logout cancelled
-===============CUSTOMER PORTAL===============
-Enter a number to perform the following operation : 
-1 - View Profile Details
-2 - Accounts
-3 - View Balance of an Account
-4 - Transfer Amount
-5 - Update Profile
-
-To logout, enter 0
-------------------------------
-Enter your choice (0 to 5): 
+Enter your choice (0 to 4): 
 Enter 'YES' to confirm logout : 
 Logged out successfully.
 ----------------------------------------

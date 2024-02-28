@@ -50,35 +50,20 @@ public class AppRunner {
 				case 1: {
 					HomeOperations activity = new HomeOperations();
 					UserRecord user = null;
-					int numberOfAttemps = 3;
-					while (ValidatorUtil.isObjectNull(user) && numberOfAttemps > 0) {
-						try {
-							log.info("Enter your User ID (or 0 to exit): ");
-							int userID = InputUtil.getPositiveInteger();
-							if (userID == 0) {
-								break;
-							}
-							log.info("Enter your password : ");
-							String password = InputUtil.getString();
-							user = activity.authenticateUser(userID, password);
-						} catch (AppException e) {
-							log.info(e.getMessage());
-							if (e.getMessage().equals(APIExceptionMessage.USER_AUNTHENTICATION_FAILED.toString())) {
-								numberOfAttemps--;
-							}
-							if (numberOfAttemps > 1) {
-								log.info("You have " + numberOfAttemps + " more attemps to login");
-							} else {
-								log.info("Login Failed. Please try again after sometime.");
-							}
-						}
+
+					log.info("Enter your User ID (or 0 to exit): ");
+					int userID = InputUtil.getPositiveInteger();
+					if (userID == 0) {
+						break;
 					}
-					if (!ValidatorUtil.isObjectNull(user)) {
-						if (user.getType().equals(UserTypes.EMPLOYEE)) {
-							EmployeeRunner.run((EmployeeRecord) user);
-						} else if (user.getType().equals(UserTypes.CUSTOMER)) {
-							CustomerRunner.run((CustomerRecord) user);
-						}
+					log.info("Enter your password : ");
+					String password = InputUtil.getString();
+					ValidatorUtil.validatePassword(password);
+					user = activity.authenticateUser(userID, password);
+					if (user.getType().equals(UserTypes.EMPLOYEE)) {
+						EmployeeRunner.run((EmployeeRecord) user);
+					} else if (user.getType().equals(UserTypes.CUSTOMER)) {
+						CustomerRunner.run((CustomerRecord) user);
 					}
 				}
 					break;

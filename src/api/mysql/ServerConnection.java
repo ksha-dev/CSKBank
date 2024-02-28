@@ -1,4 +1,4 @@
-package apis.mysql;
+package api.mysql;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -44,4 +44,29 @@ public class ServerConnection {
 		}
 	}
 
+	public static void startTransaction() throws AppException {
+		try {
+			getServerConnection().setAutoCommit(false);
+		} catch (SQLException e) {
+			throw new AppException(e.getMessage());
+		}
+	}
+
+	public static void endTransaction() throws AppException {
+		try {
+			getServerConnection().commit();
+			getServerConnection().setAutoCommit(true);
+		} catch (SQLException e) {
+			throw new AppException(e.getMessage());
+		}
+	}
+
+	public static void reverseTransaction() throws AppException {
+		try {
+			getServerConnection().rollback();
+			getServerConnection().setAutoCommit(true);
+		} catch (SQLException e) {
+			throw new AppException(e.getMessage());
+		}
+	}
 }

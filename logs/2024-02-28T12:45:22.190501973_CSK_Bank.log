@@ -15,44 +15,25 @@ Enter your password :
 Enter a number to perform the following operation : 
 1 - View Profile Details
 2 - Accounts
-3 - View Balance of an Account
+3 - View Transactions of an Account
 4 - Transfer Amount
 5 - Update Profile
 
 To logout, enter 0
 ------------------------------
 Enter your choice (0 to 5): 
-Please select an account to view balance
-1 -> 12345678901236
-Enter the associated number : 
-----------------------------------------
-ACCOUNT DETAILS
-----------------------------------------
-ACCOUNT NUMBER       : 12345678901236
-ACCOUNT BALANCE      : 10000.0
-ACCOUNT TYPE         : SAVINGS
-ACCOUNT STATUS       : ACTIVE
-CUSTOMER ID          : 8
-OPENING DATE         : 1970-01-02
-BRANCH CODE          : 1
+SNO | ACCOUNT NUMBER | CUSTOMER ID | START DATE |  BALANCE   | STATUS
+----------------------------------------------------------------------
+  1 | 00000000000001 |           2 | 2024-02-27 |    7800.00 | ACTIVE
+Enter the associated serial number : 
+               1 |                    0 | 2024-02-28 |       0.00 |   10000.00 |  DEBIT 
+               2 |                 Fees | 2024-02-28 |    1200.00 |    8800.00 |  DEBIT 
+               3 |       A/c No:12/Test | 2024-02-28 |    1000.00 |    7800.00 |  DEBIT 
 ===============CUSTOMER PORTAL===============
 Enter a number to perform the following operation : 
 1 - View Profile Details
 2 - Accounts
-3 - View Balance of an Account
-4 - Transfer Amount
-5 - Update Profile
-
-To logout, enter 0
-------------------------------
-Enter your choice (0 to 5): 
-Enter 'YES' to confirm logout : 
-Logout cancelled
-===============CUSTOMER PORTAL===============
-Enter a number to perform the following operation : 
-1 - View Profile Details
-2 - Accounts
-3 - View Balance of an Account
+3 - View Transactions of an Account
 4 - Transfer Amount
 5 - Update Profile
 

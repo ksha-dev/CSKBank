@@ -7,7 +7,6 @@ import java.time.ZonedDateTime;
 import java.util.logging.Logger;
 
 import exceptions.AppException;
-import exceptions.InvalidInputMessage;
 import utility.ValidatorUtil;
 import utility.LoggingUtil;
 import utility.SchemaUtil.Gender;
