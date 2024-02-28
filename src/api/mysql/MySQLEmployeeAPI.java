@@ -13,13 +13,15 @@ import exceptions.APIExceptionMessage;
 import exceptions.AppException;
 import helpers.Account;
 import helpers.CustomerRecord;
+import helpers.Transaction;
 import helpers.UserRecord;
-import utility.SchemaUtil;
+import utility.HelperUtil;
 import utility.ValidatorUtil;
+import utility.HelperUtil.TransactionType;
 
 public class MySQLEmployeeAPI extends MySQLGeneralAPI implements EmployeeAPI {
 
-	private int createUserRecord(UserRecord user) throws AppException {
+	private void createUserRecord(UserRecord user) throws AppException {
 		ValidatorUtil.validateObject(user);
 		try (PreparedStatement statement = ServerConnection.getServerConnection()
 				.prepareStatement(MySQLQuery.CREATE_USER_PS.getQuery(), Statement.RETURN_GENERATED_KEYS)) {
@@ -32,9 +34,10 @@ public class MySQLEmployeeAPI extends MySQLGeneralAPI implements EmployeeAPI {
 			statement.setString(7, user.getEmail());
 
 			statement.executeUpdate();
-			try (ResultSet resultSet = statement.getGeneratedKeys()) {
-				if (resultSet.next()) {
-					return resultSet.getInt(1);
+			try (ResultSet key = statement.getGeneratedKeys()) {
+				if (key.next()) {
+					user.setUserID(key.getInt(1));
+					createCredentialRecord(user);
 				} else {
 					throw new AppException(APIExceptionMessage.USER_CREATION_FAILED);
 				}
@@ -49,7 +52,7 @@ public class MySQLEmployeeAPI extends MySQLGeneralAPI implements EmployeeAPI {
 		try (PreparedStatement statement = ServerConnection.getServerConnection()
 				.prepareStatement(MySQLQuery.CREATE_CREDENTIAL_PS.getQuery())) {
 			statement.setInt(1, user.getUserID());
-			statement.setString(2, SchemaUtil.passwordHasher(user.getFirstName().substring(0, 3) + "@"
+			statement.setString(2, HelperUtil.passwordHasher(user.getFirstName().substring(0, 3) + "@"
 					+ user.getDateOfBirth().format(DateTimeFormatter.BASIC_ISO_DATE).substring(4, 8)));
 			statement.executeUpdate();
 		} catch (SQLException e) {
@@ -60,47 +63,29 @@ public class MySQLEmployeeAPI extends MySQLGeneralAPI implements EmployeeAPI {
 	@Override
 	public boolean createCustomer(CustomerRecord customer) throws AppException {
 		ValidatorUtil.validateObject(customer);
-		ValidatorUtil.validatePostiveNumber(customer.getUserID());
-		try (PreparedStatement statement = ServerConnection.getServerConnection()
-				.prepareStatement(MySQLQuery.CREATE_CUSTOMER_PS.getQuery())) {
+		try {
+			ServerConnection.startTransaction();
+
+			// create user record
+			createUserRecord(customer);
+
+			// create customer record
+			PreparedStatement statement = ServerConnection.getServerConnection()
+					.prepareStatement(MySQLQuery.CREATE_CUSTOMER_PS.getQuery());
 			statement.setInt(1, customer.getUserID());
 			statement.setLong(2, customer.getAadhaarNumber());
 			statement.setString(3, customer.getPanNumber());
 			int response = statement.executeUpdate();
+			statement.close();
 			if (response == 1) {
 				return true;
 			} else {
 				throw new AppException(APIExceptionMessage.USER_CREATION_FAILED);
 			}
-		} catch (SQLException e) {
+		} catch (SQLException | AppException e) {
+			ServerConnection.reverseTransaction();
 			throw new AppException(e.getMessage());
 		}
-	}
-
-	@Override
-	public int createUser(UserRecord user) throws AppException {
-		ValidatorUtil.validateObject(user);
-		try {
-			ServerConnection.getServerConnection().setAutoCommit(false);
-			int userID = createUserRecord(user);
-			user.setUserID(userID);
-			createCredentialRecord(user);
-			ServerConnection.getServerConnection().commit();
-			return userID;
-		} catch (AppException | SQLException e) {
-			try {
-				ServerConnection.getServerConnection().rollback();
-			} catch (SQLException sqlE) {
-			}
-			throw new AppException(APIExceptionMessage.USER_CREATION_FAILED);
-		} finally {
-			try {
-				ServerConnection.getServerConnection().setAutoCommit(true);
-			} catch (SQLException e) {
-				throw new AppException(APIExceptionMessage.NO_SERVER_CONNECTION);
-			}
-		}
-
 	}
 
 	@Override
@@ -143,6 +128,40 @@ public class MySQLEmployeeAPI extends MySQLGeneralAPI implements EmployeeAPI {
 		return accounts;
 	}
 
+	@Override
+	public long depositAmount(long accountNumber, double amount) throws AppException {
+		try {
+			ServerConnection.startTransaction();
+
+			Account customerAccount = getAccountDetails(accountNumber);
+			if (!MySQLUtil.updateBalanceInAccount(accountNumber, customerAccount.getBalance() + amount)) {
+				throw new AppException(APIExceptionMessage.TRANSACTION_FAILED);
+			}
+
+			Transaction depositTransaction = new Transaction();
+			depositTransaction.setUserID(customerAccount.getUserID());
+			depositTransaction.setViewerAccountNumber(accountNumber);
+			depositTransaction.setTransactionAmount(amount);
+			depositTransaction.setTransactionType(TransactionType.CREDIT.toString());
+			depositTransaction.setclosingBalance(customerAccount.getBalance() + amount);
+			depositTransaction.setRemarks("BANK_DEPOSIT");
+
+			MySQLUtil.createSenderTransactionRecord(depositTransaction);
+			ServerConnection.endTransaction();
+			return depositTransaction.getTransactionID();
+
+		} catch (AppException e) {
+			ServerConnection.reverseTransaction();
+			throw e;
+		}
+	}
+
+	@Override
+	public long withdrawAmount(long accountNumber, double amount) throws AppException {
+
+		return 0;
+	}
+
 }
 //	public boolean createEmployee(EmployeeRecord employee) throws AppException {
 //		ValidatorUtil.validateObject(employee);
@@ -163,3 +182,27 @@ public class MySQLEmployeeAPI extends MySQLGeneralAPI implements EmployeeAPI {
 //		}
 //	}
 //	
+//private int createUser(UserRecord user) throws AppException {
+//ValidatorUtil.validateObject(user);
+//try {
+//	ServerConnection.getServerConnection().setAutoCommit(false);
+//	int userID = createUserRecord(user);
+//	user.setUserID(userID);
+//	createCredentialRecord(user);
+//	ServerConnection.getServerConnection().commit();
+//	return userID;
+//} catch (AppException | SQLException e) {
+//	try {
+//		ServerConnection.getServerConnection().rollback();
+//	} catch (SQLException sqlE) {
+//	}
+//	throw new AppException(APIExceptionMessage.USER_CREATION_FAILED);
+//} finally {
+//	try {
+//		ServerConnection.getServerConnection().setAutoCommit(true);
+//	} catch (SQLException e) {
+//		throw new AppException(APIExceptionMessage.NO_SERVER_CONNECTION);
+//	}
+//}
+//
+//}

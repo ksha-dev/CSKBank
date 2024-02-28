@@ -9,13 +9,11 @@ import helpers.EmployeeRecord;
 import helpers.Transaction;
 import helpers.UserRecord;
 
-public interface GeneralAPI {
+public interface UserAPI {
 	
 	public boolean authenticateUser(int userID, String password) throws AppException;
 
 	public UserRecord getUserDetails(int userID) throws AppException;
-	
-//	public long createAccount(int customerID, String type, int branchID, double deposiAmount) throws AppException;
 
 	public Account getAccountDetails(long accountNumber) throws AppException;
 	

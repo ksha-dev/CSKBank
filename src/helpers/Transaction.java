@@ -1,7 +1,7 @@
 package helpers;
 
 import exceptions.AppException;
-import utility.SchemaUtil.TransactionType;
+import utility.HelperUtil.TransactionType;
 import utility.ValidatorUtil;
 
 public class Transaction {

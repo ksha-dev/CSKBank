@@ -1,9 +1,9 @@
 package app;
 
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.logging.Logger;
 
+import exceptions.ActivityExceptionMessages;
 import exceptions.AppException;
 import helpers.Account;
 import helpers.CustomerRecord;
@@ -11,8 +11,8 @@ import helpers.Transaction;
 import operations.CustomerOperations;
 import utility.InputUtil;
 import utility.LoggingUtil;
-import utility.SchemaUtil;
-import utility.SchemaUtil.TransactionType;
+import utility.HelperUtil;
+import utility.HelperUtil.TransactionType;
 
 public class CustomerRunner {
 
@@ -24,6 +24,13 @@ public class CustomerRunner {
 		CustomerOperations activity = new CustomerOperations(customer);
 
 		while (isProgramActive) {
+			
+			if(!AppRunner.serverConnectionActive) {
+				isProgramActive = false;
+				log.info(ActivityExceptionMessages.SERVER_CONNECTION_LOST.toString());
+				break;
+			}
+			
 			log.info("=".repeat(15) + "CUSTOMER PORTAL" + "=".repeat(15)
 					+ "\nEnter a number to perform the following operation : " + "\n1 - View Profile Details"
 					+ "\n2 - Accounts" + "\n3 - View Transactions of an Account" + "\n4 - Transfer Amount"
@@ -59,30 +66,20 @@ public class CustomerRunner {
 
 				case 2: {
 					List<Account> accounts = activity.getAssociatedAccounts();
-					SchemaUtil.showListOfAccounts(accounts);
+					HelperUtil.showListOfAccounts(accounts);
 					break;
 				}
 
 				case 3: {
 					List<Account> accounts = activity.getAssociatedAccounts();
 					int numberOfAccounts = accounts.size();
-					SchemaUtil.showListOfAccounts(accounts);
+					HelperUtil.showListOfAccounts(accounts);
 					log.info("Enter the associated serial number : ");
 					int selectedNumber = InputUtil.getPositiveInteger();
 					if (selectedNumber <= numberOfAccounts && selectedNumber > 0) {
 						List<Transaction> transactions = (activity
 								.getTransactionsOfAccount(accounts.get(selectedNumber - 1).getAccountNumber()));
-						log.info("-".repeat(80));
-						log.info("   ID   | TITLE                |    DATE    |   AMOUNT   |   BALANCE  | TYPE");
-						log.info("-".repeat(80));
-						transactions.forEach(
-								(transaction) -> log.info(String.format(" %-6d | %-20s | %s | %10.2f | %10.2f | %6s ",
-										transaction.getTransactionID(), transaction.getRemarks(),
-										SchemaUtil.convertLongToLocalDate(transaction.getDateTime()).format(
-												DateTimeFormatter.ISO_LOCAL_DATE),
-										transaction.getTransactedAmount(), transaction.getClosingBalance(),
-										transaction.getTransactionType())));
-						log.info("-".repeat(80));
+						HelperUtil.showListOfTransactions(transactions);
 					}
 				}
 					break;
@@ -99,7 +96,7 @@ public class CustomerRunner {
 					if (accounts.size() == 1) {
 						transaction.setViewerAccountNumber(accounts.get(0).getAccountNumber());
 					} else {
-						SchemaUtil.showListOfAccounts(accounts);
+						HelperUtil.showListOfAccounts(accounts);
 						log.info("Select an account to transfer money ");
 						int selectedNumber = InputUtil.getPositiveInteger();
 						if (selectedNumber > 0 && selectedNumber <= accounts.size()) {

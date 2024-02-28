@@ -22,17 +22,16 @@ Enter a number to perform the following operation :
 To logout, enter 0
 ------------------------------
 Enter your choice (0 to 5): 
+----------------------------------------------------------------------
 SNO | ACCOUNT NUMBER | CUSTOMER ID | START DATE |  BALANCE   | STATUS
 ----------------------------------------------------------------------
-  1 | 00000000000001 |           2 | 2024-02-27 |    7800.00 | ACTIVE
+  1 | 00000000000001 |           2 | 2024-02-27 |    2800.00 | ACTIVE
+----------------------------------------------------------------------
 Enter the associated serial number : 
 --------------------------------------------------------------------------------
-   ID   | TITLE                |    DATE    |   AMOUNT   |   BALANCE  | TYPE
+   ID   | TITLE                | ACCOUNT NUMBER |    DATE    |   AMOUNT   |   BALANCE  | TYPE
 --------------------------------------------------------------------------------
- 1      | 0                    | 2024-02-28 |       0.00 |   10000.00 |  DEBIT 
- 2      | Fees                 | 2024-02-28 |    1200.00 |    8800.00 |  DEBIT 
- 3      | A/c No:12/Test       | 2024-02-28 |    1000.00 |    7800.00 |  DEBIT 
---------------------------------------------------------------------------------
+d != java.lang.String
 ===============CUSTOMER PORTAL===============
 Enter a number to perform the following operation : 
 1 - View Profile Details
@@ -44,11 +43,8 @@ Enter a number to perform the following operation :
 To logout, enter 0
 ------------------------------
 Enter your choice (0 to 5): 
-Is transfer within bank or outside bank : (Enter y for within (or) hit enter for outside)
-Enter Account number of the account to transfer the money into : 
-Enter the amount to tranfer : 
-Enter Remarks : 
-The account selected does not contain sufficient balance for the transaction
+Enter 'YES' to confirm logout : 
+Logout cancelled
 ===============CUSTOMER PORTAL===============
 Enter a number to perform the following operation : 
 1 - View Profile Details

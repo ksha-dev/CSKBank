@@ -7,9 +7,10 @@ import java.sql.Statement;
 
 import exceptions.APIExceptionMessage;
 import exceptions.AppException;
+import utility.LoggingUtil;
 import utility.ValidatorUtil;
 
-public class ServerConnection {
+class ServerConnection {
 	private static Connection serverConnection = null;
 	private static final String SERVER_URL = "jdbc:mysql://localhost:3306";
 	private static final String SERVER_USER_NAME = "admin";
@@ -24,7 +25,7 @@ public class ServerConnection {
 			statement.executeUpdate("USE " + DATABASE);
 			statement.close();
 		} catch (ClassNotFoundException | SQLException e) {
-//			LoggingUtil.DEFAULT_LOGGER.warning(APIExceptionMessage.NO_SERVER_CONNECTION.toString());
+			LoggingUtil.DEFAULT_LOGGER.warning(APIExceptionMessage.NO_SERVER_CONNECTION.toString());
 		}
 	}
 

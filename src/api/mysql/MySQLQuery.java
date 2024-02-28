@@ -1,24 +1,24 @@
 package api.mysql;
 
 enum MySQLQuery {
-	USE_DATABASE("USE CSKBank;"), USER_DETAILS_PS("SELECT * FROM users WHERE user_id = ?;"),
-	CREDENTIAL_CHECK_PS("SELECT * FROM credentials WHERE user_id = ?;"),
-	CUSTOMER_DETAILS_PS("SELECT * FROM customers WHERE user_id = ?;"),
-	EMPLOYEE_DETAILS_PS("SELECT * FROM employees WHERE user_id = ?;"),
-	USER_ACCOUNT_DETAILS_PS("SELECT * FROM accounts WHERE user_id = ?"),
-	ACCOUNT_TRANSACTION_DETAILS_PS("SELECT * FROM transactions WHERE viewer_account_number = ? LIMIT 10"),
-	ACCOUNT_DETAILS_PS("SELECT * FROM accounts WHERE account_number = ?"),
-	ACCOUNTS_IN_BRANCH_PS("SELECT * FROM accounts WHERE branch_id = ?"),
+	USE_DATABASE("use CSKBank;"), USER_DETAILS_PS("select * from users where user_id = ?;"),
+	CREDENTIAL_CHECK_PS("select * from credentials where user_id = ?;"),
+	CUSTOMER_DETAILS_PS("select * from customers where user_id = ?;"),
+	EMPLOYEE_DETAILS_PS("select * from employees where user_id = ?;"),
+	USER_ACCOUNT_DETAILS_PS("select * from accounts where user_id = ?"),
+	ACCOUNT_TRANSACTION_DETAILS_PS("select * from transactions where viewer_account_number = ? LIMIT 10"),
+	ACCOUNT_DETAILS_PS("select * from accounts where account_number = ?"),
+	ACCOUNTS_IN_BRANCH_PS("select * from accounts where branch_id = ?"),
+	ACCOUNT_BALANCE_PS("select balance, status from accounts where account_number = ?;"),
 	CREATE_USER_PS(
-			"INSERT INTO users(first_name, last_name, date_of_birth, gender, address, mobile, email) VALUES(?,?,?,?,?,?,?);"),
-	CREATE_CREDENTIAL_PS("INSERT INTO credentials VALUE(?,?);"),
-	CREATE_EMPLOYEE_PS("INSERT INTO employees VALUES(?,?,?);"),
-	CREATE_CUSTOMER_PS("INSERT INTO customers VALUES(?,?,?);"),
-	CREATE_ACCOUNT_PS("INSERT INTO accounts(user_id, type, branch_id, opening_date, balance) VALUES(?,?,?,?,?);"),
+			"insert into users(first_name, last_name, date_of_birth, gender, address, mobile, email) value(?,?,?,?,?,?,?);"),
+	CREATE_CREDENTIAL_PS("insert into credentials value(?,?);"),
+	CREATE_EMPLOYEE_PS("insert into employees value(?,?,?);"),
+	CREATE_CUSTOMER_PS("insert into customers value(?,?,?);"),
+	CREATE_ACCOUNT_PS("insert into accounts(user_id, type, branch_id, opening_date, balance) value(?,?,?,?,?);"),
 
-	CREATE_TRANSACTION_PS("INSERT INTO transactions VALUES(?,?,?,?,?,?,?,?,?);"),
-	CREATE_NEW_TRANSACTION_PS(
-			"INSERT INTO transactions(user_id, viewer_account_number, transacted_account_number, transacted_amount, transaction_type, closing_balance, time_stamp, remarks) VALUE(?,?,?,?,?,?,?,?)");
+	CREATE_TRANSACTION_PS("insert into transactions value(?,?,?,?,?,?,?,?,?);"), CREATE_NEW_TRANSACTION_PS(
+			"insert into transactions(user_id, viewer_account_number, transacted_account_number, transacted_amount, transaction_type, closing_balance, time_stamp, remarks) value(?,?,?,?,?,?,?,?)");
 
 	private String query;
 

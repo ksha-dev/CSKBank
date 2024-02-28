@@ -1,8 +1,11 @@
 package api.mysql;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
+import exceptions.APIExceptionMessage;
 import exceptions.AppException;
 import helpers.Account;
 import helpers.CustomerRecord;
@@ -13,6 +16,7 @@ import utility.ValidatorUtil;
 
 class MySQLUtil {
 
+	// CONVERSIONS
 	protected static EmployeeRecord convertToEmployeeRecord(ResultSet record) throws AppException {
 		ValidatorUtil.validateObject(record);
 		EmployeeRecord employeeRecord = new EmployeeRecord();
@@ -89,5 +93,116 @@ class MySQLUtil {
 		} catch (SQLException e) {
 		}
 		return transaction;
+	}
+
+	// TRANSACTION QUERIES
+	protected static EmployeeRecord getEmployeeRecord(int userID) throws AppException {
+		try (PreparedStatement employeeStatement = ServerConnection.getServerConnection()
+				.prepareStatement(MySQLQuery.EMPLOYEE_DETAILS_PS.getQuery())) {
+			employeeStatement.setInt(1, userID);
+			try (ResultSet employeeResult = employeeStatement.executeQuery()) {
+				if (employeeResult.next()) {
+					return convertToEmployeeRecord(employeeResult);
+				} else {
+					throw new AppException(APIExceptionMessage.EMPLOYEE_RECORD_NOT_FOUND);
+				}
+			}
+		} catch (SQLException e) {
+			throw new AppException(e.getMessage());
+		}
+	}
+
+	protected static CustomerRecord getCustomerRecord(int userID) throws AppException {
+		try (PreparedStatement customerStatement = ServerConnection.getServerConnection()
+				.prepareStatement(MySQLQuery.CUSTOMER_DETAILS_PS.getQuery())) {
+			customerStatement.setInt(1, userID);
+			try (ResultSet customerResult = customerStatement.executeQuery()) {
+				if (customerResult.next()) {
+					return convertToCustomerRecord(customerResult);
+				} else {
+					throw new AppException(APIExceptionMessage.CUSTOMER_RECORD_NOT_FOUND);
+				}
+			}
+		} catch (SQLException e) {
+			throw new AppException(e.getMessage());
+		}
+	}
+
+	protected static boolean updateBalanceInAccount(long accountNumber, double balance) throws AppException {
+		try (PreparedStatement updateAccountBalance = ServerConnection.getServerConnection()
+				.prepareStatement("UPDATE accounts SET balance = ? WHERE account_number = ? AND status = 'ACTIVE';")) {
+			updateAccountBalance.setDouble(1, balance);
+			updateAccountBalance.setLong(2, accountNumber);
+			int response = updateAccountBalance.executeUpdate();
+			return response == 1;
+		} catch (SQLException e) {
+			throw new AppException(e.getMessage());
+		}
+	}
+
+	protected static void createSenderTransactionRecord(Transaction transaction) throws AppException {
+		try (PreparedStatement statement = ServerConnection.getServerConnection()
+				.prepareStatement(MySQLQuery.CREATE_NEW_TRANSACTION_PS.getQuery(), Statement.RETURN_GENERATED_KEYS)) {
+			statement.setInt(1, transaction.getUserID());
+			statement.setLong(2, transaction.getViewerAccountNumber());
+			statement.setLong(3, transaction.getTransactedAccountNumber());
+			statement.setDouble(4, transaction.getTransactedAmount());
+			statement.setString(5, transaction.getTransactionType().toString());
+			statement.setDouble(6, transaction.getClosingBalance());
+			statement.setLong(7, System.currentTimeMillis());
+			statement.setString(8, transaction.getRemarks());
+
+			statement.executeUpdate();
+			try (ResultSet keys = statement.getGeneratedKeys()) {
+				if (keys.next()) {
+					transaction.setTransactionID(keys.getLong(1));
+				} else {
+					throw new AppException(APIExceptionMessage.TRANSACTION_FAILED);
+				}
+			}
+		} catch (SQLException e) {
+			throw new AppException(e.getMessage());
+		}
+	}
+
+	protected static void createReceiverTransactionRecord(Transaction receiverTransaction) throws AppException {
+		try (PreparedStatement statement = ServerConnection.getServerConnection()
+				.prepareStatement(MySQLQuery.CREATE_TRANSACTION_PS.getQuery())) {
+			statement.setLong(1, receiverTransaction.getTransactionID());
+			statement.setInt(2, receiverTransaction.getUserID());
+			statement.setLong(3, receiverTransaction.getViewerAccountNumber());
+			statement.setLong(4, receiverTransaction.getTransactedAccountNumber());
+			statement.setDouble(5, receiverTransaction.getTransactedAmount());
+			statement.setString(6, receiverTransaction.getTransactionType().toString());
+			statement.setDouble(7, receiverTransaction.getClosingBalance());
+			statement.setLong(8, System.currentTimeMillis());
+			statement.setString(9, receiverTransaction.getRemarks());
+
+			int response = statement.executeUpdate();
+			if (response != 1) {
+				throw new AppException(APIExceptionMessage.TRANSACTION_FAILED);
+			}
+		} catch (SQLException e) {
+			throw new AppException(e.getMessage());
+		}
+	}
+
+	// CONSTANTS
+	protected static enum Schemas {
+		USERS, EMPLOYEES, CUSTOMERS, ACCOUNTS, TRANSACTIONS, BRANCH, CREDENTIALS;
+		
+		public String getName() {
+			return this.toString().toLowerCase();
+		}
+	}
+
+	protected static enum ColumnNames {
+		USER_ID, PASSWORD, FIRST_NAME, LAST_NAME, DATE_OF_BIRTH, GENDER, ADDRESS, MOBILE, EMAIL, STATUS, TYPE,
+		BRANCH_ID, ACCOUNT_NUMBER, OPENING_DATE, BALANCE, CLOSING_BALANCE, ROLE, IFSC_CODE, REMARKS,
+		VIEWER_ACCOUNT_NUMBER, TRANSACTED_ACCOUNT_NUMBER, TRANSACTED_AMOUNT, TRANSACTION_TYPE, TIME_STAMP;
+		
+		public String getName() {
+			return this.toString().toLowerCase();
+		}
 	}
 }

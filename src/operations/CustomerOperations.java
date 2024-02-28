@@ -2,9 +2,8 @@ package operations;
 
 import java.util.List;
 
-import api.GeneralAPI;
+import api.UserAPI;
 import api.mysql.MySQLGeneralAPI;
-import exceptions.APIExceptionMessage;
 import exceptions.AppException;
 import helpers.Account;
 import helpers.CustomerRecord;
@@ -15,41 +14,31 @@ public class CustomerOperations {
 
 	private CustomerRecord currentCustomer;
 
-	private GeneralAPI api = new MySQLGeneralAPI();
+	private UserAPI api = new MySQLGeneralAPI();
 
 	public CustomerOperations(CustomerRecord customer) throws AppException {
 		ValidatorUtil.validateObject(customer);
 		ValidatorUtil.validatePostiveNumber(customer.getUserID());
-
 		this.currentCustomer = customer;
 	}
 
 	public CustomerRecord getCustomerRecord() throws AppException {
-		try {
-			currentCustomer = (CustomerRecord) api.getUserDetails(currentCustomer.getUserID());
-		} catch (AppException e) {
-			throw new AppException(APIExceptionMessage.CANNOT_FETCH_DETAILS);
-		}
-		return currentCustomer;
+		return (CustomerRecord) api.getUserDetails(currentCustomer.getUserID());
 	}
 
 	public List<Account> getAssociatedAccounts() throws AppException {
-		List<Account> listOfAssociatedAccounts;
-		listOfAssociatedAccounts = api.getAccountsOfUser(currentCustomer.getUserID());
-		return listOfAssociatedAccounts;
+		return api.getAccountsOfUser(currentCustomer.getUserID());
 	}
 
 	public List<Transaction> getTransactionsOfAccount(long accountNumber) throws AppException {
-		List<Transaction> listOfTransactions;
-		listOfTransactions = api.getTransactionsOfAccount(accountNumber);
-		return listOfTransactions;
+		return api.getTransactionsOfAccount(accountNumber);
 	}
 
 	public double getAccountBalance(long accountNumber) throws AppException {
 		ValidatorUtil.validatePostiveNumber(accountNumber);
 		return api.getBalanceInAccount(accountNumber);
 	}
-	
+
 	public long tranferMoney(Transaction helperTransaction, boolean isTransferOutsideBank) throws AppException {
 		ValidatorUtil.validateObject(helperTransaction);
 		return api.transferAmount(helperTransaction, isTransferOutsideBank);

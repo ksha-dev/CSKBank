@@ -9,9 +9,9 @@ import java.util.logging.Logger;
 import exceptions.AppException;
 import utility.ValidatorUtil;
 import utility.LoggingUtil;
-import utility.SchemaUtil.Gender;
-import utility.SchemaUtil.UserStatus;
-import utility.SchemaUtil.UserTypes;
+import utility.HelperUtil.Gender;
+import utility.HelperUtil.UserStatus;
+import utility.HelperUtil.UserTypes;
 
 public abstract class UserRecord {
 

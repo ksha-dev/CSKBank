@@ -1,11 +1,7 @@
 package utility;
 
-import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -14,8 +10,9 @@ import java.util.logging.Logger;
 
 import exceptions.AppException;
 import helpers.Account;
+import helpers.Transaction;
 
-public class SchemaUtil {
+public class HelperUtil {
 
 	public static Logger log = LoggingUtil.DEFAULT_LOGGER;
 
@@ -74,8 +71,8 @@ public class SchemaUtil {
 			return string.toString();
 		}
 	}
-	
-	public static  ZonedDateTime convertLongToLocalDate(long dateTime) {
+
+	public static ZonedDateTime convertLongToLocalDate(long dateTime) {
 		return ZonedDateTime.ofInstant(Instant.ofEpochMilli(dateTime), ZoneId.systemDefault());
 	}
 
@@ -101,6 +98,7 @@ public class SchemaUtil {
 		if (accounts.isEmpty()) {
 			log.info("No accounts found");
 		} else {
+			log.info("-".repeat(70));
 			log.info("SNO | ACCOUNT NUMBER | CUSTOMER ID | START DATE |  BALANCE   | STATUS");
 			log.info("-".repeat(70));
 			for (int i = 0; i < numberOfAccounts; i++) {
@@ -109,6 +107,19 @@ public class SchemaUtil {
 						account.getUserID(), account.getOpeningDate().format(DateTimeFormatter.ISO_LOCAL_DATE),
 						account.getBalance(), account.getStatus()));
 			}
+			log.info("-".repeat(70));
 		}
 	}
+
+	public static void showListOfTransactions(List<Transaction> transactions) {
+		log.info("-".repeat(95));
+		log.info("   ID   | TITLE                | ACCOUNT NUMBER |    DATE    |   AMOUNT   |   BALANCE  | TYPE");
+		log.info("-".repeat(95));
+		transactions.forEach((transaction) -> log.info(String.format(" %-6d | %-20s | %14d | %s | %10.2f | %10.2f | %6s ",
+				transaction.getTransactionID(), transaction.getRemarks(), transaction.getTransactedAccountNumber(),
+				HelperUtil.convertLongToLocalDate(transaction.getDateTime()).format(DateTimeFormatter.ISO_LOCAL_DATE),
+				transaction.getTransactedAmount(), transaction.getClosingBalance(), transaction.getTransactionType())));
+		log.info("-".repeat(95));
+	}
+
 }

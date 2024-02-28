@@ -14,10 +14,12 @@ import operations.HomeOperations;
 import utility.InputUtil;
 import utility.LoggingUtil;
 import utility.ValidatorUtil;
-import utility.SchemaUtil.UserTypes;
+import utility.HelperUtil.UserTypes;
 
 public class AppRunner {
 	public static final Logger log = LoggingUtil.DEFAULT_LOGGER;
+	
+	public static boolean serverConnectionActive = true;
 
 	public static void main(String... args) throws AppException {
 		int runnerChoices = 3;

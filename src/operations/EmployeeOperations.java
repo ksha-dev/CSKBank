@@ -10,9 +10,10 @@ import exceptions.AppException;
 import helpers.Account;
 import helpers.CustomerRecord;
 import helpers.EmployeeRecord;
+import helpers.Transaction;
 import helpers.UserRecord;
 import utility.ValidatorUtil;
-import utility.SchemaUtil.UserTypes;
+import utility.HelperUtil.UserTypes;
 
 public class EmployeeOperations {
 	private EmployeeRecord employee;
@@ -29,14 +30,11 @@ public class EmployeeOperations {
 	}
 
 	public EmployeeRecord getEmployeeRecord() throws AppException {
-		EmployeeRecord fetechedRecord = (EmployeeRecord) api.getUserDetails(employee.getUserID());
-		employee = fetechedRecord;
-		return fetechedRecord;
+		return (EmployeeRecord) api.getUserDetails(employee.getUserID());
 	}
 
 	public List<Account> getListOfAccountsInBranch() throws AppException {
-		List<Account> listOfAccounts = api.viewAccountsInBranch(getEmployeeRecord().getBranchID());
-		return listOfAccounts;
+		return api.viewAccountsInBranch(getEmployeeRecord().getBranchID());
 	}
 
 	public CustomerRecord getCustomerRecord(int customerID) throws AppException {
@@ -53,18 +51,20 @@ public class EmployeeOperations {
 		ValidatorUtil.validateObject(customer);
 		if (depositAmount < MINIMUM_DEPOSIT_AMOUNT) {
 			throw new AppException(
-					"The deposit amount must meet the minimum required amount. The minimum deposit amount is Rs. "
-							+ MINIMUM_DEPOSIT_AMOUNT);
+					ActivityExceptionMessages.MINIMUM_DEPOSIT_REQUIRED.toString() + MINIMUM_DEPOSIT_AMOUNT);
 		}
-		int customerID = api.createUser(customer);
-		customer.setUserID(customerID);
 		api.createCustomer(customer);
-		return createAccountForExistingCustomer(customerID, accountType, depositAmount);
+		return createAccountForExistingCustomer(customer.getUserID(), accountType, depositAmount);
 	}
 
 	public Account createAccountForExistingCustomer(int customerID, String accountType, double depositAmount)
 			throws AppException {
 		long accountNumber = api.createAccount(customerID, accountType, employee.getBranchID(), depositAmount);
 		return api.getAccountDetails(accountNumber);
+	}
+
+	public List<Transaction> getListOfTransactions(long accountNumber) throws AppException {
+		ValidatorUtil.validatePostiveNumber(accountNumber);
+		return api.getTransactionsOfAccount(accountNumber);
 	}
 }
