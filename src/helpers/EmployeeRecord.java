@@ -12,7 +12,7 @@ public class EmployeeRecord extends UserRecord {
 	}
 
 	public void setRole(int role) throws AppException {
-		ValidatorUtil.validatePostiveNumber(role);
+		ValidatorUtil.validatePositiveNumber(role);
 		this.role = role;
 	}
 

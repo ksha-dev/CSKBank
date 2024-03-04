@@ -4,19 +4,23 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import api.UserAPI;
-import exceptions.APIExceptionMessage;
+import api.mysql.MySQLSchameUtil.UserFields;
 import exceptions.AppException;
+import exceptions.messages.APIExceptionMessage;
 import helpers.Account;
+import helpers.Branch;
 import helpers.Transaction;
 import helpers.UserRecord;
 import utility.HelperUtil;
 import utility.HelperUtil.TransactionType;
 import utility.ValidatorUtil;
 
-public class MySQLGeneralAPI implements UserAPI {
+public class MySQLUserAPI implements UserAPI {
 
 	@Override
 	public boolean authenticateUser(int userID, String password) throws AppException {
@@ -67,14 +71,14 @@ public class MySQLGeneralAPI implements UserAPI {
 	}
 
 	@Override
-	public List<Account> getAccountsOfUser(int userID) throws AppException {
-		List<Account> accounts = new ArrayList<Account>();
+	public Map<Long, Account> getAccountsOfUser(int userID) throws AppException {
+		Map<Long, Account> accounts = new HashMap<Long, Account>();
 		try (PreparedStatement statement = ServerConnection.getServerConnection()
 				.prepareStatement(MySQLQuery.USER_ACCOUNT_DETAILS_PS.getQuery())) {
 			statement.setInt(1, userID);
 			try (ResultSet accountRS = statement.executeQuery()) {
 				while (accountRS.next()) {
-					accounts.add(MySQLUtil.convertToAccount(accountRS));
+					accounts.put(accountRS.getLong(1), MySQLUtil.convertToAccount(accountRS));
 				}
 			}
 		} catch (SQLException e) {
@@ -85,7 +89,7 @@ public class MySQLGeneralAPI implements UserAPI {
 
 	@Override
 	public List<Transaction> getTransactionsOfAccount(long accountNumber) throws AppException {
-		ValidatorUtil.validatePostiveNumber(accountNumber);
+		ValidatorUtil.validatePositiveNumber(accountNumber);
 		List<Transaction> transactions = new ArrayList<Transaction>();
 		try (PreparedStatement statement = ServerConnection.getServerConnection()
 				.prepareStatement(MySQLQuery.ACCOUNT_TRANSACTION_DETAILS_PS.getQuery())) {
@@ -103,16 +107,16 @@ public class MySQLGeneralAPI implements UserAPI {
 
 	@Override
 	public Account getAccountDetails(long accountNumber) throws AppException {
-		Account account = new Account();
 		try (PreparedStatement statement = ServerConnection.getServerConnection()
 				.prepareStatement(MySQLQuery.ACCOUNT_DETAILS_PS.getQuery())) {
 			statement.setLong(1, accountNumber);
 			try (ResultSet result = statement.executeQuery()) {
 				if (result.next()) {
-					account = MySQLUtil.convertToAccount(result);
+					return MySQLUtil.convertToAccount(result);
+				} else {
+					throw new AppException(APIExceptionMessage.ACCOUNT_RECORD_NOT_FOUND);
 				}
 			}
-			return account;
 		} catch (SQLException e) {
 			throw new AppException(e.getMessage());
 		}
@@ -148,7 +152,8 @@ public class MySQLGeneralAPI implements UserAPI {
 			transaction.setclosingBalance(availableBalance - transaction.getTransactedAmount());
 
 			// reduce balance in sender's account
-			if (!MySQLUtil.updateBalanceInAccount(transaction.getViewerAccountNumber(), transaction.getClosingBalance())) {
+			if (!MySQLUtil.updateBalanceInAccount(transaction.getViewerAccountNumber(),
+					transaction.getClosingBalance())) {
 				throw new AppException(APIExceptionMessage.TRANSACTION_FAILED);
 			}
 
@@ -188,4 +193,76 @@ public class MySQLGeneralAPI implements UserAPI {
 		}
 	}
 
+	@Override
+	public Branch getBrachDetails(int branchID) throws AppException {
+		ValidatorUtil.validatePositiveNumber(branchID);
+
+		try (PreparedStatement statement = ServerConnection.getServerConnection()
+				.prepareStatement(MySQLQuery.BRANCH_DETAILS_PS.getQuery())) {
+			statement.setInt(1, branchID);
+			try (ResultSet result = statement.executeQuery()) {
+				if (result.next()) {
+					Branch branch = new Branch(result.getInt(1));
+					branch.setAddress(result.getString(2));
+					branch.setPhone(result.getLong(3));
+					branch.setEmail(result.getString(4));
+					branch.setIFSCCode(result.getString(5));
+					return branch;
+				} else {
+					throw new AppException(APIExceptionMessage.BRANCH_DETAILS_NOT_FOUND);
+				}
+			}
+		} catch (SQLException e) {
+			throw new AppException(APIExceptionMessage.CANNOT_FETCH_DETAILS);
+		}
+	}
+
+	@Override
+	public boolean updateProfile(int userID, UserFields field, Object value) throws AppException {
+		ValidatorUtil.validatePositiveNumber(userID);
+		ValidatorUtil.validateObject(value);
+		ValidatorUtil.validateObject(field);
+		try (PreparedStatement statement = ServerConnection.getServerConnection()
+				.prepareStatement(String.format(MySQLQuery.UPDATE_USER_DETAILS_PS.getQuery(), field.getName()))) {
+			statement.setObject(1, value);
+			statement.setInt(2, userID);
+			int response = statement.executeUpdate();
+			if (response == 1) {
+				return true;
+			} else {
+				throw new AppException(APIExceptionMessage.UPDATE_FAILED);
+			}
+		} catch (SQLException e) {
+			throw new AppException(APIExceptionMessage.CANNOT_FETCH_DETAILS);
+		}
+	}
+
+	@Override
+	public boolean updatePassword(int customerID, String oldPassword, String newPassword) throws AppException {
+		ValidatorUtil.validatePositiveNumber(customerID);
+		ValidatorUtil.validatePassword(oldPassword);
+		ValidatorUtil.validatePassword(newPassword);
+
+		if (!authenticateUser(customerID, oldPassword)) {
+			throw new AppException("The current password entered is wrong. Failed to change password.");
+		}
+
+		if (newPassword.equals(oldPassword)) {
+			throw new AppException("New password cannot be the same as old password.");
+		}
+
+		try (PreparedStatement statement = ServerConnection.getServerConnection()
+				.prepareStatement(MySQLQuery.UPDATE_PASSWORD_PS.getQuery())) {
+			statement.setString(1, HelperUtil.passwordHasher(newPassword));
+			statement.setInt(2, customerID);
+			int response = statement.executeUpdate();
+			if (response == 1) {
+				return true;
+			} else {
+				throw new AppException(APIExceptionMessage.UPDATE_FAILED);
+			}
+		} catch (SQLException e) {
+			throw new AppException(APIExceptionMessage.CANNOT_FETCH_DETAILS);
+		}
+	}
 }

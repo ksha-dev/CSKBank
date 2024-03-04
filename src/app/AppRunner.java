@@ -4,8 +4,6 @@ package app;
 
 import java.util.logging.Logger;
 
-import exceptions.APIExceptionMessage;
-import exceptions.AppException;
 import helpers.CustomerRecord;
 import helpers.EmployeeRecord;
 import helpers.UserRecord;
@@ -18,10 +16,10 @@ import utility.HelperUtil.UserTypes;
 
 public class AppRunner {
 	public static final Logger log = LoggingUtil.DEFAULT_LOGGER;
-	
+
 	public static boolean serverConnectionActive = true;
 
-	public static void main(String... args) throws AppException {
+	public static void runApp(String... args) {
 		int runnerChoices = 3;
 		boolean isAppActive = true;
 		log.info("-".repeat(30) + "\n" + String.format("%25s", "WELCOME TO CSK BANK\n") + "-".repeat(30));

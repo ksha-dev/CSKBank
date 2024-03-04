@@ -1,0 +1,79 @@
+------------------------------
+     WELCOME TO CSK BANK
+------------------------------
+===============HOME===============
+Enter a number to perform the following operation : 
+1 - Sign in to access your information
+2 - Apply for a new account
+
+To exit, enter 0
+------------------------------
+Enter your choice : 
+Enter your User ID (or 0 to exit): 
+Enter your password : 
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Transactions of an Account
+4 - Transfer Amount
+5 - View Branch Details of an account
+6 - Update Profile Details
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 6): 
+Select a number to update : 
+1 : EMAIL
+2 : ADDRESS
+Update successful
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Transactions of an Account
+4 - Transfer Amount
+5 - View Branch Details of an account
+6 - Update Profile Details
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 6): 
+----------------------------------------
+CUSTOMER DETAILS                        
+----------------------------------------
+FIRST NAME           : Sharan
+LAST NAME            : K
+DATE OF BIRTH        : 2002-10-01
+GENDER               : MALE
+ADDRESS              : KCT, Coimbatore
+MAIL ID              : sharank@outlook.com
+STATUS               : ACTIVE
+AADHAAR              : 999845682846
+PAN                  : HDKAU8593L
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Transactions of an Account
+4 - Transfer Amount
+5 - View Branch Details of an account
+6 - Update Profile Details
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 6): 
+Enter 'YES' to confirm logout : 
+Logged out successfully.
+----------------------------------------
+===============HOME===============
+Enter a number to perform the following operation : 
+1 - Sign in to access your information
+2 - Apply for a new account
+
+To exit, enter 0
+------------------------------
+Enter your choice : 
+----------------------------------------
+Thank you for visiting us
+----------------------------------------

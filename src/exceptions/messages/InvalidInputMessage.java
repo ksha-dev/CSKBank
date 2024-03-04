@@ -1,7 +1,7 @@
-package exceptions;
+package exceptions.messages;
 
 public enum InvalidInputMessage {
-	INVALID_FIRST_NAME("The first name must contain atleast 3 characters."),
+	INVALID_FIRST_NAME("The first name must contain atleast 4 characters."),
 	INVALID_LAST_NAME("The last name must contain atleast 1 characters."),
 	INVALID_MOBILE_NUMBER("The mobile number should contain 10 digits. First digit should be between 7 and 9"),
 	INVALID_EMAIL("The email address is invalid. Please check the email address"),

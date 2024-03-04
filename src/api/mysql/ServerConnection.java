@@ -5,8 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import exceptions.APIExceptionMessage;
 import exceptions.AppException;
+import exceptions.messages.APIExceptionMessage;
 import utility.LoggingUtil;
 import utility.ValidatorUtil;
 

@@ -5,14 +5,14 @@ import java.time.ZoneOffset;
 import java.util.regex.Pattern;
 
 import exceptions.AppException;
-import exceptions.InvalidInputMessage;
+import exceptions.messages.InvalidInputMessage;
 
 public class ValidatorUtil {
 
 	public static final String MOBILE_NUMBER_REGEX = "^[7-9]\\d{9}$";
 	public static final String EMAIL_REGEX = "^[a-zA-Z0-9._+-]+@[a-zA-Z0-9.-]+\\.[a-zA-z]{2,}+$";
-	public static final String PASSWORD_REGEX = "^((?=[^\\d])(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!_+-@^#$%&]).{8,20})$";
 	public static final String PAN_REGEX = "^[A-Z]{3}[ABCFGHLJPT][A-Z]\\d{4}[A-Z]$";
+	public static final String PASSWORD_REGEX = "^((?=[^\\d])(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!_+-@^#$%&]).{8,20})$";
 
 	public static boolean isObjectNull(Object object) {
 		return object == null;
@@ -24,7 +24,7 @@ public class ValidatorUtil {
 		}
 	}
 
-	public static void validatePostiveNumber(long number) throws AppException {
+	public static void validatePositiveNumber(long number) throws AppException {
 		if (number < 0) {
 			throw new AppException(InvalidInputMessage.POSITIVE_INTEGER_REQUIRED);
 		}
@@ -68,7 +68,7 @@ public class ValidatorUtil {
 
 	public static void validateFirstName(String firstName) throws AppException {
 		validateObject(firstName);
-		if (firstName.length() < 3) {
+		if (firstName.length() < 4) {
 			throw new AppException(InvalidInputMessage.INVALID_FIRST_NAME);
 		}
 	}

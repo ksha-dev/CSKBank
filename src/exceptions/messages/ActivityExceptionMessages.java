@@ -1,4 +1,4 @@
-package exceptions;
+package exceptions.messages;
 
 public enum ActivityExceptionMessages {
 

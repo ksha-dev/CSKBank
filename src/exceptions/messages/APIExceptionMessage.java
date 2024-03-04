@@ -1,9 +1,10 @@
-package exceptions;
+package exceptions.messages;
 
 public enum APIExceptionMessage {
 	USER_NOT_FOUND("The user record for the given information does not exist."),
 	CUSTOMER_RECORD_NOT_FOUND("The valid customer details for the user does not exist."),
 	EMPLOYEE_RECORD_NOT_FOUND("The valid employee details for the user does not exist."),
+	ACCOUNT_RECORD_NOT_FOUND("No account exists with the given account number."),
 	USER_AUNTHENTICATION_FAILED("The credentials entered for the acount is incorrect. Please try again"),
 	NO_SERVER_CONNECTION("Unable to connect to server. Please try again after sometime. Sorry for the inconvenience"),
 
@@ -18,9 +19,13 @@ public enum APIExceptionMessage {
 
 	UNKNOWN_ERROR("An unexpected error occured. Please try again after sometime"),
 	
+	UPDATE_FAILED("Cannot update user details"),
+	
 	BALANCE_ACQUISITION_FAILED("The balance amount for the given account could not be obtained."),
 	INSUFFICIENT_BALANCE("The account selected does not contain sufficient balance for the transaction"),
-	TRANSACTION_FAILED("The transaction has failed. Any changes done will be reverted in few minutes.");
+	TRANSACTION_FAILED("The transaction has failed. Any changes done will be reverted in few minutes."),
+	
+	BRANCH_DETAILS_NOT_FOUND("Cannot find a linked branch details");
 
 	private String message;
 

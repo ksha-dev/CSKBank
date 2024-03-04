@@ -4,14 +4,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.format.DateTimeFormatter;
 
-import exceptions.APIExceptionMessage;
 import exceptions.AppException;
+import exceptions.messages.APIExceptionMessage;
 import helpers.Account;
 import helpers.CustomerRecord;
 import helpers.EmployeeRecord;
 import helpers.Transaction;
 import helpers.UserRecord;
+import utility.HelperUtil;
 import utility.ValidatorUtil;
 
 class MySQLUtil {
@@ -48,7 +50,7 @@ class MySQLUtil {
 			user.setUserID(record.getInt(1));
 			user.setFirstName(record.getString(2));
 			user.setLastName(record.getString(3));
-			user.setDateOfBirthInMills(record.getLong(4));
+			user.setDateOfBirth(record.getLong(4));
 			user.setGender(record.getString(5));
 			user.setAddress(record.getString(6));
 			user.setMobileNumber(record.getLong(7));
@@ -187,22 +189,5 @@ class MySQLUtil {
 		}
 	}
 
-	// CONSTANTS
-	protected static enum Schemas {
-		USERS, EMPLOYEES, CUSTOMERS, ACCOUNTS, TRANSACTIONS, BRANCH, CREDENTIALS;
-		
-		public String getName() {
-			return this.toString().toLowerCase();
-		}
-	}
-
-	protected static enum ColumnNames {
-		USER_ID, PASSWORD, FIRST_NAME, LAST_NAME, DATE_OF_BIRTH, GENDER, ADDRESS, MOBILE, EMAIL, STATUS, TYPE,
-		BRANCH_ID, ACCOUNT_NUMBER, OPENING_DATE, BALANCE, CLOSING_BALANCE, ROLE, IFSC_CODE, REMARKS,
-		VIEWER_ACCOUNT_NUMBER, TRANSACTED_ACCOUNT_NUMBER, TRANSACTED_AMOUNT, TRANSACTION_TYPE, TIME_STAMP;
-		
-		public String getName() {
-			return this.toString().toLowerCase();
-		}
-	}
+	
 }

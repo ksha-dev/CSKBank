@@ -1,16 +1,20 @@
 package app;
 
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
-import exceptions.ActivityExceptionMessages;
+import api.mysql.MySQLSchameUtil.CustomerFields;
+import api.mysql.MySQLSchameUtil.UserFields;
 import exceptions.AppException;
+import exceptions.messages.ActivityExceptionMessages;
 import helpers.Account;
 import helpers.CustomerRecord;
 import helpers.Transaction;
 import operations.CustomerOperations;
 import utility.InputUtil;
 import utility.LoggingUtil;
+import utility.ValidatorUtil;
 import utility.HelperUtil;
 import utility.HelperUtil.TransactionType;
 
@@ -20,21 +24,22 @@ public class CustomerRunner {
 
 	public static void run(CustomerRecord customer) throws AppException {
 		boolean isProgramActive = true;
-		int runnerOperations = 5;
+		int runnerOperations = 7;
 		CustomerOperations activity = new CustomerOperations(customer);
 
 		while (isProgramActive) {
-			
-			if(!AppRunner.serverConnectionActive) {
+
+			if (!AppRunner.serverConnectionActive) {
 				isProgramActive = false;
 				log.info(ActivityExceptionMessages.SERVER_CONNECTION_LOST.toString());
 				break;
 			}
-			
+
 			log.info("=".repeat(15) + "CUSTOMER PORTAL" + "=".repeat(15)
 					+ "\nEnter a number to perform the following operation : " + "\n1 - View Profile Details"
 					+ "\n2 - Accounts" + "\n3 - View Transactions of an Account" + "\n4 - Transfer Amount"
-					+ "\n5 - Update Profile" + "" + "\n\nTo logout, enter 0\n" + "-".repeat(30));
+					+ "\n5 - View Branch Details of an account" + "\n6 - Update Profile Details"
+					+ "\n7 - Update password" + "\n\nTo logout, enter 0\n" + "-".repeat(30));
 
 			int choice = -1;
 			do {
@@ -65,21 +70,26 @@ public class CustomerRunner {
 				}
 
 				case 2: {
-					List<Account> accounts = activity.getAssociatedAccounts();
+					Map<Long, Account> accounts = activity.getAssociatedAccounts();
 					HelperUtil.showListOfAccounts(accounts);
 					break;
 				}
 
 				case 3: {
-					List<Account> accounts = activity.getAssociatedAccounts();
-					int numberOfAccounts = accounts.size();
+					Map<Long, Account> accounts = activity.getAssociatedAccounts();
 					HelperUtil.showListOfAccounts(accounts);
-					log.info("Enter the associated serial number : ");
-					int selectedNumber = InputUtil.getPositiveInteger();
-					if (selectedNumber <= numberOfAccounts && selectedNumber > 0) {
-						List<Transaction> transactions = (activity
-								.getTransactionsOfAccount(accounts.get(selectedNumber - 1).getAccountNumber()));
+					long accountNumber = 0;
+					if (accounts.size() == 1) {
+						accountNumber = (long) accounts.keySet().toArray()[0];
+					} else {
+						log.info("Enter account number : ");
+						accountNumber = InputUtil.getPositiveLong();
+					}
+					if (accounts.containsKey(accountNumber)) {
+						List<Transaction> transactions = (activity.getTransactionsOfAccount(accountNumber));
 						HelperUtil.showListOfTransactions(transactions);
+					} else {
+						log.info("Invalid Account number");
 					}
 				}
 					break;
@@ -91,16 +101,16 @@ public class CustomerRunner {
 					if (InputUtil.getString().equals("y")) {
 						isTransferInsideBank = true;
 					}
-					List<Account> accounts = activity.getAssociatedAccounts();
+					Map<Long, Account> accounts = activity.getAssociatedAccounts();
 					Transaction transaction = new Transaction();
+					long accountNumber = 0;
 					if (accounts.size() == 1) {
-						transaction.setViewerAccountNumber(accounts.get(0).getAccountNumber());
+						accountNumber = (long) accounts.keySet().toArray()[0];
 					} else {
-						HelperUtil.showListOfAccounts(accounts);
-						log.info("Select an account to transfer money ");
-						int selectedNumber = InputUtil.getPositiveInteger();
-						if (selectedNumber > 0 && selectedNumber <= accounts.size()) {
-							transaction.setViewerAccountNumber(accounts.get(selectedNumber - 1).getAccountNumber());
+						log.info("Enter account number : ");
+						accountNumber = InputUtil.getPositiveLong();
+						if (accounts.containsKey(accountNumber)) {
+							transaction.setViewerAccountNumber(accountNumber);
 						} else
 							throw new AppException("Invalid Selection");
 					}
@@ -129,6 +139,65 @@ public class CustomerRunner {
 					log.info("Transaction ID : " + id);
 				}
 					break;
+
+				case 5: {
+					Map<Long, Account> accounts = activity.getAssociatedAccounts();
+					HelperUtil.showListOfAccounts(accounts);
+					long accountNumber = 0;
+					if (accounts.size() == 1) {
+						accountNumber = (long) accounts.keySet().toArray()[0];
+					} else {
+						log.info("Enter account number : ");
+						accountNumber = InputUtil.getPositiveLong();
+					}
+					if (accounts.containsKey(accountNumber)) {
+						activity.getBranchDetailsOfAccount(accounts.get(accountNumber).getBranchID()).logBranch();
+					}
+				}
+					break;
+
+				case 6: {
+					List<UserFields> modifiableFields = List.of(UserFields.EMAIL, UserFields.ADDRESS);
+
+					log.info("Select a number to update : ");
+					int fieldCount = modifiableFields.size();
+					for (int i = 0; i < fieldCount; i++) {
+						log.info((i + 1) + " : " + modifiableFields.get(i));
+					}
+					int selectedNumber = InputUtil.getPositiveInteger();
+					if (selectedNumber > 0 && selectedNumber <= fieldCount) {
+						UserFields selectedField = modifiableFields.get(selectedNumber - 1);
+						String change = InputUtil.getString();
+						if (selectedField == UserFields.EMAIL) {
+							ValidatorUtil.validateEmail(change);
+						}
+						if (activity.updateUserDetails(customer.getUserID(), selectedField, change)) {
+							log.info("Update successful");
+						}
+					}
+				}
+					break;
+
+				case 7: {
+					log.info("Enter current password : ");
+					String currentPassword = InputUtil.getString();
+					log.info("Enter new password : ");
+					String newPassword = InputUtil.getString();
+					log.info("Re-enter new password for confirmation : ");
+					String newPasswordConfirm = InputUtil.getString();
+
+					ValidatorUtil.validatePassword(currentPassword);
+					ValidatorUtil.validatePassword(newPasswordConfirm);
+					if (newPassword.equals(newPasswordConfirm)) {
+						if (activity.updatePassword(customer.getUserID(), currentPassword, newPasswordConfirm)) {
+							log.info("Your password has been changed.");
+							log.info("Logging out.");
+							isProgramActive = false;
+						}
+					}
+				}
+					break;
+
 				default:
 					log.info("The choice is invalid");
 					break;

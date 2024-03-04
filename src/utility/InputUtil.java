@@ -2,7 +2,8 @@ package utility;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import exceptions.InvalidInputMessage;
+
+import exceptions.messages.InvalidInputMessage;
 
 public class InputUtil {
 

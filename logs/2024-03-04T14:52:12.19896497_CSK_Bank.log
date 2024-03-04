@@ -1,0 +1,31 @@
+------------------------------
+     WELCOME TO CSK BANK
+------------------------------
+===============HOME===============
+Enter a number to perform the following operation : 
+1 - Sign in to access your information
+2 - Apply for a new account
+
+To exit, enter 0
+------------------------------
+Enter your choice : 
+Enter your User ID (or 0 to exit): 
+Enter your password : 
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Transactions of an Account
+4 - Transfer Amount
+5 - View Branch Details of an account
+6 - Update Profile Details
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 5): 
+Enter your choice (0 to 5): 
+No line found
+Enter your choice (0 to 5): 
+No line found
+Enter your choice (0 to 5): 
+No line found

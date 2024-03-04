@@ -1,0 +1,83 @@
+------------------------------
+     WELCOME TO CSK BANK
+------------------------------
+===============HOME===============
+Enter a number to perform the following operation : 
+1 - Sign in to access your information
+2 - Apply for a new account
+
+To exit, enter 0
+------------------------------
+Enter your choice : 
+Enter your User ID (or 0 to exit): 
+Enter your password : 
+The password must contain a minimum of 8 characters with both upper and lower case, start with a letter, have a special character and a number
+----------------------------------------
+===============HOME===============
+Enter a number to perform the following operation : 
+1 - Sign in to access your information
+2 - Apply for a new account
+
+To exit, enter 0
+------------------------------
+Enter your choice : 
+Enter your User ID (or 0 to exit): 
+Enter your password : 
+The credentials entered for the acount is incorrect. Please try again
+----------------------------------------
+===============HOME===============
+Enter a number to perform the following operation : 
+1 - Sign in to access your information
+2 - Apply for a new account
+
+To exit, enter 0
+------------------------------
+Enter your choice : 
+Enter your User ID (or 0 to exit): 
+Enter your password : 
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Transactions of an Account
+4 - Transfer Amount
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 5): 
+Is transfer within bank or outside bank : (Enter y for within (or) hit enter for outside)
+----------------------------------------------------------------------
+SNO | ACCOUNT NUMBER | CUSTOMER ID | START DATE |  BALANCE   | STATUS
+----------------------------------------------------------------------
+  1 | 00000000000001 |           2 | 2024-03-01 |   10000.00 | ACTIVE
+  2 | 00000000000002 |           2 | 2024-03-01 |   10000.00 | ACTIVE
+----------------------------------------------------------------------
+Select an account to transfer money 
+Enter Account number of the account to transfer the money into : 
+Enter the amount to tranfer : 
+Enter Remarks : 
+Duplicate entry '1-2' for key 'transactions.PRIMARY'
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Transactions of an Account
+4 - Transfer Amount
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 5): 
+Enter 'YES' to confirm logout : 
+Logged out successfully.
+----------------------------------------
+===============HOME===============
+Enter a number to perform the following operation : 
+1 - Sign in to access your information
+2 - Apply for a new account
+
+To exit, enter 0
+------------------------------
+Enter your choice : 
+----------------------------------------
+Thank you for visiting us
+----------------------------------------

@@ -1,3 +1,4 @@
+drop database CSKBank;
 create database CSKBank;
 use CSKBank;
 
@@ -18,14 +19,14 @@ create table users (
 create table credentials (
 	user_id int not null unique,
     password varchar(255) not null,
-    foreign key (user_id) references users(user_id)
+    foreign key (user_id) references users(user_id) on delete no action
 );
 
 create table customers (
 	user_id int not null unique,
     aadhaar_number bigint not null unique,
     pan_number varchar(45) not null unique,
-    foreign key (user_id) references users(user_id)
+    foreign key (user_id) references users(user_id) on delete no action
 );
 
 create table branch (
@@ -41,8 +42,8 @@ create table employees (
 	user_id int not null unique,
     role enum('0','1') not null default '0',
 	branch_id int not null,
-    foreign key (user_id) references users(user_id) on delete cascade,
-    foreign key (branch_id) references branch(branch_id) on delete cascade
+    foreign key (user_id) references users(user_id) on delete no action,
+    foreign key (branch_id) references branch(branch_id) on delete no action
 );
 
 create table accounts (
@@ -52,10 +53,10 @@ create table accounts (
     branch_id int not null,
     opening_date bigint not null,
     balance double not null,
-    status enum('ACTIVE', 'INACTIVE', 'CLOSED', 'SUSPEND'),
+    status enum('ACTIVE', 'INACTIVE', 'CLOSED', 'SUSPEND') not null default 'ACTIVE',
     primary key (account_number),
-    foreign key (user_id) references users(user_id) on delete cascade,
-	foreign key (branch_id) references branch(branch_id) on delete cascade
+    foreign key (user_id) references users(user_id) on delete no action,
+	foreign key (branch_id) references branch(branch_id) on delete no action
 );
 
 create table transactions (
@@ -68,6 +69,12 @@ create table transactions (
     closing_balance double not null,
     time_stamp bigint not null,
     remarks varchar(255) not null,
-    primary key (transaction_id, user_id),
-    foreign key (viewer_account_number) references accounts(account_number)
+    primary key (transaction_id, user_id, viewer_account_number),
+    foreign key (viewer_account_number) references accounts(account_number) on delete no action
+);
+
+create table authorization_code (
+	user_id int not null unique,
+    authorization_pin int not null,
+    foreign key (user_id) references users(user_id) on delete no action
 );

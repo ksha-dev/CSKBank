@@ -40,7 +40,7 @@ public abstract class UserRecord {
 		this.lastName = lastName;
 	}
 
-	public void setDateOfBirthInMills(long dateOfBirth) throws AppException {
+	public void setDateOfBirth(long dateOfBirth) throws AppException {
 		ValidatorUtil.validateDateOfBirth(dateOfBirth);
 		this.dateOfBirth = dateOfBirth;
 	}
@@ -99,11 +99,11 @@ public abstract class UserRecord {
 		return lastName;
 	}
 
-	public LocalDate getDateOfBirth() {
+	public LocalDate getDateOfBirthInLocalDate() {
 		return LocalDate.ofInstant(Instant.ofEpochMilli(dateOfBirth), ZoneId.systemDefault());
 	}
 
-	public long getDateOfBirthInMills() {
+	public long getDateOfBirth() {
 		return dateOfBirth;
 	}
 
@@ -132,10 +132,6 @@ public abstract class UserRecord {
 		return type;
 	}
 
-	public String getTypeString() {
-		return ValidatorUtil.isObjectNull(type) ? "-" : type.toString();
-	}
-
 	protected void logUserRecord() {
 		Logger log = LoggingUtil.DEFAULT_LOGGER;
 		log.info("-".repeat(40));
@@ -143,7 +139,7 @@ public abstract class UserRecord {
 		log.info("-".repeat(40));
 		log.info(String.format("%-20s", "FIRST NAME") + " : " + firstName);
 		log.info(String.format("%-20s", "LAST NAME") + " : " + lastName);
-		log.info(String.format("%-20s", "DATE OF BIRTH") + " : " + getDateOfBirth());
+		log.info(String.format("%-20s", "DATE OF BIRTH") + " : " + getDateOfBirthInLocalDate());
 		log.info(String.format("%-20s", "GENDER") + " : " + getGender());
 		log.info(String.format("%-20s", "ADDRESS") + " : " + address);
 		log.info(String.format("%-20s", "MAIL ID") + " : " + email);

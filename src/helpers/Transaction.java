@@ -20,22 +20,22 @@ public class Transaction {
 	}
 	
 	public void setTransactionID(long transactionID) throws AppException {
-		ValidatorUtil.validatePostiveNumber(transactionID);
+		ValidatorUtil.validatePositiveNumber(transactionID);
 		this.transactionID = transactionID;
 	}
 	
 	public void setUserID(int userID) throws AppException {
-		ValidatorUtil.validatePostiveNumber(userID);
+		ValidatorUtil.validatePositiveNumber(userID);
 		this.userID = userID;
 	}
 
 	public void setViewerAccountNumber(long viewerAccountNumber) throws AppException {
-		ValidatorUtil.validatePostiveNumber(viewerAccountNumber);
+		ValidatorUtil.validatePositiveNumber(viewerAccountNumber);
 		this.viewerAccountNumber = viewerAccountNumber;
 	}
 
 	public void setTransactedAccountNumber(long transactedAccountNumber) throws AppException {
-		ValidatorUtil.validatePostiveNumber(transactedAccountNumber);
+		ValidatorUtil.validatePositiveNumber(transactedAccountNumber);
 		this.transactedAccountNumber = transactedAccountNumber;
 	}
 
