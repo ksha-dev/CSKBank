@@ -6,9 +6,9 @@ select * from users;
 select * from employees;
 select * from credentials;
 
-describe transactions;
 
 use CSKBank;
+select balance, status from accounts where account_number = 5;
 
 insert into users(first_name, last_name, date_of_birth, gender, address, mobile, email, type) value ('ADMIN', 'USER', 1, 'MALE', 'Address', 9876543210, 'admin@email.com', 'EMPLOYEE');
 insert into credentials value(1, 'd3fc50c8f714cebd16d6c827826df01205bf519529f9d34775293cf9b70a420e');
@@ -16,3 +16,7 @@ insert into branch(address, phone, email, ifsc_code) value('Karaikudi', 97756353
 insert into employees(user_id, role, branch_id) value(1, '0', 1);
 
 alter table transactions drop primary key;
+alter table transactions add primary key (transaction_id, user_id, viewer_account_number);
+drop table transactions;
+
+update users set user_id = 1 where user_id = 1;

@@ -9,8 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import api.mysql.MySQLSchameUtil.CustomerFields;
-import api.mysql.MySQLSchameUtil.UserFields;
+import api.mysql.MySQLQueryUtil.Fields;
 import exceptions.AppException;
 import exceptions.messages.ActivityExceptionMessages;
 import helpers.Account;
@@ -173,8 +172,8 @@ public class EmployeeRunner {
 					if (customerID < 1) {
 						log.info("Customer ID cannot be 0");
 					} else {
-						List fields = List.of(UserFields.ADDRESS, UserFields.EMAIL, UserFields.DATE_OF_BIRTH,
-								UserFields.MOBILE, CustomerFields.AADHAAR_NUMBER, CustomerFields.PAN_NUMBER);
+						List<Fields> fields = List.of(Fields.ADDRESS, Fields.EMAIL, Fields.DATE_OF_BIRTH, Fields.MOBILE,
+								Fields.AADHAAR_NUMBER, Fields.PAN_NUMBER);
 						int fieldCount = fields.size();
 						for (int i = 0; i < fieldCount; i++) {
 							log.info((i + 1) + " : " + fields.get(i));
@@ -182,13 +181,13 @@ public class EmployeeRunner {
 						log.info("Select a field to update. Enter the corresponding number");
 						int selection = InputUtil.getPositiveInteger();
 						if (selection > 0 && selection <= fieldCount) {
-							Object field = fields.get(selection - 1);
+							Fields field = fields.get(selection - 1);
 							Object value = null;
-							if (field.equals(UserFields.EMAIL)) {
+							if (field.equals(Fields.EMAIL)) {
 								log.info("Enter Email Address : ");
 								value = InputUtil.getString();
 								ValidatorUtil.validateEmail(value.toString());
-							} else if (field.equals(UserFields.DATE_OF_BIRTH)) {
+							} else if (field.equals(Fields.DATE_OF_BIRTH)) {
 								log.info("Enter Date of birth in DDMMYYYY Format : ");
 								String dateOfBirth = InputUtil.getString();
 								if (dateOfBirth.length() != 8) {
@@ -200,13 +199,13 @@ public class EmployeeRunner {
 								int year = Integer.parseInt(dateOfBirth.substring(4, 8));
 								value = ZonedDateTime.of(year, month, date, 0, 0, 0, 0, ZoneId.systemDefault())
 										.toInstant().toEpochMilli();
-							} else if (field.equals(UserFields.MOBILE)) {
+							} else if (field.equals(Fields.MOBILE)) {
 								value = InputUtil.getPositiveLong();
 								ValidatorUtil.validateMobileNumber((long) value);
-							} else if (field.equals(CustomerFields.AADHAAR_NUMBER)) {
+							} else if (field.equals(Fields.AADHAAR_NUMBER)) {
 								value = InputUtil.getPositiveLong();
 								ValidatorUtil.validateAadhaarNumber((long) value);
-							} else if (field.equals(CustomerFields.PAN_NUMBER)) {
+							} else if (field.equals(Fields.PAN_NUMBER)) {
 								value = InputUtil.getString();
 								ValidatorUtil.validatePANNumber(value.toString());
 							}
@@ -238,7 +237,7 @@ public class EmployeeRunner {
 					}
 				}
 					break;
-					
+
 				default:
 					log.info("The choice is invalid");
 					break;

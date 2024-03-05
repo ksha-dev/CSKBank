@@ -3,12 +3,10 @@ package api;
 import java.util.List;
 import java.util.Map;
 
-import api.mysql.MySQLSchameUtil.UserFields;
+import api.mysql.MySQLQueryUtil.Fields;
 import exceptions.AppException;
 import helpers.Account;
 import helpers.Branch;
-import helpers.CustomerRecord;
-import helpers.EmployeeRecord;
 import helpers.Transaction;
 import helpers.UserRecord;
 
@@ -30,7 +28,7 @@ public interface UserAPI {
 
 	public Branch getBrachDetails(int branchID) throws AppException;
 
-	public boolean updateProfile(int userID, UserFields field, Object value) throws AppException;
+	public boolean updateProfile(int userID, Fields field, Object value) throws AppException;
 
 	public boolean updatePassword(int customerID, String oldPassword, String newPassword) throws AppException;
 }

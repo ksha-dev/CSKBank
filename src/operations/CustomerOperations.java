@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import api.UserAPI;
-import api.mysql.MySQLSchameUtil.UserFields;
+import api.mysql.MySQLQueryUtil.Fields;
 import api.mysql.MySQLUserAPI;
 import exceptions.AppException;
 import helpers.Account;
@@ -51,7 +51,7 @@ public class CustomerOperations {
 		return api.getBrachDetails(branchID);
 	}
 
-	public boolean updateUserDetails(int userID, UserFields field, Object value) throws AppException {
+	public boolean updateUserDetails(int userID, Fields field, Object value) throws AppException {
 		return api.updateProfile(userID, field, value);
 	}
 

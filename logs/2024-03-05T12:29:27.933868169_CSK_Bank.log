@@ -1,0 +1,62 @@
+------------------------------
+     WELCOME TO CSK BANK
+------------------------------
+===============HOME===============
+Enter a number to perform the following operation : 
+1 - Sign in to access your information
+2 - Apply for a new account
+
+To exit, enter 0
+------------------------------
+Enter your choice : 
+Enter your User ID (or 0 to exit): 
+Enter your password : 
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Transactions of an Account
+4 - Transfer Amount
+5 - View Branch Details of an account
+6 - Update Profile Details
+7 - Update password
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 7): 
+Is transfer within bank or outside bank : (Enter y for within (or) hit enter for outside)
+Enter Account number of the account to transfer the money into : 
+Enter the amount to tranfer : 
+Enter Remarks : 
+The balance amount for the given account could not be obtained.
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Transactions of an Account
+4 - Transfer Amount
+5 - View Branch Details of an account
+6 - Update Profile Details
+7 - Update password
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 7): 
+-----------------------------------------------------------------
+ACCOUNT NUMBER | CUSTOMER ID | START DATE |  BALANCE   | STATUS
+-----------------------------------------------------------------
+             6 |           5 | 2024-03-05 |   30000.00 | ACTIVE
+-----------------------------------------------------------------
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Transactions of an Account
+4 - Transfer Amount
+5 - View Branch Details of an account
+6 - Update Profile Details
+7 - Update password
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 7): 

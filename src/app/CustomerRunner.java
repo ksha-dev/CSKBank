@@ -4,8 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import api.mysql.MySQLSchameUtil.CustomerFields;
-import api.mysql.MySQLSchameUtil.UserFields;
+import api.mysql.MySQLQueryUtil.Fields;
 import exceptions.AppException;
 import exceptions.messages.ActivityExceptionMessages;
 import helpers.Account;
@@ -106,15 +105,17 @@ public class CustomerRunner {
 					long accountNumber = 0;
 					if (accounts.size() == 1) {
 						accountNumber = (long) accounts.keySet().toArray()[0];
+						log.info(accountNumber + "");
 					} else {
 						log.info("Enter account number : ");
 						accountNumber = InputUtil.getPositiveLong();
-						if (accounts.containsKey(accountNumber)) {
-							transaction.setViewerAccountNumber(accountNumber);
-						} else
-							throw new AppException("Invalid Selection");
-					}
 
+					}
+					if (accounts.containsKey(accountNumber)) {
+						transaction.setViewerAccountNumber(accountNumber);
+					} else {
+						throw new AppException("Invalid Selection");
+					}
 					log.info("Enter Account number of the account to transfer the money into : ");
 					long transferAccountNumber = InputUtil.getLong();
 					transaction.setTransactedAccountNumber(transferAccountNumber);
@@ -157,7 +158,7 @@ public class CustomerRunner {
 					break;
 
 				case 6: {
-					List<UserFields> modifiableFields = List.of(UserFields.EMAIL, UserFields.ADDRESS);
+					List<Fields> modifiableFields = List.of(Fields.EMAIL, Fields.ADDRESS);
 
 					log.info("Select a number to update : ");
 					int fieldCount = modifiableFields.size();
@@ -166,9 +167,9 @@ public class CustomerRunner {
 					}
 					int selectedNumber = InputUtil.getPositiveInteger();
 					if (selectedNumber > 0 && selectedNumber <= fieldCount) {
-						UserFields selectedField = modifiableFields.get(selectedNumber - 1);
+						Fields selectedField = modifiableFields.get(selectedNumber - 1);
 						String change = InputUtil.getString();
-						if (selectedField == UserFields.EMAIL) {
+						if (selectedField == Fields.EMAIL) {
 							ValidatorUtil.validateEmail(change);
 						}
 						if (activity.updateUserDetails(customer.getUserID(), selectedField, change)) {

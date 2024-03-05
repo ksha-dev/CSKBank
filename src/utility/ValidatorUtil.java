@@ -2,6 +2,7 @@ package utility;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.Collection;
 import java.util.regex.Pattern;
 
 import exceptions.AppException;
@@ -21,6 +22,13 @@ public class ValidatorUtil {
 	public static void validateObject(Object object) throws AppException {
 		if (isObjectNull(object)) {
 			throw new AppException(InvalidInputMessage.NULL_OBJECT_ENCOUNTERED);
+		}
+	}
+
+	public static <T> void validateCollection(Collection<T> collection) throws AppException {
+		validateObject(collection);
+		for (T element : collection) {
+			validateObject(element);
 		}
 	}
 

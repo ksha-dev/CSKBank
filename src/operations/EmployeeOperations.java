@@ -5,8 +5,7 @@ import java.util.Map;
 
 import api.EmployeeAPI;
 import api.mysql.MySQLEmployeeAPI;
-import api.mysql.MySQLSchameUtil.CustomerFields;
-import api.mysql.MySQLSchameUtil.UserFields;
+import api.mysql.MySQLQueryUtil.Fields;
 import exceptions.AppException;
 import exceptions.messages.APIExceptionMessage;
 import exceptions.messages.ActivityExceptionMessages;
@@ -38,7 +37,7 @@ public class EmployeeOperations {
 	}
 
 	public Map<Long, Account> getListOfAccountsInBranch() throws AppException {
-		return api.viewAccountsInBranch(getEmployeeRecord().getBranchID());
+		return api.viewAccountsInBranch(employee.getBranchID());
 	}
 
 	public CustomerRecord getCustomerRecord(int customerID) throws AppException {
@@ -63,7 +62,8 @@ public class EmployeeOperations {
 			throw new AppException(
 					ActivityExceptionMessages.MINIMUM_DEPOSIT_REQUIRED.toString() + MINIMUM_DEPOSIT_AMOUNT);
 		}
-		long accountNumber = api.createAccount(customerID, accountType, employee.getBranchID(), depositAmount);
+		long accountNumber = api.createAccount(customerID, accountType, employee.getBranchID());
+		depositAmount(accountNumber, depositAmount);
 		return api.getAccountDetails(accountNumber);
 	}
 
@@ -84,15 +84,12 @@ public class EmployeeOperations {
 		return api.withdrawAmount(accountNumber, amount);
 	}
 
-	public boolean updateCustomerDetails(int customerID, Object field, Object value) throws AppException {
+	public boolean updateCustomerDetails(int customerID, Fields field, Object value) throws AppException {
 		ValidatorUtil.validatePositiveNumber(customerID);
 		ValidatorUtil.validateObject(value);
 		ValidatorUtil.validateObject(field);
-		if (field instanceof CustomerFields) {
-			return api.updateCustomerDetails(customerID, (CustomerFields) field, value);
-		} else if (field instanceof UserFields) {
-
-			return api.updateProfile(customerID, (UserFields) field, value);
+		if (field instanceof Fields) {
+			return api.updateProfile(customerID, field, value);
 		} else {
 			throw new AppException("Invalid field obtained for updating record");
 		}
