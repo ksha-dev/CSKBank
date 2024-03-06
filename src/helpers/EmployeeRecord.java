@@ -1,12 +1,12 @@
 package helpers;
 
+import consoleRunner.utility.LoggingUtil;
 import exceptions.AppException;
-import utility.LoggingUtil;
 import utility.ValidatorUtil;
 
 public class EmployeeRecord extends UserRecord {
 	private int role;
-	private int branchID;
+	private int branchId;
 
 	public EmployeeRecord() {
 	}
@@ -16,22 +16,22 @@ public class EmployeeRecord extends UserRecord {
 		this.role = role;
 	}
 
-	public void setBranchID(int branchID) {
-		this.branchID = branchID;
+	public void setBranchId(int branchId) {
+		this.branchId = branchId;
 	}
 
 	public int getRole() {
 		return role;
 	}
 
-	public int getBranchID() {
-		return branchID;
+	public int getBranchId() {
+		return branchId;
 	}
 
 	@Override
 	public void logUserRecord() {
 		super.logUserRecord();
-		LoggingUtil.DEFAULT_LOGGER.info(String.format("%-20s", "BRANCH ID") + " : " + branchID);
+		LoggingUtil.DEFAULT_LOGGER.info(String.format("%-20s", "BRANCH ID") + " : " + branchId);
 
 	}
 }

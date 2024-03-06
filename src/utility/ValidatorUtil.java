@@ -10,11 +10,14 @@ import exceptions.messages.InvalidInputMessage;
 
 public class ValidatorUtil {
 
-	public static final String MOBILE_NUMBER_REGEX = "^[7-9]\\d{9}$";
-	public static final String EMAIL_REGEX = "^[a-zA-Z0-9._+-]+@[a-zA-Z0-9.-]+\\.[a-zA-z]{2,}+$";
-	public static final String PAN_REGEX = "^[A-Z]{3}[ABCFGHLJPT][A-Z]\\d{4}[A-Z]$";
-	public static final String PASSWORD_REGEX = "^((?=[^\\d])(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!_+-@^#$%&]).{8,20})$";
+	private static final String PIN_REGEX = "^\\d{4}$";
+	private static final String MOBILE_NUMBER_REGEX = "^[7-9]\\d{9}$";
+	private static final String EMAIL_REGEX = "^[a-zA-Z0-9._+-]+@[a-zA-Z0-9.-]+\\.[a-zA-z]{2,}+$";
+	private static final String PAN_REGEX = "^[A-Z]{3}[ABCFGHLJPT][A-Z]\\d{4}[A-Z]$";
+	private static final String PASSWORD_REGEX = "^((?=[^\\d])(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!_+-@^#$%&]).{8,20})$";
 
+	
+	//Common Validators
 	public static boolean isObjectNull(Object object) {
 		return object == null;
 	}
@@ -59,7 +62,6 @@ public class ValidatorUtil {
 		return true;
 	}
 
-	// Bank details validators
 
 	public static void validateAadhaarNumber(long aadhaarNumber) throws AppException {
 		if (aadhaarNumber < 0 && aadhaarNumber > 999999999999L) {
@@ -92,6 +94,19 @@ public class ValidatorUtil {
 		if (dateOfBirth > System.currentTimeMillis()
 				|| dateOfBirth < LocalDateTime.now().minusYears(100).toInstant(ZoneOffset.UTC).toEpochMilli()) {
 			throw new AppException(InvalidInputMessage.INVALID_DOB);
+		}
+	}
+
+	public static void validatePIN(String pin) throws AppException {
+		validateObject(pin);
+		if (!Pattern.compile(PIN_REGEX).matcher(pin).find()) {
+			throw new AppException("Invalid PIN value obtained");
+		}
+	}
+
+	public static void validateId(long id) throws AppException {
+		if (id < 1) {
+			throw new AppException(InvalidInputMessage.INVALID_ID);
 		}
 	}
 }

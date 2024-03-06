@@ -20,9 +20,9 @@ class MySQLConversionUtil {
 		ValidatorUtil.validateObject(record);
 		EmployeeRecord employeeRecord = new EmployeeRecord();
 		try {
-			employeeRecord.setUserID(record.getInt(1));
+			employeeRecord.setUserId(record.getInt(1));
 			employeeRecord.setRole(record.getInt(2));
-			employeeRecord.setBranchID(record.getInt(3));
+			employeeRecord.setBranchId(record.getInt(3));
 		} catch (SQLException e) {
 		}
 		return employeeRecord;
@@ -32,7 +32,7 @@ class MySQLConversionUtil {
 		ValidatorUtil.validateObject(record);
 		CustomerRecord customerRecord = new CustomerRecord();
 		try {
-			customerRecord.setUserID(record.getInt(1));
+			customerRecord.setUserId(record.getInt(1));
 			customerRecord.setAadhaarNumber(record.getLong(2));
 			customerRecord.setPanNumber(record.getString(3));
 		} catch (SQLException e) {
@@ -44,7 +44,7 @@ class MySQLConversionUtil {
 		ValidatorUtil.validateObject(record);
 		ValidatorUtil.validateObject(user);
 		try {
-			user.setUserID(record.getInt(1));
+			user.setUserId(record.getInt(1));
 			user.setFirstName(record.getString(2));
 			user.setLastName(record.getString(3));
 			user.setDateOfBirth(record.getLong(4));
@@ -52,8 +52,7 @@ class MySQLConversionUtil {
 			user.setAddress(record.getString(6));
 			user.setMobileNumber(record.getLong(7));
 			user.setEmail(record.getString(8));
-			user.setStatus(record.getString(9));
-			user.setType(record.getString(10));
+			user.setType(record.getString(9));
 		} catch (SQLException e) {
 		}
 		return user;
@@ -64,9 +63,9 @@ class MySQLConversionUtil {
 		Account account = new Account();
 		try {
 			account.setAccountNumber(accountRS.getLong(1));
-			account.setUserID(accountRS.getInt(2));
+			account.setUserId(accountRS.getInt(2));
 			account.setType(accountRS.getString(3));
-			account.setBranchID(accountRS.getInt(4));
+			account.setBranchId(accountRS.getInt(4));
 			account.setOpeningDate(accountRS.getLong(5));
 			account.setBalance(accountRS.getDouble(6));
 			account.setStatus(accountRS.getString(7));
@@ -80,8 +79,8 @@ class MySQLConversionUtil {
 		Transaction transaction = null;
 		try {
 			transaction = new Transaction();
-			transaction.setTransactionID(transactionRS.getLong(1));
-			transaction.setUserID(transactionRS.getInt(2));
+			transaction.setTransactionId(transactionRS.getLong(1));
+			transaction.setUserId(transactionRS.getInt(2));
 			transaction.setViewerAccountNumber(transactionRS.getLong(3));
 			transaction.setTransactedAccountNumber(transactionRS.getLong(4));
 			transaction.setTransactionAmount(transactionRS.getDouble(5));

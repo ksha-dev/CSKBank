@@ -21,11 +21,11 @@ class MySQLAPIUtil {
 		queryBuilder.insertInto(Schemas.TRANSACTIONS);
 		queryBuilder.insertValuePlaceholders(9);
 		queryBuilder.end();
-	
+
 		try (PreparedStatement statement = ServerConnection.getServerConnection()
 				.prepareStatement(queryBuilder.getQuery())) {
-			statement.setLong(1, receiverTransaction.getTransactionID());
-			statement.setInt(2, receiverTransaction.getUserID());
+			statement.setLong(1, receiverTransaction.getTransactionId());
+			statement.setInt(2, receiverTransaction.getUserId());
 			statement.setLong(3, receiverTransaction.getViewerAccountNumber());
 			statement.setLong(4, receiverTransaction.getTransactedAccountNumber());
 			statement.setDouble(5, receiverTransaction.getTransactedAmount());
@@ -33,7 +33,7 @@ class MySQLAPIUtil {
 			statement.setDouble(7, receiverTransaction.getClosingBalance());
 			statement.setLong(8, System.currentTimeMillis());
 			statement.setString(9, receiverTransaction.getRemarks());
-	
+
 			int response = statement.executeUpdate();
 			if (response != 1) {
 				throw new AppException(APIExceptionMessage.TRANSACTION_FAILED);
@@ -50,10 +50,10 @@ class MySQLAPIUtil {
 				Fields.TRANSACTED_ACCOUNT_NUMBER, Fields.TRANSACTED_AMOUNT, Fields.TRANSACTION_TYPE,
 				Fields.CLOSING_BALANCE, Fields.TIME_STAMP, Fields.REMARKS));
 		queryBuilder.end();
-	
+
 		try (PreparedStatement statement = ServerConnection.getServerConnection()
 				.prepareStatement(queryBuilder.getQuery(), Statement.RETURN_GENERATED_KEYS)) {
-			statement.setInt(1, transaction.getUserID());
+			statement.setInt(1, transaction.getUserId());
 			statement.setLong(2, transaction.getViewerAccountNumber());
 			statement.setLong(3, transaction.getTransactedAccountNumber());
 			statement.setDouble(4, transaction.getTransactedAmount());
@@ -61,11 +61,11 @@ class MySQLAPIUtil {
 			statement.setDouble(6, transaction.getClosingBalance());
 			statement.setLong(7, System.currentTimeMillis());
 			statement.setString(8, transaction.getRemarks());
-	
+
 			statement.executeUpdate();
 			try (ResultSet keys = statement.getGeneratedKeys()) {
 				if (keys.next()) {
-					transaction.setTransactionID(keys.getLong(1));
+					transaction.setTransactionId(keys.getLong(1));
 				} else {
 					throw new AppException(APIExceptionMessage.TRANSACTION_FAILED);
 				}
@@ -79,10 +79,12 @@ class MySQLAPIUtil {
 		MySQLQueryUtil queryBuilder = new MySQLQueryUtil();
 		queryBuilder.update(Schemas.ACCOUNTS);
 		queryBuilder.setField(Fields.BALANCE);
-		queryBuilder.where(Fields.ACCOUNT_NUMBER);
-		queryBuilder.and(Fields.STATUS);
+		queryBuilder.where();
+		queryBuilder.fieldEquals(Fields.ACCOUNT_NUMBER);
+		queryBuilder.and();
+		queryBuilder.fieldEquals(Fields.STATUS);
 		queryBuilder.end();
-	
+
 		try (PreparedStatement updateAccountBalance = ServerConnection.getServerConnection()
 				.prepareStatement(queryBuilder.getQuery())) {
 			updateAccountBalance.setDouble(1, balance);
@@ -95,16 +97,17 @@ class MySQLAPIUtil {
 		}
 	}
 
-	protected static CustomerRecord getCustomerRecord(int userID) throws AppException {
+	protected static CustomerRecord getCustomerRecord(int userId) throws AppException {
 		MySQLQueryUtil queryBuilder = new MySQLQueryUtil();
 		queryBuilder.selectField(Fields.ALL);
 		queryBuilder.fromTable(Schemas.CUSTOMERS);
-		queryBuilder.where(Fields.USER_ID);
+		queryBuilder.where();
+		queryBuilder.fieldEquals(Fields.USER_ID);
 		queryBuilder.end();
-	
+
 		try (PreparedStatement customerStatement = ServerConnection.getServerConnection()
 				.prepareStatement(queryBuilder.getQuery())) {
-			customerStatement.setInt(1, userID);
+			customerStatement.setInt(1, userId);
 			try (ResultSet customerResult = customerStatement.executeQuery()) {
 				if (customerResult.next()) {
 					return MySQLConversionUtil.convertToCustomerRecord(customerResult);
@@ -118,16 +121,17 @@ class MySQLAPIUtil {
 	}
 
 	// TRANSACTION QUERIES
-	protected static EmployeeRecord getEmployeeRecord(int userID) throws AppException {
+	protected static EmployeeRecord getEmployeeRecord(int userId) throws AppException {
 		MySQLQueryUtil queryBuilder = new MySQLQueryUtil();
 		queryBuilder.selectField(Fields.ALL);
 		queryBuilder.fromTable(Schemas.EMPLOYEES);
-		queryBuilder.where(Fields.USER_ID);
+		queryBuilder.where();
+		queryBuilder.fieldEquals(Fields.USER_ID);
 		queryBuilder.end();
-	
+
 		try (PreparedStatement employeeStatement = ServerConnection.getServerConnection()
 				.prepareStatement(queryBuilder.getQuery())) {
-			employeeStatement.setInt(1, userID);
+			employeeStatement.setInt(1, userId);
 			try (ResultSet employeeResult = employeeStatement.executeQuery()) {
 				if (employeeResult.next()) {
 					return MySQLConversionUtil.convertToEmployeeRecord(employeeResult);

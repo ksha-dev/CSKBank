@@ -24,7 +24,7 @@ public enum APIExceptionMessage {
 	BALANCE_ACQUISITION_FAILED("The balance amount for the given account could not be obtained."),
 	INSUFFICIENT_BALANCE("The account selected does not contain sufficient balance for the transaction"),
 	TRANSACTION_FAILED("The transaction has failed. Any changes done will be reverted in few minutes."),
-	
+	USER_CONFIRMATION_FAILED("Confirmation Failed. Cannot process the request"),
 	BRANCH_DETAILS_NOT_FOUND("Cannot find a linked branch details");
 
 	private String message;

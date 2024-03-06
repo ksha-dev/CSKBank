@@ -2,21 +2,21 @@ package helpers;
 
 import java.util.logging.Logger;
 
+import consoleRunner.utility.LoggingUtil;
 import exceptions.AppException;
-import utility.LoggingUtil;
 import utility.ValidatorUtil;
 
 public class Branch {
 
-	private int branchID;
+	private int branchId;
 	private String address;
 	private long phone;
 	private String email;
 	private String ifscCode;
 
-	public Branch(int branchID) throws AppException {
-		ValidatorUtil.validatePositiveNumber(branchID);
-		this.branchID = branchID;
+	public Branch(int branchId) throws AppException {
+		ValidatorUtil.validatePositiveNumber(branchId);
+		this.branchId = branchId;
 	}
 
 	// setters
@@ -43,8 +43,8 @@ public class Branch {
 
 	// getters
 
-	public int getBranchID() {
-		return this.branchID;
+	public int getBranchId() {
+		return this.branchId;
 	}
 
 	public long getPhone() {

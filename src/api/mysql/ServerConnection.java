@@ -5,9 +5,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import consoleRunner.utility.LoggingUtil;
 import exceptions.AppException;
 import exceptions.messages.APIExceptionMessage;
-import utility.LoggingUtil;
 import utility.ValidatorUtil;
 
 class ServerConnection {

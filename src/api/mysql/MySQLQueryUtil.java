@@ -6,9 +6,11 @@ import java.util.StringJoiner;
 import api.mysql.MySQLQueryUtil.Fields;
 import api.mysql.MySQLQueryUtil.Schemas;
 import exceptions.AppException;
+import utility.HelperUtil;
 import utility.ValidatorUtil;
+import utility.HelperUtil.TransactionHistoryLimit;
 
-public class MySQLQueryUtil {
+class MySQLQueryUtil {
 
 	private StringBuilder query;
 
@@ -24,7 +26,7 @@ public class MySQLQueryUtil {
 		USER_ID, PASSWORD, FIRST_NAME, LAST_NAME, DATE_OF_BIRTH, GENDER, ADDRESS, MOBILE, EMAIL, STATUS, TYPE,
 		AADHAAR_NUMBER, PAN_NUMBER, ROLE, BRANCH_ID, ACCOUNT_NUMBER, OPENING_DATE, BALANCE, CLOSING_BALANCE,
 		TRANSACTION_ID, REMARKS, VIEWER_ACCOUNT_NUMBER, TRANSACTED_ACCOUNT_NUMBER, TRANSACTED_AMOUNT, TRANSACTION_TYPE,
-		TIME_STAMP, ALL;
+		TIME_STAMP, ALL, PIN;
 
 		public String toString() {
 			return super.toString().toLowerCase();
@@ -55,14 +57,22 @@ public class MySQLQueryUtil {
 		query.append(", " + field);
 	}
 
-	public void where(Fields field) throws AppException {
-		ValidatorUtil.validateObject(field);
-		query.append(" where " + field + " = ?");
+	public void where() {
+		query.append(" where");
 	}
 
-	public void and(Fields field) throws AppException {
-		ValidatorUtil.isObjectNull(field);
-		query.append(" and " + field + " = ?");
+	public void and() throws AppException {
+		query.append(" and");
+	}
+
+	public void fieldEquals(Fields field) throws AppException {
+		ValidatorUtil.validateObject(field);
+		query.append(" " + field + " = ?");
+	}
+
+	public void fieldGreaterThan(Fields field) throws AppException {
+		ValidatorUtil.validateObject(field);
+		query.append(" " + field + " > ?");
 	}
 
 	public void update(Schemas schema) throws AppException {
@@ -123,5 +133,24 @@ public class MySQLQueryUtil {
 
 	public String getQuery() {
 		return query.toString();
+	}
+
+	public static void main(String[] args) throws AppException {
+		MySQLQueryUtil queryBuilder = new MySQLQueryUtil();
+
+		queryBuilder.selectField(Fields.ALL);
+		queryBuilder.fromTable(Schemas.TRANSACTIONS);
+		queryBuilder.where();
+		queryBuilder.fieldEquals(Fields.VIEWER_ACCOUNT_NUMBER);
+
+		queryBuilder.and();
+		queryBuilder.fieldGreaterThan(Fields.TIME_STAMP);
+
+		queryBuilder.sortField(Fields.TRANSACTION_ID, true);
+		queryBuilder.limit(HelperUtil.LIST_LIMIT);
+		queryBuilder.offset((2 - 1) * HelperUtil.LIST_LIMIT);
+		queryBuilder.end();
+		
+		System.out.println(queryBuilder.getQuery());
 	}
 }

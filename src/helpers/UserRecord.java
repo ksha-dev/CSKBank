@@ -6,16 +6,16 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.logging.Logger;
 
+import consoleRunner.utility.LoggingUtil;
 import exceptions.AppException;
 import utility.ValidatorUtil;
-import utility.LoggingUtil;
 import utility.HelperUtil.Gender;
-import utility.HelperUtil.UserStatus;
-import utility.HelperUtil.UserTypes;
+import utility.HelperUtil.Status;
+import utility.HelperUtil.UserType;
 
 public abstract class UserRecord {
 
-	private int userID;
+	private int userId;
 	private String firstName;
 	private String lastName;
 	private long dateOfBirth;
@@ -23,11 +23,10 @@ public abstract class UserRecord {
 	private String address;
 	private long mobileNumber;
 	private String email;
-	private UserStatus status;
-	private UserTypes type;
+	private UserType type;
 
-	public void setUserID(int userID) {
-		this.userID = userID;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 	public void setFirstName(String firstName) throws AppException {
@@ -75,18 +74,13 @@ public abstract class UserRecord {
 		this.email = email;
 	}
 
-	public void setStatus(String status) throws AppException {
-		ValidatorUtil.validateObject(status);
-		this.status = UserStatus.valueOf(status);
-	}
-
 	public void setType(String type) throws AppException {
 		ValidatorUtil.validateObject(type);
-		this.type = UserTypes.valueOf(type);
+		this.type = UserType.valueOf(type);
 	}
 
-	public int getUserID() {
-		return userID;
+	public int getUserId() {
+		return userId;
 	}
 
 	public String getFirstName() throws AppException {
@@ -123,12 +117,7 @@ public abstract class UserRecord {
 		ValidatorUtil.validateEmail(email);
 		return email;
 	}
-
-	public UserStatus getStatus() {
-		return status;
-	}
-
-	public UserTypes getType() {
+	public UserType getType() {
 		return type;
 	}
 
@@ -137,12 +126,12 @@ public abstract class UserRecord {
 		log.info("-".repeat(40));
 		log.info(String.format("%-40s", getType() + " DETAILS"));
 		log.info("-".repeat(40));
+		log.info(String.format("%-20s", "USER ID") + " : " + getUserId());
 		log.info(String.format("%-20s", "FIRST NAME") + " : " + firstName);
 		log.info(String.format("%-20s", "LAST NAME") + " : " + lastName);
 		log.info(String.format("%-20s", "DATE OF BIRTH") + " : " + getDateOfBirthInLocalDate());
 		log.info(String.format("%-20s", "GENDER") + " : " + getGender());
 		log.info(String.format("%-20s", "ADDRESS") + " : " + address);
-		log.info(String.format("%-20s", "MAIL ID") + " : " + email);
-		log.info(String.format("%-20s", "STATUS") + " : " + getStatus());
+		log.info(String.format("%-20s", "E-MAIL") + " : " + email);
 	}
 }

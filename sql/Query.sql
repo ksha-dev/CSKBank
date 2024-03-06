@@ -2,11 +2,11 @@ select * from customers;
 select * from accounts;
 select * from transactions;
 select * from branch;
-select * from users;
+select * from users;accounts
 select * from employees;
 select * from credentials;
 
-
+select * from users where user_id = '1' or first_name = 'Sharan';
 use CSKBank;
 select balance, status from accounts where account_number = 5;
 
@@ -20,3 +20,5 @@ alter table transactions add primary key (transaction_id, user_id, viewer_accoun
 drop table transactions;
 
 update users set user_id = 1 where user_id = 1;
+update credentials set password = 'd3fc50c8f714cebd16d6c827826df01205bf519529f9d34775293cf9b70a420e' where user_id = 1;
+update credentials set pin = '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4';

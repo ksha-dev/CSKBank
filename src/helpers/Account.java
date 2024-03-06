@@ -6,19 +6,21 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.logging.Logger;
 
+import consoleRunner.utility.LoggingUtil;
 import exceptions.AppException;
-import utility.LoggingUtil;
+import utility.HelperUtil.AccountType;
+import utility.HelperUtil.Status;
 import utility.ValidatorUtil;
 
 public class Account {
 
 	private long accountNumber;
-	private int userID;
-	private int branchID;
-	private String type;
+	private int userId;
+	private int branchId;
+	private AccountType type;
 	private long openingDate;
 	private double balance;
-	private String status;
+	private Status status;
 
 	public Account() {
 	}
@@ -28,14 +30,14 @@ public class Account {
 		this.accountNumber = accoutNumber;
 	}
 
-	public void setUserID(int userID) throws AppException {
-		ValidatorUtil.validatePositiveNumber(userID);
-		this.userID = userID;
+	public void setUserId(int userId) throws AppException {
+		ValidatorUtil.validatePositiveNumber(userId);
+		this.userId = userId;
 	}
 
-	public void setBranchID(int branchID) throws AppException {
-		ValidatorUtil.validatePositiveNumber(branchID);
-		this.branchID = branchID;
+	public void setBranchId(int branchId) throws AppException {
+		ValidatorUtil.validatePositiveNumber(branchId);
+		this.branchId = branchId;
 	}
 
 	public void setOpeningDate(long openingDate) throws AppException {
@@ -45,12 +47,12 @@ public class Account {
 
 	public void setStatus(String status) throws AppException {
 		ValidatorUtil.validateObject(status);
-		this.status = status;
+		this.status = Status.valueOf(status);
 	}
 
 	public void setType(String type) throws AppException {
 		ValidatorUtil.validateObject(type);
-		this.type = type;
+		this.type = AccountType.valueOf(type);
 	}
 
 	public void setBalance(double balance) {
@@ -61,19 +63,19 @@ public class Account {
 		return this.accountNumber;
 	}
 
-	public int getUserID() {
-		return this.userID;
+	public int getUserId() {
+		return this.userId;
 	}
 
-	public int getBranchID() {
-		return this.branchID;
+	public int getBranchId() {
+		return this.branchId;
 	}
 
-	public String getAccountType() {
+	public AccountType getAccountType() {
 		return this.type;
 	}
 
-	public String getStatus() {
+	public Status getStatus() {
 		return this.status;
 	}
 
@@ -98,10 +100,10 @@ public class Account {
 		log.info(String.format("%-20s", "ACCOUNT BALANCE") + " : " + getBalance());
 		log.info(String.format("%-20s", "ACCOUNT TYPE") + " : " + getAccountType());
 		log.info(String.format("%-20s", "ACCOUNT STATUS") + " : " + getStatus());
-		log.info(String.format("%-20s", "CUSTOMER ID") + " : " + getUserID());
+		log.info(String.format("%-20s", "CUSTOMER Id") + " : " + getUserId());
 		log.info(String.format("%-20s", "OPENING DATE") + " : "
 				+ getOpeningDateInLocalDateTime().format(DateTimeFormatter.ISO_DATE));
-		log.info(String.format("%-20s", "BRANCH CODE") + " : " + getBranchID());
+		log.info(String.format("%-20s", "BRANCH CODE") + " : " + getBranchId());
 	}
 
 }

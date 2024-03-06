@@ -17,26 +17,30 @@ import helpers.Account;
 import helpers.Branch;
 import helpers.Transaction;
 import helpers.UserRecord;
+import utility.ConvertorUtil;
 import utility.HelperUtil;
+import utility.HelperUtil.ModifiableField;
+import utility.HelperUtil.TransactionHistoryLimit;
 import utility.HelperUtil.TransactionType;
 import utility.ValidatorUtil;
 
 public class MySQLUserAPI implements UserAPI {
 
 	@Override
-	public boolean authenticateUser(int userID, String password) throws AppException {
+	public boolean authenticateUser(int userId, String password) throws AppException {
 		MySQLQueryUtil queryBuilder = new MySQLQueryUtil();
-		queryBuilder.selectField(Fields.ALL);
+		queryBuilder.selectField(Fields.PASSWORD);
 		queryBuilder.fromTable(Schemas.CREDENTIALS);
-		queryBuilder.where(Fields.USER_ID);
+		queryBuilder.where();
+		queryBuilder.fieldEquals(Fields.USER_ID);
 		queryBuilder.end();
 
 		try (PreparedStatement statement = ServerConnection.getServerConnection()
 				.prepareStatement(queryBuilder.getQuery())) {
-			statement.setInt(1, userID);
+			statement.setInt(1, userId);
 			try (ResultSet authenticationResult = statement.executeQuery()) {
 				if (authenticationResult.next()) {
-					if (authenticationResult.getString(2).equals(HelperUtil.passwordHasher(password))) {
+					if (authenticationResult.getString(1).equals(ConvertorUtil.passwordHasher(password))) {
 						return true;
 					} else {
 						throw new AppException(APIExceptionMessage.USER_AUNTHENTICATION_FAILED);
@@ -51,27 +55,59 @@ public class MySQLUserAPI implements UserAPI {
 	}
 
 	@Override
-	public UserRecord getUserDetails(int userID) throws AppException {
+	public boolean userConfimration(int userId, String pin) throws AppException {
+		ValidatorUtil.validatePositiveNumber(userId);
+		ValidatorUtil.validatePIN(pin);
 
 		MySQLQueryUtil queryBuilder = new MySQLQueryUtil();
-		queryBuilder.selectField(Fields.ALL);
-		queryBuilder.fromTable(Schemas.USERS);
-		queryBuilder.where(Fields.USER_ID);
+		queryBuilder.selectField(Fields.PIN);
+		queryBuilder.fromTable(Schemas.CREDENTIALS);
+		queryBuilder.where();
+		queryBuilder.fieldEquals(Fields.USER_ID);
 		queryBuilder.end();
 
 		try (PreparedStatement statement = ServerConnection.getServerConnection()
 				.prepareStatement(queryBuilder.getQuery())) {
-			statement.setInt(1, userID);
+			statement.setInt(1, userId);
+			try (ResultSet authenticationResult = statement.executeQuery()) {
+				if (authenticationResult.next()) {
+					if (authenticationResult.getString(1).equals(ConvertorUtil.passwordHasher(pin))) {
+						return true;
+					} else {
+						throw new AppException(APIExceptionMessage.USER_CONFIRMATION_FAILED);
+					}
+				} else {
+					throw new AppException(APIExceptionMessage.USER_NOT_FOUND);
+				}
+			}
+		} catch (SQLException e) {
+			throw new AppException(e.getMessage());
+		}
+	}
+
+	@Override
+	public UserRecord getUserDetails(int userId) throws AppException {
+
+		MySQLQueryUtil queryBuilder = new MySQLQueryUtil();
+		queryBuilder.selectField(Fields.ALL);
+		queryBuilder.fromTable(Schemas.USERS);
+		queryBuilder.where();
+		queryBuilder.fieldEquals(Fields.USER_ID);
+		queryBuilder.end();
+
+		try (PreparedStatement statement = ServerConnection.getServerConnection()
+				.prepareStatement(queryBuilder.getQuery())) {
+			statement.setInt(1, userId);
 			try (ResultSet record = statement.executeQuery()) {
 				if (record.next()) {
 					UserRecord user = null;
 					String type = record.getString("type");
 					switch (type) {
 					case "CUSTOMER":
-						user = MySQLAPIUtil.getCustomerRecord(userID);
+						user = MySQLAPIUtil.getCustomerRecord(userId);
 						break;
 					case "EMPLOYEE":
-						user = MySQLAPIUtil.getEmployeeRecord(userID);
+						user = MySQLAPIUtil.getEmployeeRecord(userId);
 						break;
 					}
 					return MySQLConversionUtil.updateUserRecord(record, user);
@@ -85,18 +121,19 @@ public class MySQLUserAPI implements UserAPI {
 	}
 
 	@Override
-	public Map<Long, Account> getAccountsOfUser(int userID) throws AppException {
+	public Map<Long, Account> getAccountsOfUser(int userId) throws AppException {
 		Map<Long, Account> accounts = new HashMap<Long, Account>();
 
 		MySQLQueryUtil queryBuilder = new MySQLQueryUtil();
 		queryBuilder.selectField(Fields.ALL);
 		queryBuilder.fromTable(Schemas.ACCOUNTS);
-		queryBuilder.where(Fields.USER_ID);
+		queryBuilder.where();
+		queryBuilder.fieldEquals(Fields.USER_ID);
 		queryBuilder.end();
 
 		try (PreparedStatement statement = ServerConnection.getServerConnection()
 				.prepareStatement(queryBuilder.getQuery())) {
-			statement.setInt(1, userID);
+			statement.setInt(1, userId);
 			try (ResultSet accountRS = statement.executeQuery()) {
 				while (accountRS.next()) {
 					accounts.put(accountRS.getLong(1), MySQLConversionUtil.convertToAccount(accountRS));
@@ -109,21 +146,31 @@ public class MySQLUserAPI implements UserAPI {
 	}
 
 	@Override
-	public List<Transaction> getTransactionsOfAccount(long accountNumber) throws AppException {
+	public List<Transaction> getTransactionsOfAccount(long accountNumber, int pageNumber,
+			TransactionHistoryLimit timeLimit) throws AppException {
 		ValidatorUtil.validatePositiveNumber(accountNumber);
 		List<Transaction> transactions = new ArrayList<Transaction>();
 
 		MySQLQueryUtil queryBuilder = new MySQLQueryUtil();
 		queryBuilder.selectField(Fields.ALL);
 		queryBuilder.fromTable(Schemas.TRANSACTIONS);
-		queryBuilder.where(Fields.VIEWER_ACCOUNT_NUMBER);
+		queryBuilder.where();
+		queryBuilder.fieldEquals(Fields.VIEWER_ACCOUNT_NUMBER);
+		if (!(timeLimit == TransactionHistoryLimit.RECENT)) {
+			queryBuilder.and();
+			queryBuilder.fieldGreaterThan(Fields.TIME_STAMP);
+		}
 		queryBuilder.sortField(Fields.TRANSACTION_ID, true);
-		queryBuilder.limit(10);
+		queryBuilder.limit(HelperUtil.LIST_LIMIT);
+		queryBuilder.offset((pageNumber - 1) * HelperUtil.LIST_LIMIT);
 		queryBuilder.end();
 
 		try (PreparedStatement statement = ServerConnection.getServerConnection()
 				.prepareStatement(queryBuilder.getQuery())) {
 			statement.setLong(1, accountNumber);
+			if (!(timeLimit == TransactionHistoryLimit.RECENT)) {
+				statement.setLong(2, timeLimit.getDuration());
+			}
 			try (ResultSet transactionRS = statement.executeQuery()) {
 				while (transactionRS.next()) {
 					transactions.add(MySQLConversionUtil.convertToTransaction(transactionRS));
@@ -141,7 +188,8 @@ public class MySQLUserAPI implements UserAPI {
 		MySQLQueryUtil queryBuilder = new MySQLQueryUtil();
 		queryBuilder.selectField(Fields.ALL);
 		queryBuilder.fromTable(Schemas.ACCOUNTS);
-		queryBuilder.where(Fields.ACCOUNT_NUMBER);
+		queryBuilder.where();
+		queryBuilder.fieldEquals(Fields.ACCOUNT_NUMBER);
 		queryBuilder.end();
 
 		try (PreparedStatement statement = ServerConnection.getServerConnection()
@@ -165,7 +213,8 @@ public class MySQLUserAPI implements UserAPI {
 		queryBuilder.selectField(Fields.BALANCE);
 		queryBuilder.addField(Fields.STATUS);
 		queryBuilder.fromTable(Schemas.ACCOUNTS);
-		queryBuilder.where(Fields.ACCOUNT_NUMBER);
+		queryBuilder.where();
+		queryBuilder.fieldEquals(Fields.ACCOUNT_NUMBER);
 		queryBuilder.end();
 
 		try (PreparedStatement statement = ServerConnection.getServerConnection()
@@ -203,7 +252,7 @@ public class MySQLUserAPI implements UserAPI {
 
 			// create sender transaction
 			MySQLAPIUtil.createSenderTransactionRecord(transaction);
-			long transactionId = transaction.getTransactionID();
+			long transactionId = transaction.getTransactionId();
 
 			if (isTransferOutsideBank) {
 
@@ -219,8 +268,8 @@ public class MySQLUserAPI implements UserAPI {
 
 				// create receiver transaction
 				Transaction reverseTransactionRecord = new Transaction();
-				reverseTransactionRecord.setTransactionID(transactionId);
-				reverseTransactionRecord.setUserID(recepientAccount.getUserID());
+				reverseTransactionRecord.setTransactionId(transactionId);
+				reverseTransactionRecord.setUserId(recepientAccount.getUserId());
 				reverseTransactionRecord.setViewerAccountNumber(transaction.getTransactedAccountNumber());
 				reverseTransactionRecord.setTransactedAccountNumber(transaction.getViewerAccountNumber());
 				reverseTransactionRecord.setTransactionAmount(transaction.getTransactedAmount());
@@ -238,18 +287,19 @@ public class MySQLUserAPI implements UserAPI {
 	}
 
 	@Override
-	public Branch getBrachDetails(int branchID) throws AppException {
-		ValidatorUtil.validatePositiveNumber(branchID);
+	public Branch getBrachDetails(int branchId) throws AppException {
+		ValidatorUtil.validatePositiveNumber(branchId);
 
 		MySQLQueryUtil queryBuilder = new MySQLQueryUtil();
 		queryBuilder.selectField(Fields.ALL);
 		queryBuilder.fromTable(Schemas.BRANCH);
-		queryBuilder.where(Fields.BRANCH_ID);
+		queryBuilder.where();
+		queryBuilder.fieldEquals(Fields.BRANCH_ID);
 		queryBuilder.end();
 
 		try (PreparedStatement statement = ServerConnection.getServerConnection()
 				.prepareStatement(queryBuilder.getQuery())) {
-			statement.setInt(1, branchID);
+			statement.setInt(1, branchId);
 			try (ResultSet result = statement.executeQuery()) {
 				if (result.next()) {
 					Branch branch = new Branch(result.getInt(1));
@@ -268,21 +318,22 @@ public class MySQLUserAPI implements UserAPI {
 	}
 
 	@Override
-	public boolean updateProfile(int userID, Fields field, Object value) throws AppException {
-		ValidatorUtil.validatePositiveNumber(userID);
+	public boolean updateProfile(int userId, ModifiableField field, Object value) throws AppException {
+		ValidatorUtil.validatePositiveNumber(userId);
 		ValidatorUtil.validateObject(value);
 		ValidatorUtil.validateObject(field);
 
 		MySQLQueryUtil queryBuilder = new MySQLQueryUtil();
 		queryBuilder.update(Schemas.USERS);
-		queryBuilder.setField(field);
-		queryBuilder.where(Fields.USER_ID);
+		queryBuilder.setField(Fields.valueOf(field.toString()));
+		queryBuilder.where();
+		queryBuilder.fieldEquals(Fields.USER_ID);
 		queryBuilder.end();
 
 		try (PreparedStatement statement = ServerConnection.getServerConnection()
 				.prepareStatement(queryBuilder.getQuery())) {
 			statement.setObject(1, value);
-			statement.setInt(2, userID);
+			statement.setInt(2, userId);
 			int response = statement.executeUpdate();
 			if (response == 1) {
 				return true;
@@ -295,12 +346,12 @@ public class MySQLUserAPI implements UserAPI {
 	}
 
 	@Override
-	public boolean updatePassword(int customerID, String oldPassword, String newPassword) throws AppException {
-		ValidatorUtil.validatePositiveNumber(customerID);
+	public boolean updatePassword(int customerId, String oldPassword, String newPassword) throws AppException {
+		ValidatorUtil.validatePositiveNumber(customerId);
 		ValidatorUtil.validatePassword(oldPassword);
 		ValidatorUtil.validatePassword(newPassword);
 
-		if (!authenticateUser(customerID, oldPassword)) {
+		if (!authenticateUser(customerId, oldPassword)) {
 			throw new AppException("The current password entered is wrong. Failed to change password.");
 		}
 
@@ -311,13 +362,14 @@ public class MySQLUserAPI implements UserAPI {
 		MySQLQueryUtil queryBuilder = new MySQLQueryUtil();
 		queryBuilder.update(Schemas.CREDENTIALS);
 		queryBuilder.setField(Fields.PASSWORD);
-		queryBuilder.where(Fields.USER_ID);
+		queryBuilder.where();
+		queryBuilder.fieldEquals(Fields.USER_ID);
 		queryBuilder.end();
 
 		try (PreparedStatement statement = ServerConnection.getServerConnection()
 				.prepareStatement(queryBuilder.getQuery())) {
-			statement.setString(1, HelperUtil.passwordHasher(newPassword));
-			statement.setInt(2, customerID);
+			statement.setString(1, ConvertorUtil.passwordHasher(newPassword));
+			statement.setInt(2, customerId);
 			int response = statement.executeUpdate();
 			if (response == 1) {
 				return true;

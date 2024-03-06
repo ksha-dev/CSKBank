@@ -6,8 +6,8 @@ import utility.ValidatorUtil;
 
 public class Transaction {
 
-	private long transactionID;
-	private int userID;
+	private long transactionId;
+	private int userId;
 	private long viewerAccountNumber;
 	private long transactedAccountNumber;
 	private TransactionType transactionType;
@@ -19,14 +19,14 @@ public class Transaction {
 	public Transaction() throws AppException {
 	}
 	
-	public void setTransactionID(long transactionID) throws AppException {
-		ValidatorUtil.validatePositiveNumber(transactionID);
-		this.transactionID = transactionID;
+	public void setTransactionId(long transactionId) throws AppException {
+		ValidatorUtil.validatePositiveNumber(transactionId);
+		this.transactionId = transactionId;
 	}
 	
-	public void setUserID(int userID) throws AppException {
-		ValidatorUtil.validatePositiveNumber(userID);
-		this.userID = userID;
+	public void setUserId(int userId) throws AppException {
+		ValidatorUtil.validatePositiveNumber(userId);
+		this.userId = userId;
 	}
 
 	public void setViewerAccountNumber(long viewerAccountNumber) throws AppException {
@@ -63,12 +63,12 @@ public class Transaction {
 
 	// getters
 
-	public long getTransactionID() {
-		return this.transactionID;
+	public long getTransactionId() {
+		return this.transactionId;
 	}
 
-	public int getUserID() {
-		return this.userID;
+	public int getUserId() {
+		return this.userId;
 	}
 
 	public long getViewerAccountNumber() {

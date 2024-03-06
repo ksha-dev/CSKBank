@@ -11,7 +11,6 @@ create table users (
     address varchar(255) not null,
     mobile bigint not null,
     email varchar(100) not null,
-    status enum('ACTIVE', 'INACTIVE', 'BLOCKED') not null default 'ACTIVE',
     type enum('CUSTOMER', 'EMPLOYEE') not null default 'CUSTOMER',
     primary key(user_id)
 );
@@ -19,6 +18,7 @@ create table users (
 create table credentials (
 	user_id int not null unique,
     password varchar(255) not null,
+    pin int not null,
     foreign key (user_id) references users(user_id) on delete no action
 );
 
@@ -53,7 +53,7 @@ create table accounts (
     branch_id int not null,
     opening_date bigint not null,
     balance double not null,
-    status enum('ACTIVE', 'INACTIVE', 'CLOSED', 'SUSPEND') not null default 'ACTIVE',
+    status enum('ACTIVE', 'INACTIVE', 'CLOSED', 'FROZEN') not null default 'ACTIVE',
     primary key (account_number),
     foreign key (user_id) references users(user_id) on delete no action,
 	foreign key (branch_id) references branch(branch_id) on delete no action

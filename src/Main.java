@@ -1,7 +1,7 @@
-import app.AppRunner;
+import consoleRunner.AppRunner;
 
 public class Main {
 	public static void main(String[] args) {
-		AppRunner.runApp();
+		AppRunner.runConsoleApp();
 	}
 }
