@@ -8,8 +8,8 @@ import java.util.logging.Logger;
 
 import consoleRunner.utility.LoggingUtil;
 import exceptions.AppException;
-import utility.HelperUtil.AccountType;
-import utility.HelperUtil.Status;
+import utility.ConstantsUtil.AccountType;
+import utility.ConstantsUtil.Status;
 import utility.ValidatorUtil;
 
 public class Account {

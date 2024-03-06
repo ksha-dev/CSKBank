@@ -3,14 +3,14 @@ package api.mysql;
 import java.util.List;
 import java.util.StringJoiner;
 
-import api.mysql.MySQLQueryUtil.Fields;
-import api.mysql.MySQLQueryUtil.Schemas;
+import api.mysql.MySQLQuery.Fields;
+import api.mysql.MySQLQuery.Schemas;
 import exceptions.AppException;
-import utility.HelperUtil;
+import utility.ConstantsUtil;
 import utility.ValidatorUtil;
-import utility.HelperUtil.TransactionHistoryLimit;
+import utility.ConstantsUtil.TransactionHistoryLimit;
 
-class MySQLQueryUtil {
+class MySQLQuery {
 
 	private StringBuilder query;
 
@@ -33,7 +33,7 @@ class MySQLQueryUtil {
 		}
 	}
 
-	public MySQLQueryUtil() {
+	public MySQLQuery() {
 		query = new StringBuilder();
 	}
 
@@ -133,24 +133,5 @@ class MySQLQueryUtil {
 
 	public String getQuery() {
 		return query.toString();
-	}
-
-	public static void main(String[] args) throws AppException {
-		MySQLQueryUtil queryBuilder = new MySQLQueryUtil();
-
-		queryBuilder.selectField(Fields.ALL);
-		queryBuilder.fromTable(Schemas.TRANSACTIONS);
-		queryBuilder.where();
-		queryBuilder.fieldEquals(Fields.VIEWER_ACCOUNT_NUMBER);
-
-		queryBuilder.and();
-		queryBuilder.fieldGreaterThan(Fields.TIME_STAMP);
-
-		queryBuilder.sortField(Fields.TRANSACTION_ID, true);
-		queryBuilder.limit(HelperUtil.LIST_LIMIT);
-		queryBuilder.offset((2 - 1) * HelperUtil.LIST_LIMIT);
-		queryBuilder.end();
-		
-		System.out.println(queryBuilder.getQuery());
 	}
 }

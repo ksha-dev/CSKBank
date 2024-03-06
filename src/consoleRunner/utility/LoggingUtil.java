@@ -15,7 +15,7 @@ import exceptions.AppException;
 import helpers.Account;
 import helpers.Transaction;
 import utility.ConvertorUtil;
-import utility.HelperUtil;
+import utility.ConstantsUtil;
 import utility.ValidatorUtil;
 
 public class LoggingUtil {
@@ -56,17 +56,17 @@ public class LoggingUtil {
 
 	public static void logAccountsList(Map<Long, Account> accounts) throws AppException {
 		if (accounts.isEmpty()) {
-			HelperUtil.log.info("No accounts found");
+			ConstantsUtil.log.info("No accounts found");
 		} else {
 			DEFAULT_LOGGER.info("-".repeat(65));
 			DEFAULT_LOGGER.info("ACCOUNT NUMBER | CUSTOMER ID | START DATE |  BALANCE   | STATUS");
 			DEFAULT_LOGGER.info("-".repeat(65));
 			accounts.forEach((id,
-					account) -> HelperUtil.log.info(String.format("%14d | %11d | %s | %10.2f | %s",
+					account) -> ConstantsUtil.log.info(String.format("%14d | %11d | %s | %10.2f | %s",
 							account.getAccountNumber(), account.getUserId(),
 							account.getOpeningDateInLocalDateTime().format(DateTimeFormatter.ISO_LOCAL_DATE),
 							account.getBalance(), account.getStatus())));
-			HelperUtil.log.info("-".repeat(65));
+			ConstantsUtil.log.info("-".repeat(65));
 		}
 	}
 
@@ -78,8 +78,8 @@ public class LoggingUtil {
 		DEFAULT_LOGGER.info("   ID   | PARTICULARS" + " ".repeat(29)
 				+ " | ACCOUNT NUMBER |    DATE    |   AMOUNT   |   BALANCE  | TYPE");
 		DEFAULT_LOGGER.info("-".repeat(115));
-		transactions.forEach((transaction) -> HelperUtil.log.info(
-				String.format(" %-6d | %-40s | %14d | %s | %10.2f | %10.2f | %s ", transaction.getTransactionId(),
+		transactions.forEach((transaction) -> ConstantsUtil.log
+				.info(String.format(" %-6d | %-40s | %14d | %s | %10.2f | %10.2f | %s ", transaction.getTransactionId(),
 						transaction.getRemarks(), transaction.getTransactedAccountNumber(),
 						ConvertorUtil.convertLongToLocalDate(transaction.getDateTime())
 								.format(DateTimeFormatter.ISO_LOCAL_DATE),

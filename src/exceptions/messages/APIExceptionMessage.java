@@ -18,9 +18,8 @@ public enum APIExceptionMessage {
 	CUSTOMER_CREATION_FAILED("Unable to create customer record at the moment. Pleasy try again later"),
 
 	UNKNOWN_ERROR("An unexpected error occured. Please try again after sometime"),
-	
-	UPDATE_FAILED("Cannot update user details"),
-	
+
+	UPDATE_FAILED("Cannot update user details"), STATUS_UPDATE_FAILED("Cannot change the account status."),
 	BALANCE_ACQUISITION_FAILED("The balance amount for the given account could not be obtained."),
 	INSUFFICIENT_BALANCE("The account selected does not contain sufficient balance for the transaction"),
 	TRANSACTION_FAILED("The transaction has failed. Any changes done will be reverted in few minutes."),

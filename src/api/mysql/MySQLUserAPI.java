@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.Map;
 
 import api.UserAPI;
-import api.mysql.MySQLQueryUtil.Fields;
-import api.mysql.MySQLQueryUtil.Schemas;
+import api.mysql.MySQLQuery.Fields;
+import api.mysql.MySQLQuery.Schemas;
 import exceptions.AppException;
 import exceptions.messages.APIExceptionMessage;
 import helpers.Account;
@@ -18,17 +18,17 @@ import helpers.Branch;
 import helpers.Transaction;
 import helpers.UserRecord;
 import utility.ConvertorUtil;
-import utility.HelperUtil;
-import utility.HelperUtil.ModifiableField;
-import utility.HelperUtil.TransactionHistoryLimit;
-import utility.HelperUtil.TransactionType;
+import utility.ConstantsUtil;
+import utility.ConstantsUtil.ModifiableField;
+import utility.ConstantsUtil.TransactionHistoryLimit;
+import utility.ConstantsUtil.TransactionType;
 import utility.ValidatorUtil;
 
 public class MySQLUserAPI implements UserAPI {
 
 	@Override
-	public boolean authenticateUser(int userId, String password) throws AppException {
-		MySQLQueryUtil queryBuilder = new MySQLQueryUtil();
+	public boolean userAuthentication(int userId, String password) throws AppException {
+		MySQLQuery queryBuilder = new MySQLQuery();
 		queryBuilder.selectField(Fields.PASSWORD);
 		queryBuilder.fromTable(Schemas.CREDENTIALS);
 		queryBuilder.where();
@@ -59,7 +59,7 @@ public class MySQLUserAPI implements UserAPI {
 		ValidatorUtil.validatePositiveNumber(userId);
 		ValidatorUtil.validatePIN(pin);
 
-		MySQLQueryUtil queryBuilder = new MySQLQueryUtil();
+		MySQLQuery queryBuilder = new MySQLQuery();
 		queryBuilder.selectField(Fields.PIN);
 		queryBuilder.fromTable(Schemas.CREDENTIALS);
 		queryBuilder.where();
@@ -88,7 +88,7 @@ public class MySQLUserAPI implements UserAPI {
 	@Override
 	public UserRecord getUserDetails(int userId) throws AppException {
 
-		MySQLQueryUtil queryBuilder = new MySQLQueryUtil();
+		MySQLQuery queryBuilder = new MySQLQuery();
 		queryBuilder.selectField(Fields.ALL);
 		queryBuilder.fromTable(Schemas.USERS);
 		queryBuilder.where();
@@ -124,7 +124,7 @@ public class MySQLUserAPI implements UserAPI {
 	public Map<Long, Account> getAccountsOfUser(int userId) throws AppException {
 		Map<Long, Account> accounts = new HashMap<Long, Account>();
 
-		MySQLQueryUtil queryBuilder = new MySQLQueryUtil();
+		MySQLQuery queryBuilder = new MySQLQuery();
 		queryBuilder.selectField(Fields.ALL);
 		queryBuilder.fromTable(Schemas.ACCOUNTS);
 		queryBuilder.where();
@@ -151,7 +151,7 @@ public class MySQLUserAPI implements UserAPI {
 		ValidatorUtil.validatePositiveNumber(accountNumber);
 		List<Transaction> transactions = new ArrayList<Transaction>();
 
-		MySQLQueryUtil queryBuilder = new MySQLQueryUtil();
+		MySQLQuery queryBuilder = new MySQLQuery();
 		queryBuilder.selectField(Fields.ALL);
 		queryBuilder.fromTable(Schemas.TRANSACTIONS);
 		queryBuilder.where();
@@ -161,8 +161,8 @@ public class MySQLUserAPI implements UserAPI {
 			queryBuilder.fieldGreaterThan(Fields.TIME_STAMP);
 		}
 		queryBuilder.sortField(Fields.TRANSACTION_ID, true);
-		queryBuilder.limit(HelperUtil.LIST_LIMIT);
-		queryBuilder.offset((pageNumber - 1) * HelperUtil.LIST_LIMIT);
+		queryBuilder.limit(ConstantsUtil.LIST_LIMIT);
+		queryBuilder.offset((pageNumber - 1) * ConstantsUtil.LIST_LIMIT);
 		queryBuilder.end();
 
 		try (PreparedStatement statement = ServerConnection.getServerConnection()
@@ -185,7 +185,7 @@ public class MySQLUserAPI implements UserAPI {
 	@Override
 	public Account getAccountDetails(long accountNumber) throws AppException {
 
-		MySQLQueryUtil queryBuilder = new MySQLQueryUtil();
+		MySQLQuery queryBuilder = new MySQLQuery();
 		queryBuilder.selectField(Fields.ALL);
 		queryBuilder.fromTable(Schemas.ACCOUNTS);
 		queryBuilder.where();
@@ -209,7 +209,7 @@ public class MySQLUserAPI implements UserAPI {
 
 	@Override
 	public double getBalanceInAccount(long accountNumber) throws AppException {
-		MySQLQueryUtil queryBuilder = new MySQLQueryUtil();
+		MySQLQuery queryBuilder = new MySQLQuery();
 		queryBuilder.selectField(Fields.BALANCE);
 		queryBuilder.addField(Fields.STATUS);
 		queryBuilder.fromTable(Schemas.ACCOUNTS);
@@ -290,7 +290,7 @@ public class MySQLUserAPI implements UserAPI {
 	public Branch getBrachDetails(int branchId) throws AppException {
 		ValidatorUtil.validatePositiveNumber(branchId);
 
-		MySQLQueryUtil queryBuilder = new MySQLQueryUtil();
+		MySQLQuery queryBuilder = new MySQLQuery();
 		queryBuilder.selectField(Fields.ALL);
 		queryBuilder.fromTable(Schemas.BRANCH);
 		queryBuilder.where();
@@ -323,7 +323,7 @@ public class MySQLUserAPI implements UserAPI {
 		ValidatorUtil.validateObject(value);
 		ValidatorUtil.validateObject(field);
 
-		MySQLQueryUtil queryBuilder = new MySQLQueryUtil();
+		MySQLQuery queryBuilder = new MySQLQuery();
 		queryBuilder.update(Schemas.USERS);
 		queryBuilder.setField(Fields.valueOf(field.toString()));
 		queryBuilder.where();
@@ -351,7 +351,7 @@ public class MySQLUserAPI implements UserAPI {
 		ValidatorUtil.validatePassword(oldPassword);
 		ValidatorUtil.validatePassword(newPassword);
 
-		if (!authenticateUser(customerId, oldPassword)) {
+		if (!userAuthentication(customerId, oldPassword)) {
 			throw new AppException("The current password entered is wrong. Failed to change password.");
 		}
 
@@ -359,7 +359,7 @@ public class MySQLUserAPI implements UserAPI {
 			throw new AppException("New password cannot be the same as old password.");
 		}
 
-		MySQLQueryUtil queryBuilder = new MySQLQueryUtil();
+		MySQLQuery queryBuilder = new MySQLQuery();
 		queryBuilder.update(Schemas.CREDENTIALS);
 		queryBuilder.setField(Fields.PASSWORD);
 		queryBuilder.where();

@@ -1,17 +1,16 @@
 package helpers;
 
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.logging.Logger;
 
 import consoleRunner.utility.LoggingUtil;
 import exceptions.AppException;
+import exceptions.messages.InvalidInputMessage;
 import utility.ValidatorUtil;
-import utility.HelperUtil.Gender;
-import utility.HelperUtil.Status;
-import utility.HelperUtil.UserType;
+import utility.ConstantsUtil.Gender;
+import utility.ConstantsUtil.UserType;
+import utility.ConvertorUtil;
 
 public abstract class UserRecord {
 
@@ -45,8 +44,9 @@ public abstract class UserRecord {
 	}
 
 	public void setDateOfBirth(ZonedDateTime dateOfBirth) throws AppException {
-		ValidatorUtil.validateDateOfBirth(dateOfBirth.toInstant().toEpochMilli());
-		this.dateOfBirth = dateOfBirth.toInstant().toEpochMilli();
+		long temp = ConvertorUtil.convertToMilliSeconds(dateOfBirth);
+		ValidatorUtil.validateDateOfBirth(temp);
+		this.dateOfBirth = temp;
 	}
 
 	public void setGender(String gender) throws AppException {
@@ -54,8 +54,7 @@ public abstract class UserRecord {
 		try {
 			this.gender = Gender.valueOf(gender.toUpperCase());
 		} catch (Exception e) {
-			throw new AppException(
-					"Invalid Gender. Please enter one of the following gender : " + Gender.OTHER.getGendersString());
+			throw new AppException(InvalidInputMessage.INVALID_GENDER);
 		}
 	}
 
@@ -94,7 +93,7 @@ public abstract class UserRecord {
 	}
 
 	public LocalDate getDateOfBirthInLocalDate() {
-		return LocalDate.ofInstant(Instant.ofEpochMilli(dateOfBirth), ZoneId.systemDefault());
+		return ConvertorUtil.convertLongToLocalDate(dateOfBirth);
 	}
 
 	public long getDateOfBirth() {
@@ -117,6 +116,7 @@ public abstract class UserRecord {
 		ValidatorUtil.validateEmail(email);
 		return email;
 	}
+
 	public UserType getType() {
 		return type;
 	}

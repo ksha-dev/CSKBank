@@ -15,10 +15,10 @@ import helpers.EmployeeRecord;
 import helpers.Transaction;
 import operations.EmployeeOperations;
 import utility.ValidatorUtil;
-import utility.HelperUtil.AccountType;
-import utility.HelperUtil.ModifiableField;
-import utility.HelperUtil.TransactionHistoryLimit;
-import utility.HelperUtil;
+import utility.ConstantsUtil.AccountType;
+import utility.ConstantsUtil.ModifiableField;
+import utility.ConstantsUtil.TransactionHistoryLimit;
+import utility.ConstantsUtil;
 
 class EmployeeRunner {
 
@@ -78,7 +78,7 @@ class EmployeeRunner {
 					while (!isListObtained) {
 						Map<Long, Account> accounts = activity.getListOfAccountsInBranch(pageNumber);
 						LoggingUtil.logAccountsList(accounts);
-						if (accounts.size() == HelperUtil.LIST_LIMIT) {
+						if (accounts.size() == ConstantsUtil.LIST_LIMIT) {
 							log.info("Enter 1 to go to next page (or) 0 to exit : ");
 							int select = InputUtil.getPositiveInteger();
 							if (select == 1) {
@@ -135,7 +135,7 @@ class EmployeeRunner {
 							List<Transaction> transactions = activity.getListOfTransactions(accountNumber, pageNumber,
 									limit);
 							LoggingUtil.logTransactionsList(transactions);
-							if (transactions.size() == HelperUtil.LIST_LIMIT) {
+							if (transactions.size() == ConstantsUtil.LIST_LIMIT) {
 								log.info("Enter 1 to go to next page (or) 0 to exit : ");
 								int select = InputUtil.getPositiveInteger();
 								if (select == 1) {

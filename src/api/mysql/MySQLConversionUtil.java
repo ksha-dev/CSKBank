@@ -10,7 +10,7 @@ import helpers.CustomerRecord;
 import helpers.EmployeeRecord;
 import helpers.Transaction;
 import helpers.UserRecord;
-import utility.HelperUtil;
+import utility.ConstantsUtil;
 import utility.ValidatorUtil;
 
 class MySQLConversionUtil {

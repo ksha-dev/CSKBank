@@ -5,7 +5,7 @@ import java.util.logging.Logger;
 
 import consoleRunner.utility.LoggingUtil;
 
-public class HelperUtil {
+public class ConstantsUtil {
 
 	public static Logger log = LoggingUtil.DEFAULT_LOGGER;
 
@@ -50,8 +50,10 @@ public class HelperUtil {
 	public static enum TransactionHistoryLimit {
 		RECENT, ONE_MONTH, THREE_MONTH, SIX_MONTH;
 
+		private static final long ONE_MONTH_MILLIS = 2592000000L;
+
 		public long getDuration() {
-			long transactionDuration = 2592000000L;
+			long transactionDuration = ONE_MONTH_MILLIS;
 			switch (this) {
 			case ONE_MONTH:
 				transactionDuration *= 1;

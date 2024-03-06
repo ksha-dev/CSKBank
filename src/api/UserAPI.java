@@ -8,12 +8,12 @@ import helpers.Account;
 import helpers.Branch;
 import helpers.Transaction;
 import helpers.UserRecord;
-import utility.HelperUtil.ModifiableField;
-import utility.HelperUtil.TransactionHistoryLimit;
+import utility.ConstantsUtil.ModifiableField;
+import utility.ConstantsUtil.TransactionHistoryLimit;
 
 public interface UserAPI {
 
-	public boolean authenticateUser(int userID, String password) throws AppException;
+	public boolean userAuthentication(int userID, String password) throws AppException;
 
 	public boolean userConfimration(int userID, String pin) throws AppException;
 

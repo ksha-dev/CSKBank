@@ -6,8 +6,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
-import api.mysql.MySQLQueryUtil.Fields;
-import api.mysql.MySQLQueryUtil.Schemas;
+import api.mysql.MySQLQuery.Fields;
+import api.mysql.MySQLQuery.Schemas;
 import exceptions.AppException;
 import exceptions.messages.APIExceptionMessage;
 import helpers.CustomerRecord;
@@ -17,7 +17,7 @@ import helpers.Transaction;
 class MySQLAPIUtil {
 
 	protected static void createReceiverTransactionRecord(Transaction receiverTransaction) throws AppException {
-		MySQLQueryUtil queryBuilder = new MySQLQueryUtil();
+		MySQLQuery queryBuilder = new MySQLQuery();
 		queryBuilder.insertInto(Schemas.TRANSACTIONS);
 		queryBuilder.insertValuePlaceholders(9);
 		queryBuilder.end();
@@ -44,7 +44,7 @@ class MySQLAPIUtil {
 	}
 
 	protected static void createSenderTransactionRecord(Transaction transaction) throws AppException {
-		MySQLQueryUtil queryBuilder = new MySQLQueryUtil();
+		MySQLQuery queryBuilder = new MySQLQuery();
 		queryBuilder.insertInto(Schemas.TRANSACTIONS);
 		queryBuilder.insertFields(List.of(Fields.USER_ID, Fields.VIEWER_ACCOUNT_NUMBER,
 				Fields.TRANSACTED_ACCOUNT_NUMBER, Fields.TRANSACTED_AMOUNT, Fields.TRANSACTION_TYPE,
@@ -76,7 +76,7 @@ class MySQLAPIUtil {
 	}
 
 	protected static boolean updateBalanceInAccount(long accountNumber, double balance) throws AppException {
-		MySQLQueryUtil queryBuilder = new MySQLQueryUtil();
+		MySQLQuery queryBuilder = new MySQLQuery();
 		queryBuilder.update(Schemas.ACCOUNTS);
 		queryBuilder.setField(Fields.BALANCE);
 		queryBuilder.where();
@@ -98,7 +98,7 @@ class MySQLAPIUtil {
 	}
 
 	protected static CustomerRecord getCustomerRecord(int userId) throws AppException {
-		MySQLQueryUtil queryBuilder = new MySQLQueryUtil();
+		MySQLQuery queryBuilder = new MySQLQuery();
 		queryBuilder.selectField(Fields.ALL);
 		queryBuilder.fromTable(Schemas.CUSTOMERS);
 		queryBuilder.where();
@@ -122,7 +122,7 @@ class MySQLAPIUtil {
 
 	// TRANSACTION QUERIES
 	protected static EmployeeRecord getEmployeeRecord(int userId) throws AppException {
-		MySQLQueryUtil queryBuilder = new MySQLQueryUtil();
+		MySQLQuery queryBuilder = new MySQLQuery();
 		queryBuilder.selectField(Fields.ALL);
 		queryBuilder.fromTable(Schemas.EMPLOYEES);
 		queryBuilder.where();

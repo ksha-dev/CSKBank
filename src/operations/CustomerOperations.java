@@ -11,9 +11,9 @@ import helpers.Account;
 import helpers.Branch;
 import helpers.CustomerRecord;
 import helpers.Transaction;
-import utility.HelperUtil;
-import utility.HelperUtil.ModifiableField;
-import utility.HelperUtil.TransactionHistoryLimit;
+import utility.ConstantsUtil;
+import utility.ConstantsUtil.ModifiableField;
+import utility.ConstantsUtil.TransactionHistoryLimit;
 import utility.ValidatorUtil;
 
 public class CustomerOperations {
@@ -71,7 +71,7 @@ public class CustomerOperations {
 		ValidatorUtil.validateObject(value);
 		ValidatorUtil.validateObject(field);
 
-		if (HelperUtil.USER_MODIFIABLE_FIELDS.contains(field)) {
+		if (ConstantsUtil.USER_MODIFIABLE_FIELDS.contains(field)) {
 			if (api.userConfimration(userId, pin)) {
 				return api.updateProfile(userId, field, value);
 			} else {

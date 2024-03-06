@@ -15,11 +15,11 @@ import helpers.EmployeeRecord;
 import helpers.Transaction;
 import helpers.UserRecord;
 import utility.ValidatorUtil;
-import utility.HelperUtil;
-import utility.HelperUtil.AccountType;
-import utility.HelperUtil.ModifiableField;
-import utility.HelperUtil.TransactionHistoryLimit;
-import utility.HelperUtil.UserType;
+import utility.ConstantsUtil;
+import utility.ConstantsUtil.AccountType;
+import utility.ConstantsUtil.ModifiableField;
+import utility.ConstantsUtil.TransactionHistoryLimit;
+import utility.ConstantsUtil.UserType;
 
 public class EmployeeOperations {
 	private EmployeeRecord employee;
@@ -65,7 +65,7 @@ public class EmployeeOperations {
 		ValidatorUtil.validateObject(accountType);
 		ValidatorUtil.validatePositiveNumber((long) depositAmount);
 
-		if (accountType == AccountType.SAVINGS && depositAmount < HelperUtil.MINIMUM_DEPOSIT_AMOUNT) {
+		if (accountType == AccountType.SAVINGS && depositAmount < ConstantsUtil.MINIMUM_DEPOSIT_AMOUNT) {
 			throw new AppException(ActivityExceptionMessages.MINIMUM_DEPOSIT_REQUIRED);
 		}
 		long accountNumber = api.createAccount(customerId, accountType, employee.getBranchId());

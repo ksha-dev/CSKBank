@@ -2,8 +2,13 @@ package utility;
 
 import java.security.MessageDigest;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+
+import exceptions.AppException;
+import helpers.UserRecord;
 
 public class ConvertorUtil {
 
@@ -24,7 +29,22 @@ public class ConvertorUtil {
 		return null;
 	}
 
-	public static ZonedDateTime convertLongToLocalDate(long dateTime) {
+	public static ZonedDateTime convertLongZonedDateTime(long dateTime) {
 		return ZonedDateTime.ofInstant(Instant.ofEpochMilli(dateTime), ZoneId.systemDefault());
+	}
+
+	public static LocalDate convertLongToLocalDate(long dateTime) {
+		return LocalDate.ofInstant(Instant.ofEpochMilli(dateTime), ZoneId.systemDefault());
+	}
+
+	public static long convertToMilliSeconds(ZonedDateTime dateTime) throws AppException {
+		ValidatorUtil.validateObject(dateTime);
+		return dateTime.toInstant().toEpochMilli();
+	}
+
+	public static String passwordGenerator(UserRecord user) throws AppException {
+		ValidatorUtil.validateObject(user);
+		return passwordHasher(user.getFirstName().substring(0, 4) + "@"
+				+ user.getDateOfBirthInLocalDate().format(DateTimeFormatter.BASIC_ISO_DATE).substring(4, 8));
 	}
 }

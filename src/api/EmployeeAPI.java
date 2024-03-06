@@ -6,9 +6,9 @@ import exceptions.AppException;
 import helpers.Account;
 import helpers.CustomerRecord;
 import helpers.EmployeeRecord;
-import utility.HelperUtil.AccountType;
-import utility.HelperUtil.ModifiableField;
-import utility.HelperUtil.Status;
+import utility.ConstantsUtil.AccountType;
+import utility.ConstantsUtil.ModifiableField;
+import utility.ConstantsUtil.Status;
 
 public interface EmployeeAPI extends UserAPI {
 

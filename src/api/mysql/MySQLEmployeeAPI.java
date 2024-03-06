@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Map;
 
 import api.EmployeeAPI;
-import api.mysql.MySQLQueryUtil.Fields;
-import api.mysql.MySQLQueryUtil.Schemas;
+import api.mysql.MySQLQuery.Fields;
+import api.mysql.MySQLQuery.Schemas;
 import exceptions.AppException;
 import exceptions.messages.APIExceptionMessage;
 import helpers.Account;
@@ -20,19 +20,19 @@ import helpers.EmployeeRecord;
 import helpers.Transaction;
 import helpers.UserRecord;
 import utility.ConvertorUtil;
-import utility.HelperUtil;
+import utility.ConstantsUtil;
 import utility.ValidatorUtil;
-import utility.HelperUtil.AccountType;
-import utility.HelperUtil.ModifiableField;
-import utility.HelperUtil.Status;
-import utility.HelperUtil.TransactionType;
+import utility.ConstantsUtil.AccountType;
+import utility.ConstantsUtil.ModifiableField;
+import utility.ConstantsUtil.Status;
+import utility.ConstantsUtil.TransactionType;
 
 public class MySQLEmployeeAPI extends MySQLUserAPI implements EmployeeAPI {
 
 	private void createUserRecord(UserRecord user) throws AppException {
 		ValidatorUtil.validateObject(user);
 
-		MySQLQueryUtil queryBuilder = new MySQLQueryUtil();
+		MySQLQuery queryBuilder = new MySQLQuery();
 		queryBuilder.insertInto(Schemas.USERS);
 		queryBuilder.insertFields(List.of(Fields.FIRST_NAME, Fields.LAST_NAME, Fields.DATE_OF_BIRTH, Fields.GENDER,
 				Fields.ADDRESS, Fields.MOBILE, Fields.EMAIL));
@@ -65,7 +65,7 @@ public class MySQLEmployeeAPI extends MySQLUserAPI implements EmployeeAPI {
 	private void createCredentialRecord(UserRecord user) throws AppException {
 		ValidatorUtil.validatePositiveNumber(user.getUserId());
 
-		MySQLQueryUtil queryBuilder = new MySQLQueryUtil();
+		MySQLQuery queryBuilder = new MySQLQuery();
 		queryBuilder.insertInto(Schemas.CREDENTIALS);
 		queryBuilder.insertValuePlaceholders(2);
 		queryBuilder.end();
@@ -73,8 +73,7 @@ public class MySQLEmployeeAPI extends MySQLUserAPI implements EmployeeAPI {
 		try (PreparedStatement statement = ServerConnection.getServerConnection()
 				.prepareStatement(queryBuilder.getQuery())) {
 			statement.setInt(1, user.getUserId());
-			statement.setString(2, ConvertorUtil.passwordHasher(user.getFirstName().substring(0, 4) + "@"
-					+ user.getDateOfBirthInLocalDate().format(DateTimeFormatter.BASIC_ISO_DATE).substring(4, 8)));
+			statement.setString(2, ConvertorUtil.passwordGenerator(user));
 			statement.executeUpdate();
 		} catch (SQLException e) {
 			throw new AppException(e.getMessage());
@@ -91,7 +90,7 @@ public class MySQLEmployeeAPI extends MySQLUserAPI implements EmployeeAPI {
 			createUserRecord(customer);
 
 			// create customer record
-			MySQLQueryUtil queryBuilder = new MySQLQueryUtil();
+			MySQLQuery queryBuilder = new MySQLQuery();
 			queryBuilder.insertInto(Schemas.CUSTOMERS);
 			queryBuilder.insertValuePlaceholders(3);
 			queryBuilder.end();
@@ -120,7 +119,7 @@ public class MySQLEmployeeAPI extends MySQLUserAPI implements EmployeeAPI {
 		ValidatorUtil.validatePositiveNumber(branchId);
 		ValidatorUtil.validatePositiveNumber(customerId);
 
-		MySQLQueryUtil queryBuilder = new MySQLQueryUtil();
+		MySQLQuery queryBuilder = new MySQLQuery();
 		queryBuilder.insertInto(Schemas.ACCOUNTS);
 		queryBuilder.insertFields(List.of(Fields.USER_ID, Fields.TYPE, Fields.BRANCH_ID, Fields.OPENING_DATE));
 		queryBuilder.end();
@@ -149,14 +148,14 @@ public class MySQLEmployeeAPI extends MySQLUserAPI implements EmployeeAPI {
 	public Map<Long, Account> viewAccountsInBranch(int branchId, int pageNumber) throws AppException {
 		Map<Long, Account> accounts = new HashMap<Long, Account>();
 
-		MySQLQueryUtil queryBuilder = new MySQLQueryUtil();
+		MySQLQuery queryBuilder = new MySQLQuery();
 		queryBuilder.selectField(Fields.ALL);
 		queryBuilder.fromTable(Schemas.ACCOUNTS);
 		queryBuilder.where();
 		queryBuilder.fieldEquals(Fields.BRANCH_ID);
 		queryBuilder.sortField(Fields.OPENING_DATE, true);
-		queryBuilder.limit(HelperUtil.LIST_LIMIT);
-		queryBuilder.offset((pageNumber - 1) * HelperUtil.LIST_LIMIT);
+		queryBuilder.limit(ConstantsUtil.LIST_LIMIT);
+		queryBuilder.offset((pageNumber - 1) * ConstantsUtil.LIST_LIMIT);
 		queryBuilder.end();
 
 		try (PreparedStatement statement = ServerConnection.getServerConnection()
@@ -244,7 +243,7 @@ public class MySQLEmployeeAPI extends MySQLUserAPI implements EmployeeAPI {
 		ValidatorUtil.validateObject(pin);
 		ValidatorUtil.validateObject(status);
 
-		MySQLQueryUtil queryBuilder = new MySQLQueryUtil();
+		MySQLQuery queryBuilder = new MySQLQuery();
 		queryBuilder.update(Schemas.ACCOUNTS);
 		queryBuilder.setField(Fields.STATUS);
 		queryBuilder.where();
@@ -263,7 +262,7 @@ public class MySQLEmployeeAPI extends MySQLUserAPI implements EmployeeAPI {
 			if (response == 1) {
 				return true;
 			} else {
-				throw new AppException("Cannot change the account status.");
+				throw new AppException(APIExceptionMessage.STATUS_UPDATE_FAILED);
 			}
 		} catch (SQLException e) {
 			throw new AppException(e);

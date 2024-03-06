@@ -13,10 +13,10 @@ import helpers.CustomerRecord;
 import helpers.Transaction;
 import operations.CustomerOperations;
 import utility.ValidatorUtil;
-import utility.HelperUtil;
-import utility.HelperUtil.ModifiableField;
-import utility.HelperUtil.TransactionHistoryLimit;
-import utility.HelperUtil.TransactionType;
+import utility.ConstantsUtil;
+import utility.ConstantsUtil.ModifiableField;
+import utility.ConstantsUtil.TransactionHistoryLimit;
+import utility.ConstantsUtil.TransactionType;
 
 class CustomerRunner {
 
@@ -109,7 +109,7 @@ class CustomerRunner {
 							List<Transaction> transactions = (activity.getTransactionsOfAccount(accountNumber,
 									pageNumber, limit));
 							LoggingUtil.logTransactionsList(transactions);
-							if (transactions.size() == HelperUtil.LIST_LIMIT) {
+							if (transactions.size() == ConstantsUtil.LIST_LIMIT) {
 								log.info("Enter 1 to go to next page (or) 0 to exit : ");
 								int select = InputUtil.getPositiveInteger();
 								if (select == 1) {
@@ -197,13 +197,13 @@ class CustomerRunner {
 				case 6: {
 
 					log.info("Select a number to update : ");
-					int fieldCount = HelperUtil.USER_MODIFIABLE_FIELDS.size();
+					int fieldCount = ConstantsUtil.USER_MODIFIABLE_FIELDS.size();
 					for (int i = 0; i < fieldCount; i++) {
-						log.info((i + 1) + " : " + HelperUtil.USER_MODIFIABLE_FIELDS.get(i));
+						log.info((i + 1) + " : " + ConstantsUtil.USER_MODIFIABLE_FIELDS.get(i));
 					}
 					int selectedNumber = InputUtil.getPositiveInteger();
 					if (selectedNumber > 0 && selectedNumber <= fieldCount) {
-						ModifiableField selectedField = HelperUtil.USER_MODIFIABLE_FIELDS.get(selectedNumber - 1);
+						ModifiableField selectedField = ConstantsUtil.USER_MODIFIABLE_FIELDS.get(selectedNumber - 1);
 						Object change = null;
 						if (selectedField == ModifiableField.EMAIL) {
 							change = InputUtil.getString();

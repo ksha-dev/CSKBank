@@ -11,7 +11,7 @@ import helpers.EmployeeRecord;
 import helpers.UserRecord;
 import operations.HomeOperations;
 import utility.ValidatorUtil;
-import utility.HelperUtil.UserType;
+import utility.ConstantsUtil.UserType;
 
 public class AppRunner {
 	public static final Logger log = LoggingUtil.DEFAULT_LOGGER;

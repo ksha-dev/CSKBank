@@ -1,6 +1,6 @@
 package exceptions.messages;
 
-import utility.HelperUtil;
+import utility.ConstantsUtil;
 
 public enum ActivityExceptionMessages {
 
@@ -9,7 +9,7 @@ public enum ActivityExceptionMessages {
 	USER_AUTHORIZATION_FAILED("User Authorization failed."),
 	MINIMUM_DEPOSIT_REQUIRED(
 			"The deposit amount must meet the minimum required amount. The minimum deposit amount is Rs. "
-					+ HelperUtil.MINIMUM_DEPOSIT_AMOUNT);
+					+ ConstantsUtil.MINIMUM_DEPOSIT_AMOUNT);
 
 	private String message;
 
