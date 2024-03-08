@@ -13,7 +13,7 @@ public class Transaction {
 	private TransactionType transactionType;
 	private double transactionAmount;
 	private double closingBalance;
-	private long dateTime;
+	private long timeStamp;
 	private String remarks;
 
 	public Transaction() throws AppException {
@@ -44,16 +44,16 @@ public class Transaction {
 		this.transactionType = TransactionType.valueOf(transactionType);
 	}
 
-	public void setTransactionAmount(double amount) {
+	public void setTransactedAmount(double amount) {
 		this.transactionAmount = amount;
 	}
 
-	public void setclosingBalance(double closingBalance) {
+	public void setClosingBalance(double closingBalance) {
 		this.closingBalance = closingBalance;
 	}
 
-	public void setDateTime(long dateTime) {
-		this.dateTime = dateTime;
+	public void setTimeStamp(long timeStamp) {
+		this.timeStamp = timeStamp;
 	}
 
 	public void setRemarks(String remarks) throws AppException {
@@ -91,8 +91,8 @@ public class Transaction {
 		return this.closingBalance;
 	}
 
-	public long getDateTime() {
-		return this.dateTime;
+	public long getTimeStamp() {
+		return this.timeStamp;
 	}
 
 	public String getRemarks() {

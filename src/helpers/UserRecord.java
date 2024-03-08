@@ -63,7 +63,7 @@ public abstract class UserRecord {
 		this.address = address;
 	}
 
-	public void setMobileNumber(long mobileNumber) throws AppException {
+	public void setPhone(long mobileNumber) throws AppException {
 		ValidatorUtil.validateMobileNumber(mobileNumber);
 		this.mobileNumber = mobileNumber;
 	}
@@ -108,7 +108,7 @@ public abstract class UserRecord {
 		return ValidatorUtil.isObjectNull(address) ? "-" : address;
 	}
 
-	public long getMobileNumber() {
+	public long getPhone() {
 		return mobileNumber;
 	}
 
@@ -119,19 +119,5 @@ public abstract class UserRecord {
 
 	public UserType getType() {
 		return type;
-	}
-
-	protected void logUserRecord() {
-		Logger log = LoggingUtil.DEFAULT_LOGGER;
-		log.info("-".repeat(40));
-		log.info(String.format("%-40s", getType() + " DETAILS"));
-		log.info("-".repeat(40));
-		log.info(String.format("%-20s", "USER ID") + " : " + getUserId());
-		log.info(String.format("%-20s", "FIRST NAME") + " : " + firstName);
-		log.info(String.format("%-20s", "LAST NAME") + " : " + lastName);
-		log.info(String.format("%-20s", "DATE OF BIRTH") + " : " + getDateOfBirthInLocalDate());
-		log.info(String.format("%-20s", "GENDER") + " : " + getGender());
-		log.info(String.format("%-20s", "ADDRESS") + " : " + address);
-		log.info(String.format("%-20s", "E-MAIL") + " : " + email);
 	}
 }

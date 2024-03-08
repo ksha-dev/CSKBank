@@ -6,13 +6,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
-import api.mysql.MySQLQuery.Fields;
+import api.mysql.MySQLQuery.Column;
 import api.mysql.MySQLQuery.Schemas;
 import exceptions.AppException;
 import exceptions.messages.APIExceptionMessage;
 import helpers.CustomerRecord;
 import helpers.EmployeeRecord;
 import helpers.Transaction;
+import helpers.UserRecord;
+import utility.ConstantsUtil.Status;
 
 class MySQLAPIUtil {
 
@@ -46,9 +48,9 @@ class MySQLAPIUtil {
 	protected static void createSenderTransactionRecord(Transaction transaction) throws AppException {
 		MySQLQuery queryBuilder = new MySQLQuery();
 		queryBuilder.insertInto(Schemas.TRANSACTIONS);
-		queryBuilder.insertFields(List.of(Fields.USER_ID, Fields.VIEWER_ACCOUNT_NUMBER,
-				Fields.TRANSACTED_ACCOUNT_NUMBER, Fields.TRANSACTED_AMOUNT, Fields.TRANSACTION_TYPE,
-				Fields.CLOSING_BALANCE, Fields.TIME_STAMP, Fields.REMARKS));
+		queryBuilder.insertColumns(List.of(Column.USER_ID, Column.VIEWER_ACCOUNT_NUMBER,
+				Column.TRANSACTED_ACCOUNT_NUMBER, Column.TRANSACTED_AMOUNT, Column.TRANSACTION_TYPE,
+				Column.CLOSING_BALANCE, Column.TIME_STAMP, Column.REMARKS));
 		queryBuilder.end();
 
 		try (PreparedStatement statement = ServerConnection.getServerConnection()
@@ -78,18 +80,25 @@ class MySQLAPIUtil {
 	protected static boolean updateBalanceInAccount(long accountNumber, double balance) throws AppException {
 		MySQLQuery queryBuilder = new MySQLQuery();
 		queryBuilder.update(Schemas.ACCOUNTS);
-		queryBuilder.setField(Fields.BALANCE);
-		queryBuilder.where();
-		queryBuilder.fieldEquals(Fields.ACCOUNT_NUMBER);
+		queryBuilder.setColumn(Column.BALANCE);
 		queryBuilder.and();
-		queryBuilder.fieldEquals(Fields.STATUS);
+		queryBuilder.setColumn(Column.STATUS);
+		queryBuilder.and();
+		queryBuilder.setColumn(Column.LAST_TRANSACTED_AT);
+		queryBuilder.where();
+		queryBuilder.columnEquals(Column.ACCOUNT_NUMBER);
+		queryBuilder.and();
+		queryBuilder.not();
+		queryBuilder.columnEquals(Column.STATUS);
 		queryBuilder.end();
 
 		try (PreparedStatement updateAccountBalance = ServerConnection.getServerConnection()
 				.prepareStatement(queryBuilder.getQuery())) {
 			updateAccountBalance.setDouble(1, balance);
-			updateAccountBalance.setLong(2, accountNumber);
-			updateAccountBalance.setString(3, "ACTIVE");
+			updateAccountBalance.setString(2, Status.ACTIVE.toString());
+			updateAccountBalance.setLong(3, System.currentTimeMillis());
+			updateAccountBalance.setLong(4, accountNumber);
+			updateAccountBalance.setString(5, Status.CLOSED.toString());
 			int response = updateAccountBalance.executeUpdate();
 			return response == 1;
 		} catch (SQLException e) {
@@ -99,10 +108,10 @@ class MySQLAPIUtil {
 
 	protected static CustomerRecord getCustomerRecord(int userId) throws AppException {
 		MySQLQuery queryBuilder = new MySQLQuery();
-		queryBuilder.selectField(Fields.ALL);
-		queryBuilder.fromTable(Schemas.CUSTOMERS);
+		queryBuilder.selectColumn(Column.ALL);
+		queryBuilder.fromSchema(Schemas.CUSTOMERS);
 		queryBuilder.where();
-		queryBuilder.fieldEquals(Fields.USER_ID);
+		queryBuilder.columnEquals(Column.USER_ID);
 		queryBuilder.end();
 
 		try (PreparedStatement customerStatement = ServerConnection.getServerConnection()
@@ -123,10 +132,10 @@ class MySQLAPIUtil {
 	// TRANSACTION QUERIES
 	protected static EmployeeRecord getEmployeeRecord(int userId) throws AppException {
 		MySQLQuery queryBuilder = new MySQLQuery();
-		queryBuilder.selectField(Fields.ALL);
-		queryBuilder.fromTable(Schemas.EMPLOYEES);
+		queryBuilder.selectColumn(Column.ALL);
+		queryBuilder.fromSchema(Schemas.EMPLOYEES);
 		queryBuilder.where();
-		queryBuilder.fieldEquals(Fields.USER_ID);
+		queryBuilder.columnEquals(Column.USER_ID);
 		queryBuilder.end();
 
 		try (PreparedStatement employeeStatement = ServerConnection.getServerConnection()

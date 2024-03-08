@@ -7,7 +7,6 @@ import helpers.Account;
 import helpers.CustomerRecord;
 import helpers.EmployeeRecord;
 import utility.ConstantsUtil.AccountType;
-import utility.ConstantsUtil.ModifiableField;
 import utility.ConstantsUtil.Status;
 
 public interface EmployeeAPI extends UserAPI {
@@ -23,4 +22,5 @@ public interface EmployeeAPI extends UserAPI {
 	public long depositAmount(long accoutNumber, double amount, EmployeeRecord employee) throws AppException;
 
 	public long withdrawAmount(long accountNumber, double amount, EmployeeRecord employee) throws AppException;
+		
 }

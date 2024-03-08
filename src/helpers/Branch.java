@@ -14,12 +14,15 @@ public class Branch {
 	private String email;
 	private String ifscCode;
 
-	public Branch(int branchId) throws AppException {
-		ValidatorUtil.validatePositiveNumber(branchId);
-		this.branchId = branchId;
+	public Branch() {
 	}
 
 	// setters
+
+	public void setBrachId(int branchId) throws AppException {
+		ValidatorUtil.validatePositiveNumber(branchId);
+		this.branchId = branchId;
+	}
 
 	public void setAddress(String address) throws AppException {
 		ValidatorUtil.validateObject(address);
@@ -36,7 +39,7 @@ public class Branch {
 		this.email = email;
 	}
 
-	public void setIFSCCode(String ifscCode) throws AppException {
+	public void setIfscCode(String ifscCode) throws AppException {
 		ValidatorUtil.validateObject(ifscCode);
 		this.ifscCode = ifscCode;
 	}
@@ -59,7 +62,7 @@ public class Branch {
 		return this.email;
 	}
 
-	public String getIFSCCode() {
+	public String getIfscCode() {
 		return this.ifscCode;
 	}
 
@@ -71,6 +74,6 @@ public class Branch {
 		log.info(String.format("%-20s", "ADDRESS") + " : " + getAddress());
 		log.info(String.format("%-20s", "PHONE") + " : " + getPhone());
 		log.info(String.format("%-20s", "EMAIL") + " : " + getEmail());
-		log.info(String.format("%-20s", "IFSC CODE") + " : " + getIFSCCode());
+		log.info(String.format("%-20s", "IFSC CODE") + " : " + getIfscCode());
 	}
 }

@@ -2,7 +2,7 @@ select * from customers;
 select * from accounts;
 select * from transactions;
 select * from branch;
-select * from users;accounts
+select * from users;
 select * from employees;
 select * from credentials;
 
@@ -22,3 +22,15 @@ drop table transactions;
 update users set user_id = 1 where user_id = 1;
 update credentials set password = 'd3fc50c8f714cebd16d6c827826df01205bf519529f9d34775293cf9b70a420e' where user_id = 1;
 update credentials set pin = '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4';
+
+update accounts set last_transacted_date = (select time_stamp from transactions where viewer_account_number = 1 order by transaction_id desc limit 1) where account_number = 1;
+update accounts set last_transacted_date = (select time_stamp from transactions where viewer_account_number = 2 order by transaction_id desc limit 1) where account_number = 2;
+update accounts set last_transacted_date = (select time_stamp from transactions where viewer_account_number = 3 order by transaction_id desc limit 1) where account_number = 3;
+update accounts set last_transacted_date = (select time_stamp from transactions where viewer_account_number = 4 order by transaction_id desc limit 1) where account_number = 4;
+update accounts set last_transacted_date = (select time_stamp from transactions where viewer_account_number = 5 order by transaction_id desc limit 1) where account_number = 5;
+update accounts set last_transacted_date = (select time_stamp from transactions where viewer_account_number = 6 order by transaction_id desc limit 1) where account_number = 6;
+
+update employees set role = 'ADMIN' where role = '0';
+select opening_date from accounts where account_number = 4;
+update accounts set last_transacted_at =1709528357319 where account_number = 4;
+select * from employees where branch_id = ? limit 10 offset 0;

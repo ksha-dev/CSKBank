@@ -28,7 +28,6 @@ public class EmployeeOperations {
 	public EmployeeOperations(EmployeeRecord employee) throws AppException {
 		ValidatorUtil.validateObject(employee);
 		ValidatorUtil.validateId(employee.getUserId());
-		employee.logUserRecord();
 		if (employee.getType() != UserType.EMPLOYEE) {
 			throw new AppException(ActivityExceptionMessages.INVALID_EMPLOYEE_RECORD);
 		}
@@ -53,14 +52,16 @@ public class EmployeeOperations {
 		return (CustomerRecord) user;
 	}
 
-	public Account createNewCustomerAndAccount(CustomerRecord customer, AccountType accountType, double depositAmount) throws AppException {
+	public Account createNewCustomerAndAccount(CustomerRecord customer, AccountType accountType, double depositAmount)
+			throws AppException {
 		ValidatorUtil.validateObject(customer);
 
 		api.createCustomer(customer);
 		return createAccountForExistingCustomer(customer.getUserId(), accountType, depositAmount);
 	}
 
-	public Account createAccountForExistingCustomer(int customerId, AccountType accountType, double depositAmount) throws AppException {
+	public Account createAccountForExistingCustomer(int customerId, AccountType accountType, double depositAmount)
+			throws AppException {
 		ValidatorUtil.validateId(customerId);
 		ValidatorUtil.validateObject(accountType);
 		ValidatorUtil.validatePositiveNumber((long) depositAmount);
@@ -99,12 +100,19 @@ public class EmployeeOperations {
 
 	public boolean updateCustomerDetails(int customerId, ModifiableField field, Object value) throws AppException {
 		ValidatorUtil.validatePositiveNumber(customerId);
-		ValidatorUtil.validateObject(value);
 		ValidatorUtil.validateObject(field);
-		return api.updateProfile(customerId, field, value);
+		if (!ConstantsUtil.EMPLOYEE_MODIFIABLE_FIELDS.contains(field)) {
+			throw new AppException(ActivityExceptionMessages.MODIFICATION_ACCESS_DENIED);
+		}
+		ValidatorUtil.validateObject(value);
+		return api.updateProfileDetails(customerId, field, value);
 	}
 
 	public boolean updatePassword(int customerId, String oldPassword, String newPassword) throws AppException {
+		ValidatorUtil.validateId(customerId);
+		ValidatorUtil.validatePassword(oldPassword);
+		ValidatorUtil.validatePassword(newPassword);
+
 		return api.updatePassword(customerId, oldPassword, newPassword);
 	}
 }

@@ -11,15 +11,33 @@ public class ConstantsUtil {
 
 	public static final int LIST_LIMIT = 10;
 	public static final double MINIMUM_DEPOSIT_AMOUNT = 2000.0;
-	public static final List<ModifiableField> USER_MODIFIABLE_FIELDS = List.of(ModifiableField.ADDRESS,
-			ModifiableField.MOBILE, ModifiableField.EMAIL);
+	public static final List<ModifiableField> USER_MODIFIABLE_FIELDS;
+	public static final List<ModifiableField> EMPLOYEE_MODIFIABLE_FIELDS;
+	public static final List<ModifiableField> ADMIN_MODIFIABLE_FIELDS;
+
+	static {
+		List<ModifiableField> tempList = List.of(ModifiableField.ADDRESS, ModifiableField.PHONE, ModifiableField.EMAIL);
+		USER_MODIFIABLE_FIELDS = tempList;
+
+		tempList.addAll(List.of(ModifiableField.FIRST_NAME, ModifiableField.LAST_NAME, ModifiableField.DATE_OF_BIRTH,
+				ModifiableField.AADHAAR_NUMBER, ModifiableField.PAN_NUMBER));
+		EMPLOYEE_MODIFIABLE_FIELDS = tempList;
+
+		tempList.addAll(List.of(ModifiableField.ROLE, ModifiableField.BRANCH_ID));
+		ADMIN_MODIFIABLE_FIELDS = tempList;
+	}
 
 	public static enum ModifiableField {
-		ADDRESS, MOBILE, EMAIL, DATE_OF_BIRTH, GENDER, AADHAAR_NUMBER, PAN_NUMBER, FIRST_NAME, LAST_NAME
+		ADDRESS, PHONE, EMAIL, DATE_OF_BIRTH, GENDER, AADHAAR_NUMBER, PAN_NUMBER, FIRST_NAME, LAST_NAME, ROLE,
+		BRANCH_ID, STATUS, TYPE
 	}
 
 	public static enum UserType {
 		CUSTOMER, EMPLOYEE
+	}
+
+	public static enum EmployeeType {
+		EMPLOYEE, ADMIN
 	}
 
 	public static enum Status {

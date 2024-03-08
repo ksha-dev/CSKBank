@@ -47,4 +47,14 @@ public class ConvertorUtil {
 		return passwordHasher(user.getFirstName().substring(0, 4) + "@"
 				+ user.getDateOfBirthInLocalDate().format(DateTimeFormatter.BASIC_ISO_DATE).substring(4, 8));
 	}
+
+	public static String ifscGenerator(int branchId) throws AppException {
+		ValidatorUtil.validateId(branchId);
+		return String.format("CSKB0%06d", branchId);
+	}
+
+	public static int convertPageToOffset(int pageNumber) throws AppException {
+		ValidatorUtil.validateId(pageNumber);
+		return (pageNumber - 1) * ConstantsUtil.LIST_LIMIT;
+	}
 }

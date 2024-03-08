@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import api.EmployeeAPI;
-import api.mysql.MySQLQuery.Fields;
+import api.mysql.MySQLQuery.Column;
 import api.mysql.MySQLQuery.Schemas;
 import exceptions.AppException;
 import exceptions.messages.APIExceptionMessage;
@@ -29,13 +29,13 @@ import utility.ConstantsUtil.TransactionType;
 
 public class MySQLEmployeeAPI extends MySQLUserAPI implements EmployeeAPI {
 
-	private void createUserRecord(UserRecord user) throws AppException {
+	protected void createUserRecord(UserRecord user) throws AppException {
 		ValidatorUtil.validateObject(user);
 
 		MySQLQuery queryBuilder = new MySQLQuery();
 		queryBuilder.insertInto(Schemas.USERS);
-		queryBuilder.insertFields(List.of(Fields.FIRST_NAME, Fields.LAST_NAME, Fields.DATE_OF_BIRTH, Fields.GENDER,
-				Fields.ADDRESS, Fields.MOBILE, Fields.EMAIL));
+		queryBuilder.insertColumns(List.of(Column.FIRST_NAME, Column.LAST_NAME, Column.DATE_OF_BIRTH, Column.GENDER,
+				Column.ADDRESS, Column.PHONE, Column.EMAIL));
 		queryBuilder.end();
 
 		try (PreparedStatement statement = ServerConnection.getServerConnection()
@@ -45,7 +45,7 @@ public class MySQLEmployeeAPI extends MySQLUserAPI implements EmployeeAPI {
 			statement.setLong(3, user.getDateOfBirth());
 			statement.setString(4, user.getGender().toString());
 			statement.setString(5, user.getAddress());
-			statement.setLong(6, user.getMobileNumber());
+			statement.setLong(6, user.getPhone());
 			statement.setString(7, user.getEmail());
 
 			statement.executeUpdate();
@@ -62,7 +62,7 @@ public class MySQLEmployeeAPI extends MySQLUserAPI implements EmployeeAPI {
 		}
 	}
 
-	private void createCredentialRecord(UserRecord user) throws AppException {
+	protected void createCredentialRecord(UserRecord user) throws AppException {
 		ValidatorUtil.validatePositiveNumber(user.getUserId());
 
 		MySQLQuery queryBuilder = new MySQLQuery();
@@ -108,7 +108,7 @@ public class MySQLEmployeeAPI extends MySQLUserAPI implements EmployeeAPI {
 			} else {
 				throw new AppException(APIExceptionMessage.USER_CREATION_FAILED);
 			}
-		} catch (SQLException | AppException e) {
+		} catch (SQLException e) {
 			ServerConnection.reverseTransaction();
 			throw new AppException(e.getMessage());
 		}
@@ -121,7 +121,7 @@ public class MySQLEmployeeAPI extends MySQLUserAPI implements EmployeeAPI {
 
 		MySQLQuery queryBuilder = new MySQLQuery();
 		queryBuilder.insertInto(Schemas.ACCOUNTS);
-		queryBuilder.insertFields(List.of(Fields.USER_ID, Fields.TYPE, Fields.BRANCH_ID, Fields.OPENING_DATE));
+		queryBuilder.insertColumns(List.of(Column.USER_ID, Column.TYPE, Column.BRANCH_ID, Column.OPENING_DATE));
 		queryBuilder.end();
 
 		try (PreparedStatement statement = ServerConnection.getServerConnection()
@@ -149,13 +149,13 @@ public class MySQLEmployeeAPI extends MySQLUserAPI implements EmployeeAPI {
 		Map<Long, Account> accounts = new HashMap<Long, Account>();
 
 		MySQLQuery queryBuilder = new MySQLQuery();
-		queryBuilder.selectField(Fields.ALL);
-		queryBuilder.fromTable(Schemas.ACCOUNTS);
+		queryBuilder.selectColumn(Column.ALL);
+		queryBuilder.fromSchema(Schemas.ACCOUNTS);
 		queryBuilder.where();
-		queryBuilder.fieldEquals(Fields.BRANCH_ID);
-		queryBuilder.sortField(Fields.OPENING_DATE, true);
+		queryBuilder.columnEquals(Column.BRANCH_ID);
+		queryBuilder.sortField(Column.ACCOUNT_NUMBER, true);
 		queryBuilder.limit(ConstantsUtil.LIST_LIMIT);
-		queryBuilder.offset((pageNumber - 1) * ConstantsUtil.LIST_LIMIT);
+		queryBuilder.offset(ConvertorUtil.convertPageToOffset(pageNumber));
 		queryBuilder.end();
 
 		try (PreparedStatement statement = ServerConnection.getServerConnection()
@@ -186,9 +186,9 @@ public class MySQLEmployeeAPI extends MySQLUserAPI implements EmployeeAPI {
 			Transaction depositTransaction = new Transaction();
 			depositTransaction.setUserId(customerAccount.getUserId());
 			depositTransaction.setViewerAccountNumber(accountNumber);
-			depositTransaction.setTransactionAmount(amount);
+			depositTransaction.setTransactedAmount(amount);
 			depositTransaction.setTransactionType(TransactionType.CREDIT.toString());
-			depositTransaction.setclosingBalance(customerAccount.getBalance() + amount);
+			depositTransaction.setClosingBalance(customerAccount.getBalance() + amount);
 			depositTransaction.setRemarks(
 					"Bank-Deposit/BranchId-" + employee.getBranchId() + "/EmployeeId-" + employee.getUserId());
 
@@ -219,9 +219,9 @@ public class MySQLEmployeeAPI extends MySQLUserAPI implements EmployeeAPI {
 			Transaction withdrawTransaction = new Transaction();
 			withdrawTransaction.setUserId(customerAccount.getUserId());
 			withdrawTransaction.setViewerAccountNumber(accountNumber);
-			withdrawTransaction.setTransactionAmount(amount);
+			withdrawTransaction.setTransactedAmount(amount);
 			withdrawTransaction.setTransactionType(TransactionType.DEBIT.toString());
-			withdrawTransaction.setclosingBalance(customerAccount.getBalance() - amount);
+			withdrawTransaction.setClosingBalance(customerAccount.getBalance() - amount);
 			withdrawTransaction.setRemarks(
 					"Bank-Withdrawal/BranchId-" + employee.getBranchId() + "/EmployeeId-" + employee.getUserId());
 			MySQLAPIUtil.createSenderTransactionRecord(withdrawTransaction);
@@ -243,13 +243,20 @@ public class MySQLEmployeeAPI extends MySQLUserAPI implements EmployeeAPI {
 		ValidatorUtil.validateObject(pin);
 		ValidatorUtil.validateObject(status);
 
+		Status currentStatus = getAccountDetails(accountNumber).getStatus();
+		if (currentStatus == Status.CLOSED) {
+			throw new AppException(APIExceptionMessage.CANNOT_MODIFY_STATUS);
+		} else if(currentStatus==status) {
+			throw new AppException("");
+		}
+
 		MySQLQuery queryBuilder = new MySQLQuery();
 		queryBuilder.update(Schemas.ACCOUNTS);
-		queryBuilder.setField(Fields.STATUS);
+		queryBuilder.setColumn(Column.STATUS);
 		queryBuilder.where();
-		queryBuilder.fieldEquals(Fields.ACCOUNT_NUMBER);
+		queryBuilder.columnEquals(Column.ACCOUNT_NUMBER);
 		queryBuilder.and();
-		queryBuilder.fieldEquals(Fields.BRANCH_ID);
+		queryBuilder.columnEquals(Column.BRANCH_ID);
 		queryBuilder.end();
 
 		try (PreparedStatement statement = ServerConnection.getServerConnection()

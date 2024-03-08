@@ -52,6 +52,7 @@ create table accounts (
     type enum('SAVINGS', 'SALARY', 'CURRENT') not null default 'SAVINGS',
     branch_id int not null,
     opening_date bigint not null,
+    last_transaction_date bigint null,
     balance double not null,
     status enum('ACTIVE', 'INACTIVE', 'CLOSED', 'FROZEN') not null default 'ACTIVE',
     primary key (account_number),

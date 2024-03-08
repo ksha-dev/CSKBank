@@ -32,13 +32,5 @@ public class CustomerRecord extends UserRecord {
 		ValidatorUtil.validatePANNumber(panNumber);
 		return this.panNumber;
 	}
-
-	@Override
-	public void logUserRecord() {
-		Logger log = LoggingUtil.DEFAULT_LOGGER;
-		super.logUserRecord();
-		log.info(String.format("%-20s", "AADHAAR") + " : " + aadhaarNumber);
-		log.info(String.format("%-20s", "PAN") + " : " + panNumber);
-
-	}
+	
 }

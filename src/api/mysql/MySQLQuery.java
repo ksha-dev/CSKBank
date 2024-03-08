@@ -3,7 +3,7 @@ package api.mysql;
 import java.util.List;
 import java.util.StringJoiner;
 
-import api.mysql.MySQLQuery.Fields;
+import api.mysql.MySQLQuery.Column;
 import api.mysql.MySQLQuery.Schemas;
 import exceptions.AppException;
 import utility.ConstantsUtil;
@@ -22,11 +22,11 @@ class MySQLQuery {
 		}
 	}
 
-	public static enum Fields {
-		USER_ID, PASSWORD, FIRST_NAME, LAST_NAME, DATE_OF_BIRTH, GENDER, ADDRESS, MOBILE, EMAIL, STATUS, TYPE,
+	public static enum Column {
+		USER_ID, PASSWORD, FIRST_NAME, LAST_NAME, DATE_OF_BIRTH, GENDER, ADDRESS, PHONE, EMAIL, STATUS, TYPE,
 		AADHAAR_NUMBER, PAN_NUMBER, ROLE, BRANCH_ID, ACCOUNT_NUMBER, OPENING_DATE, BALANCE, CLOSING_BALANCE,
 		TRANSACTION_ID, REMARKS, VIEWER_ACCOUNT_NUMBER, TRANSACTED_ACCOUNT_NUMBER, TRANSACTED_AMOUNT, TRANSACTION_TYPE,
-		TIME_STAMP, ALL, PIN;
+		TIME_STAMP, ALL, PIN, LAST_TRANSACTED_AT, IFSC_CODE;
 
 		public String toString() {
 			return super.toString().toLowerCase();
@@ -37,22 +37,22 @@ class MySQLQuery {
 		query = new StringBuilder();
 	}
 
-	public void selectField(Fields field) throws AppException {
+	public void selectColumn(Column field) throws AppException {
 		ValidatorUtil.validateObject(field);
-		query.append("select " + (field == Fields.ALL ? "*" : field));
+		query.append("select " + (field == Column.ALL ? "*" : field));
 	}
 
-	public void fromTable(Schemas schema) throws AppException {
+	public void fromSchema(Schemas schema) throws AppException {
 		ValidatorUtil.validateObject(schema);
 		query.append(" from " + schema);
 	}
 
-	public void addTable(Schemas schema) throws AppException {
+	public void addSchema(Schemas schema) throws AppException {
 		ValidatorUtil.validateObject(schema);
 		query.append(", " + schema);
 	}
 
-	public void addField(Fields field) throws AppException {
+	public void addColumn(Column field) throws AppException {
 		ValidatorUtil.validateObject(field);
 		query.append(", " + field);
 	}
@@ -61,16 +61,28 @@ class MySQLQuery {
 		query.append(" where");
 	}
 
-	public void and() throws AppException {
+	public void and() {
 		query.append(" and");
 	}
 
-	public void fieldEquals(Fields field) throws AppException {
+	public void not() {
+		query.append(" not");
+	}
+
+	public void combinationStart() {
+		query.append(" (");
+	}
+
+	public void combinationEnd() {
+		query.append(")");
+	}
+
+	public void columnEquals(Column field) throws AppException {
 		ValidatorUtil.validateObject(field);
 		query.append(" " + field + " = ?");
 	}
 
-	public void fieldGreaterThan(Fields field) throws AppException {
+	public void columnGreaterThan(Column field) throws AppException {
 		ValidatorUtil.validateObject(field);
 		query.append(" " + field + " > ?");
 	}
@@ -84,9 +96,17 @@ class MySQLQuery {
 		query.append(";");
 	}
 
-	public void setField(Fields field) throws AppException {
+	public void setColumn(Column field) throws AppException {
 		ValidatorUtil.validateObject(field);
 		query.append(" set " + field + " = ?");
+	}
+
+	public void sortField(Column field, boolean isDescending) throws AppException {
+		ValidatorUtil.validateObject(field);
+		query.append(" order by " + field);
+		if (isDescending) {
+			query.append(" desc");
+		}
 	}
 
 	public void limit(int limit) throws AppException {
@@ -104,22 +124,14 @@ class MySQLQuery {
 		query.append("insert into " + schema);
 	}
 
-	public void insertFields(List<Fields> fields) throws AppException {
+	public void insertColumns(List<Column> fields) throws AppException {
 		ValidatorUtil.validateCollection(fields);
 		StringJoiner joinedFields = new StringJoiner(", ");
-		for (Fields field : fields) {
+		for (Column field : fields) {
 			joinedFields.add(field.toString());
 		}
 		query.append(" (" + joinedFields + ")");
 		insertValuePlaceholders(fields.size());
-	}
-
-	public void sortField(Fields field, boolean isDescending) throws AppException {
-		ValidatorUtil.validateObject(field);
-		query.append(" order by " + field);
-		if (isDescending) {
-			query.append(" desc");
-		}
 	}
 
 	public void insertValuePlaceholders(int valueCount) throws AppException {
@@ -132,6 +144,7 @@ class MySQLQuery {
 	}
 
 	public String getQuery() {
+		System.out.println(query.toString());
 		return query.toString();
 	}
 }

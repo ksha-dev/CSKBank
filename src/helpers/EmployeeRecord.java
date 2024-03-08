@@ -2,36 +2,30 @@ package helpers;
 
 import consoleRunner.utility.LoggingUtil;
 import exceptions.AppException;
+import utility.ConstantsUtil.EmployeeType;
 import utility.ValidatorUtil;
 
 public class EmployeeRecord extends UserRecord {
-	private int role;
+	private EmployeeType role;
 	private int branchId;
 
 	public EmployeeRecord() {
 	}
 
-	public void setRole(int role) throws AppException {
-		ValidatorUtil.validatePositiveNumber(role);
-		this.role = role;
+	public void setRole(String role) throws AppException {
+		ValidatorUtil.validateObject(role);
+		this.role = EmployeeType.valueOf(role);
 	}
 
 	public void setBranchId(int branchId) {
 		this.branchId = branchId;
 	}
 
-	public int getRole() {
+	public EmployeeType getRole() {
 		return role;
 	}
 
 	public int getBranchId() {
 		return branchId;
-	}
-
-	@Override
-	public void logUserRecord() {
-		super.logUserRecord();
-		LoggingUtil.DEFAULT_LOGGER.info(String.format("%-20s", "BRANCH ID") + " : " + branchId);
-
 	}
 }

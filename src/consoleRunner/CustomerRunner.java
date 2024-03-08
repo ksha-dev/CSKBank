@@ -66,7 +66,7 @@ class CustomerRunner {
 				}
 
 				case 1: {
-					activity.getCustomerRecord().logUserRecord();
+					LoggingUtil.logCustomerRecord(activity.getCustomerRecord());
 					break;
 				}
 
@@ -156,7 +156,7 @@ class CustomerRunner {
 
 					log.info("Enter the amount to tranfer : ");
 					double amount = InputUtil.getDouble();
-					transaction.setTransactionAmount(amount);
+					transaction.setTransactedAmount(amount);
 
 					log.info("Enter Remarks : ");
 					String remarks = InputUtil.getString();
@@ -208,7 +208,7 @@ class CustomerRunner {
 						if (selectedField == ModifiableField.EMAIL) {
 							change = InputUtil.getString();
 							ValidatorUtil.validateEmail(change.toString());
-						} else if (selectedField == ModifiableField.MOBILE) {
+						} else if (selectedField == ModifiableField.PHONE) {
 							change = InputUtil.getPositiveLong();
 							ValidatorUtil.validateMobileNumber((long) change);
 						} else {

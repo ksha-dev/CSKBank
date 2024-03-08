@@ -32,12 +32,12 @@ public class AppRunner {
 			try {
 				do {
 
-				log.info("Enter your choice : ");
-				choice = InputUtil.getPositiveInteger();
-				if (choice < 0 || choice > runnerChoices) {
-					log.warning("Invalid number. Please enter a number between 0 and " + runnerChoices);
-				}
-			} while (choice < 0 || choice > runnerChoices);
+					log.info("Enter your choice : ");
+					choice = InputUtil.getPositiveInteger();
+					if (choice < 0 || choice > runnerChoices) {
+						log.warning("Invalid number. Please enter a number between 0 and " + runnerChoices);
+					}
+				} while (choice < 0 || choice > runnerChoices);
 
 				switch (choice) {
 				case 0:
@@ -60,8 +60,10 @@ public class AppRunner {
 					ValidatorUtil.validatePassword(password);
 					user = activity.authenticateUser(userID, password);
 					if (user.getType().equals(UserType.EMPLOYEE)) {
+						LoggingUtil.logEmployeeRecord((EmployeeRecord) user);
 						EmployeeRunner.run((EmployeeRecord) user);
 					} else if (user.getType().equals(UserType.CUSTOMER)) {
+						LoggingUtil.logCustomerRecord((CustomerRecord) user);
 						CustomerRunner.run((CustomerRecord) user);
 					}
 				}

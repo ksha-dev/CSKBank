@@ -16,6 +16,7 @@ import helpers.Transaction;
 import operations.EmployeeOperations;
 import utility.ValidatorUtil;
 import utility.ConstantsUtil.AccountType;
+import utility.ConstantsUtil.EmployeeType;
 import utility.ConstantsUtil.ModifiableField;
 import utility.ConstantsUtil.TransactionHistoryLimit;
 import utility.ConstantsUtil;
@@ -26,7 +27,7 @@ class EmployeeRunner {
 
 	public static void run(EmployeeRecord employee) throws AppException {
 		boolean isProgramActive = true;
-		int runnerOperations = 11;
+		int runnerOperations = 12;
 		EmployeeOperations activity = new EmployeeOperations(employee);
 
 		while (isProgramActive) {
@@ -43,8 +44,9 @@ class EmployeeRunner {
 					+ "\n4 - Open a new account for a new customer" + "\n5 - View transactions of an account"
 					+ "\n6 - Open a new account for an existing customer" + "\n7 - View Employee Branch Details"
 					+ "\n8 - Deposit money into an account" + "\n9 - Withdraw money from an account"
-					+ "\n10 - Update Customer details" + "\n11 - Update Password" + "\n\nTo logout, enter 0\n"
-					+ "-".repeat(30));
+					+ "\n10 - Update Customer details" + "\n11 - Update Password"
+					+ (employee.getRole() == EmployeeType.ADMIN ? "\n12 - Go to Admin Portal" : "")
+					+ "\n\nTo logout, enter 0\n" + "-".repeat(30));
 
 			int choice = -1;
 			do {
@@ -69,7 +71,7 @@ class EmployeeRunner {
 					break;
 
 				case 1:
-					activity.getEmployeeRecord().logUserRecord();
+					LoggingUtil.logEmployeeRecord(activity.getEmployeeRecord());
 					break;
 
 				case 2: {
@@ -97,7 +99,7 @@ class EmployeeRunner {
 					log.info("Enter customer Id : ");
 					int customerId = InputUtil.getPositiveInteger();
 					if (customerId > 0) {
-						activity.getCustomerRecord(customerId).logUserRecord();
+						LoggingUtil.logCustomerRecord(activity.getCustomerRecord(customerId));
 					}
 				}
 					break;
@@ -228,7 +230,7 @@ class EmployeeRunner {
 							} else if (field.equals(ModifiableField.DATE_OF_BIRTH)) {
 								log.info("Enter Date of birth in DDMMYYYY Format : ");
 								value = InputUtil.getDate().toInstant().toEpochMilli();
-							} else if (field.equals(ModifiableField.MOBILE)) {
+							} else if (field.equals(ModifiableField.PHONE)) {
 								log.info("Enter mobile number : ");
 								value = InputUtil.getPositiveLong();
 								ValidatorUtil.validateMobileNumber((long) value);
@@ -270,9 +272,16 @@ class EmployeeRunner {
 							isProgramActive = false;
 						}
 					}
+
 				}
 					break;
 
+				case 12: {
+					if (employee.getRole() == EmployeeType.ADMIN) {
+						new AdminRunner().run(employee);
+					}
+				}
+					break;
 				default:
 					log.info("The choice is invalid");
 					break;
@@ -297,7 +306,7 @@ class EmployeeRunner {
 		customer.setGender(InputUtil.getString());
 
 		log.info("Enter Phone number : ");
-		customer.setMobileNumber(InputUtil.getPositiveLong());
+		customer.setPhone(InputUtil.getPositiveLong());
 
 		log.info("Enter Email : ");
 		customer.setEmail(InputUtil.getString());
@@ -314,7 +323,7 @@ class EmployeeRunner {
 		log.info("Enter PAN Number : ");
 		customer.setPanNumber(InputUtil.getString());
 
-		customer.logUserRecord();
+		LoggingUtil.logCustomerRecord(customer);
 
 		log.info("Enter deposit amount : ");
 		double amount = InputUtil.getPositiveDouble();

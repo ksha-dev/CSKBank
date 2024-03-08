@@ -10,8 +10,8 @@ public class AppException extends Exception {
 	public AppException(String message) {
 		super(message);
 	}
-	
-	public <E> AppException(E customEnum) {
+
+	public <T> AppException(T customEnum) {
 		super(customEnum.toString());
 	}
 }

@@ -19,12 +19,12 @@ public interface UserAPI {
 
 	public UserRecord getUserDetails(int userID) throws AppException;
 
-	public boolean updateProfile(int userID, ModifiableField field, Object value) throws AppException;
+	public boolean updateProfileDetails(int userID, ModifiableField field, Object value) throws AppException;
 
 	public boolean updatePassword(int customerID, String oldPassword, String newPassword) throws AppException;
 
 	public Branch getBrachDetails(int branchID) throws AppException;
-	
+
 	public Map<Long, Account> getAccountsOfUser(int userID) throws AppException;
 
 	public Account getAccountDetails(long accountNumber) throws AppException;

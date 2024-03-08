@@ -21,7 +21,7 @@ class MySQLConversionUtil {
 		EmployeeRecord employeeRecord = new EmployeeRecord();
 		try {
 			employeeRecord.setUserId(record.getInt(1));
-			employeeRecord.setRole(record.getInt(2));
+			employeeRecord.setRole(record.getString(2));
 			employeeRecord.setBranchId(record.getInt(3));
 		} catch (SQLException e) {
 		}
@@ -40,7 +40,7 @@ class MySQLConversionUtil {
 		return customerRecord;
 	}
 
-	protected static UserRecord updateUserRecord(ResultSet record, UserRecord user) throws AppException {
+	protected static void updateUserRecord(ResultSet record, UserRecord user) throws AppException {
 		ValidatorUtil.validateObject(record);
 		ValidatorUtil.validateObject(user);
 		try {
@@ -50,12 +50,11 @@ class MySQLConversionUtil {
 			user.setDateOfBirth(record.getLong(4));
 			user.setGender(record.getString(5));
 			user.setAddress(record.getString(6));
-			user.setMobileNumber(record.getLong(7));
+			user.setPhone(record.getLong(7));
 			user.setEmail(record.getString(8));
 			user.setType(record.getString(9));
 		} catch (SQLException e) {
 		}
-		return user;
 	}
 
 	protected static Account convertToAccount(ResultSet accountRS) throws AppException {
@@ -67,8 +66,9 @@ class MySQLConversionUtil {
 			account.setType(accountRS.getString(3));
 			account.setBranchId(accountRS.getInt(4));
 			account.setOpeningDate(accountRS.getLong(5));
-			account.setBalance(accountRS.getDouble(6));
-			account.setStatus(accountRS.getString(7));
+			account.setLastTransactedAt(accountRS.getLong(6));
+			account.setBalance(accountRS.getDouble(7));
+			account.setStatus(accountRS.getString(8));
 		} catch (SQLException e) {
 		}
 		return account;
@@ -83,10 +83,10 @@ class MySQLConversionUtil {
 			transaction.setUserId(transactionRS.getInt(2));
 			transaction.setViewerAccountNumber(transactionRS.getLong(3));
 			transaction.setTransactedAccountNumber(transactionRS.getLong(4));
-			transaction.setTransactionAmount(transactionRS.getDouble(5));
+			transaction.setTransactedAmount(transactionRS.getDouble(5));
 			transaction.setTransactionType(transactionRS.getString(6));
-			transaction.setclosingBalance(transactionRS.getDouble(7));
-			transaction.setDateTime(transactionRS.getLong(8));
+			transaction.setClosingBalance(transactionRS.getDouble(7));
+			transaction.setTimeStamp(transactionRS.getLong(8));
 			transaction.setRemarks(transactionRS.getString(9));
 		} catch (SQLException e) {
 		}

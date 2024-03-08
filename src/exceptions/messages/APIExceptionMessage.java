@@ -13,13 +13,19 @@ public enum APIExceptionMessage {
 
 	USER_CREATION_FAILED("Unable to create user record at the moment. Please try again later"),
 	EMPLOYEE_CREATION_FAILED("Unable to create employee record at the moment. Please try again later"),
-
 	ACCOUNT_CREATION_FAILED("Failed to create a new Account. Please try again later."),
 	CUSTOMER_CREATION_FAILED("Unable to create customer record at the moment. Pleasy try again later"),
-
+	BRANCH_CREATION_FAILED("Failed to create Branch Record"),
+	
+	
 	UNKNOWN_ERROR("An unexpected error occured. Please try again after sometime"),
+	CANNOT_MODIFY_STATUS("The status of a closed account cannot be changed"),
+	ACCOUNT_RESTRICTED("This account has been restricted for transactions."),
+	
 
-	UPDATE_FAILED("Cannot update user details"), STATUS_UPDATE_FAILED("Cannot change the account status."),
+	UPDATE_FAILED("Cannot update the details. Please try again"), 
+	IFSC_CODE_UPDATE_FAILED("The IFSC Code of the bank could not be set. Record will not be created"),
+	STATUS_UPDATE_FAILED("Cannot change the account status."),
 	BALANCE_ACQUISITION_FAILED("The balance amount for the given account could not be obtained."),
 	INSUFFICIENT_BALANCE("The account selected does not contain sufficient balance for the transaction"),
 	TRANSACTION_FAILED("The transaction has failed. Any changes done will be reverted in few minutes."),

@@ -19,6 +19,7 @@ public class Account {
 	private int branchId;
 	private AccountType type;
 	private long openingDate;
+	private long lastTransactionAt;
 	private double balance;
 	private Status status;
 
@@ -43,6 +44,11 @@ public class Account {
 	public void setOpeningDate(long openingDate) throws AppException {
 		ValidatorUtil.validatePositiveNumber(openingDate);
 		this.openingDate = openingDate;
+	}
+
+	public void setLastTransactedAt(long lastTransactionDateTime) throws AppException {
+		ValidatorUtil.validatePositiveNumber(lastTransactionDateTime);
+		this.openingDate = lastTransactionDateTime;
 	}
 
 	public void setStatus(String status) throws AppException {
@@ -81,6 +87,10 @@ public class Account {
 
 	public long getOpeningDate() {
 		return this.openingDate;
+	}
+
+	public long getLastTransactedAt() {
+		return this.lastTransactionAt;
 	}
 
 	public LocalDate getOpeningDateInLocalDateTime() {

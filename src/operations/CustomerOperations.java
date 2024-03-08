@@ -67,18 +67,17 @@ public class CustomerOperations {
 
 	public boolean updateUserDetails(int userId, ModifiableField field, Object value, String pin) throws AppException {
 		ValidatorUtil.validateId(userId);
-		ValidatorUtil.validatePIN(pin);
-		ValidatorUtil.validateObject(value);
 		ValidatorUtil.validateObject(field);
+		if (!ConstantsUtil.USER_MODIFIABLE_FIELDS.contains(field)) {
+			throw new AppException(ActivityExceptionMessages.MODIFICATION_ACCESS_DENIED);
+		}
+		ValidatorUtil.validateObject(value);
 
-		if (ConstantsUtil.USER_MODIFIABLE_FIELDS.contains(field)) {
-			if (api.userConfimration(userId, pin)) {
-				return api.updateProfile(userId, field, value);
-			} else {
-				throw new AppException(ActivityExceptionMessages.USER_AUTHORIZATION_FAILED);
-			}
+		ValidatorUtil.validatePIN(pin);
+		if (api.userConfimration(userId, pin)) {
+			return api.updateProfileDetails(userId, field, value);
 		} else {
-			throw new AppException("Access denied. Cannot update this field by the user.");
+			throw new AppException(ActivityExceptionMessages.USER_AUTHORIZATION_FAILED);
 		}
 	}
 
