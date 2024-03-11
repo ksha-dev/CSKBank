@@ -3,12 +3,8 @@ package api.mysql;
 import java.util.List;
 import java.util.StringJoiner;
 
-import api.mysql.MySQLQuery.Column;
-import api.mysql.MySQLQuery.Schemas;
 import exceptions.AppException;
-import utility.ConstantsUtil;
 import utility.ValidatorUtil;
-import utility.ConstantsUtil.TransactionHistoryLimit;
 
 class MySQLQuery {
 
@@ -144,7 +140,6 @@ class MySQLQuery {
 	}
 
 	public String getQuery() {
-		System.out.println(query.toString());
 		return query.toString();
 	}
 }

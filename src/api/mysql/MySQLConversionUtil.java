@@ -2,7 +2,6 @@ package api.mysql;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.format.DateTimeFormatter;
 
 import exceptions.AppException;
 import helpers.Account;
@@ -10,7 +9,6 @@ import helpers.CustomerRecord;
 import helpers.EmployeeRecord;
 import helpers.Transaction;
 import helpers.UserRecord;
-import utility.ConstantsUtil;
 import utility.ValidatorUtil;
 
 class MySQLConversionUtil {

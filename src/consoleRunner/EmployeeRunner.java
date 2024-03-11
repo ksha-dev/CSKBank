@@ -181,7 +181,7 @@ class EmployeeRunner {
 
 				case 7: {
 					Branch branch = activity.getBrachDetails(employee.getBranchId());
-					branch.logBranch();
+					LoggingUtil.logBrach(branch);
 				}
 					break;
 

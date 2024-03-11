@@ -1,13 +1,9 @@
 package utility;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
-
-import consoleRunner.utility.LoggingUtil;
 
 public class ConstantsUtil {
-
-	public static Logger log = LoggingUtil.DEFAULT_LOGGER;
 
 	public static final int LIST_LIMIT = 10;
 	public static final double MINIMUM_DEPOSIT_AMOUNT = 2000.0;
@@ -16,11 +12,12 @@ public class ConstantsUtil {
 	public static final List<ModifiableField> ADMIN_MODIFIABLE_FIELDS;
 
 	static {
-		List<ModifiableField> tempList = List.of(ModifiableField.ADDRESS, ModifiableField.PHONE, ModifiableField.EMAIL);
+		List<ModifiableField> tempList = new ArrayList<>();
+		tempList.addAll(List.of(ModifiableField.ADDRESS, ModifiableField.PHONE, ModifiableField.EMAIL));
 		USER_MODIFIABLE_FIELDS = tempList;
 
-		tempList.addAll(List.of(ModifiableField.FIRST_NAME, ModifiableField.LAST_NAME, ModifiableField.DATE_OF_BIRTH,
-				ModifiableField.AADHAAR_NUMBER, ModifiableField.PAN_NUMBER));
+		tempList.addAll(List.of(ModifiableField.FIRST_NAME, ModifiableField.LAST_NAME, ModifiableField.GENDER,
+				ModifiableField.DATE_OF_BIRTH, ModifiableField.AADHAAR_NUMBER, ModifiableField.PAN_NUMBER));
 		EMPLOYEE_MODIFIABLE_FIELDS = tempList;
 
 		tempList.addAll(List.of(ModifiableField.ROLE, ModifiableField.BRANCH_ID));

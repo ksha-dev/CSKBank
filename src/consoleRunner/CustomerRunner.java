@@ -9,6 +9,7 @@ import consoleRunner.utility.LoggingUtil;
 import exceptions.AppException;
 import exceptions.messages.ActivityExceptionMessages;
 import helpers.Account;
+import helpers.Branch;
 import helpers.CustomerRecord;
 import helpers.Transaction;
 import operations.CustomerOperations;
@@ -189,7 +190,8 @@ class CustomerRunner {
 						accountNumber = InputUtil.getPositiveLong();
 					}
 					if (accounts.containsKey(accountNumber)) {
-						activity.getBranchDetailsOfAccount(accounts.get(accountNumber).getBranchId()).logBranch();
+						Branch branch = activity.getBranchDetailsOfAccount(accounts.get(accountNumber).getBranchId());
+						LoggingUtil.logBrach(branch);
 					}
 				}
 					break;

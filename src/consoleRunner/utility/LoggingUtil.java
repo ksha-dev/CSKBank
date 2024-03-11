@@ -13,12 +13,12 @@ import java.util.logging.SimpleFormatter;
 
 import exceptions.AppException;
 import helpers.Account;
+import helpers.Branch;
 import helpers.CustomerRecord;
 import helpers.EmployeeRecord;
 import helpers.Transaction;
 import helpers.UserRecord;
 import utility.ConvertorUtil;
-import utility.ConstantsUtil;
 import utility.ValidatorUtil;
 
 public class LoggingUtil {
@@ -76,7 +76,6 @@ public class LoggingUtil {
 
 	private static void logUserRecord(UserRecord user) throws AppException {
 		ValidatorUtil.validateObject(user);
-		Logger log = LoggingUtil.DEFAULT_LOGGER;
 		DEFAULT_LOGGER.info("-".repeat(40));
 		DEFAULT_LOGGER.info(String.format("%-40s", user.getType() + " DETAILS"));
 		DEFAULT_LOGGER.info("-".repeat(40));
@@ -111,7 +110,7 @@ public class LoggingUtil {
 		DEFAULT_LOGGER.info("   ID   | PARTICULARS" + " ".repeat(29)
 				+ " | ACCOUNT NUMBER |    DATE    |   AMOUNT   |   BALANCE  | TYPE");
 		DEFAULT_LOGGER.info("-".repeat(115));
-		transactions.forEach((transaction) -> ConstantsUtil.log
+		transactions.forEach((transaction) -> DEFAULT_LOGGER
 				.info(String.format(" %-6d | %-40s | %14d | %s | %10.2f | %10.2f | %s ", transaction.getTransactionId(),
 						transaction.getRemarks(), transaction.getTransactedAccountNumber(),
 						ConvertorUtil.convertLongToLocalDate(transaction.getTimeStamp())
@@ -130,5 +129,16 @@ public class LoggingUtil {
 				DEFAULT_LOGGER.info(e1.getMessage());
 			}
 		});
+	}
+
+	public static void logBrach(Branch branch) throws AppException {
+		DEFAULT_LOGGER.info("-".repeat(40));
+		DEFAULT_LOGGER.info(String.format("%-40s", "BRANCH DETAILS"));
+		DEFAULT_LOGGER.info("-".repeat(40));
+		DEFAULT_LOGGER.info(String.format("%-20s", "ID") + " : " + branch.getBranchId());
+		DEFAULT_LOGGER.info(String.format("%-20s", "ADDRESS") + " : " + branch.getAddress());
+		DEFAULT_LOGGER.info(String.format("%-20s", "PHONE") + " : " + branch.getPhone());
+		DEFAULT_LOGGER.info(String.format("%-20s", "EMAIL") + " : " + branch.getEmail());
+		DEFAULT_LOGGER.info(String.format("%-20s", "IFSC CODE") + " : " + branch.getIfscCode());
 	}
 }

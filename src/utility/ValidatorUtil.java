@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 
 import exceptions.AppException;
 import exceptions.messages.InvalidInputMessage;
+import utility.ConstantsUtil.Gender;
 
 public class ValidatorUtil {
 
@@ -16,8 +17,7 @@ public class ValidatorUtil {
 	private static final String PAN_REGEX = "^[A-Z]{3}[ABCFGHLJPT][A-Z]\\d{4}[A-Z]$";
 	private static final String PASSWORD_REGEX = "^((?=[^\\d])(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!_+-@^#$%&]).{8,20})$";
 
-	
-	//Common Validators
+	// Common Validators
 	public static boolean isObjectNull(Object object) {
 		return object == null;
 	}
@@ -61,7 +61,6 @@ public class ValidatorUtil {
 		}
 		return true;
 	}
-
 
 	public static void validateAadhaarNumber(long aadhaarNumber) throws AppException {
 		if (aadhaarNumber < 0 && aadhaarNumber > 999999999999L) {
@@ -107,6 +106,14 @@ public class ValidatorUtil {
 	public static void validateId(long id) throws AppException {
 		if (id < 1) {
 			throw new AppException(InvalidInputMessage.INVALID_ID);
+		}
+	}
+
+	public static void validateGender(String gender) throws AppException {
+		try {
+			Gender.valueOf(gender.toUpperCase());
+		} catch (Exception e) {
+			throw new AppException(InvalidInputMessage.INVALID_GENDER);
 		}
 	}
 }

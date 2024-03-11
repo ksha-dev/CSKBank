@@ -54,6 +54,7 @@ public class EmployeeOperations {
 
 	public Account createNewCustomerAndAccount(CustomerRecord customer, AccountType accountType, double depositAmount)
 			throws AppException {
+		customer.setType(UserType.CUSTOMER.toString());
 		ValidatorUtil.validateObject(customer);
 
 		api.createCustomer(customer);

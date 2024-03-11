@@ -48,6 +48,11 @@ public class ConvertorUtil {
 				+ user.getDateOfBirthInLocalDate().format(DateTimeFormatter.BASIC_ISO_DATE).substring(4, 8));
 	}
 
+	public static String pinGenerator(UserRecord user) throws AppException {
+		ValidatorUtil.validateObject(user);
+		return passwordHasher(String.format("%04d", user.getPhone() % 10000));
+	}
+
 	public static String ifscGenerator(int branchId) throws AppException {
 		ValidatorUtil.validateId(branchId);
 		return String.format("CSKB0%06d", branchId);

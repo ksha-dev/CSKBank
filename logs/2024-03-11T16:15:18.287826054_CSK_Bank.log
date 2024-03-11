@@ -54,6 +54,30 @@ ADDRESS              : Address
 E-MAIL               : admin@email.com
 ROLE                 : ADMIN
 BRANCH ID            : 1
+===============ADMIN PORTAL===============
+Enter a number to perform the following operation : 
+1 - Get all the employees in your branch
+2 - Get all the employees of any branch
+3 - Create an Employee
+
+To go back, enter 0
+------------------------------
+Enter your choice (0 to 8): 
+Enter employee id of the employee to modify details : 
+0 -> ROLE
+1 -> BRANCH_ID
+Enter an associated number to modify : 
+Enter 1 to set as Employee or 0 for Admin : 
+Unable to fetch details at the moment. Please try again later
+===============ADMIN PORTAL===============
+Enter a number to perform the following operation : 
+1 - Get all the employees in your branch
+2 - Get all the employees of any branch
+3 - Create an Employee
+
+To go back, enter 0
+------------------------------
+Enter your choice (0 to 8): 
 
 ===============EMPLOYEE PORTAL===============
 Enter a number to perform the following operation : 
@@ -73,48 +97,17 @@ Enter a number to perform the following operation :
 To logout, enter 0
 ------------------------------
 Enter your choice (0 to 12): 
+Enter 'YES' to confirm logout : 
+Logged out successfully.
 ----------------------------------------
-EMPLOYEE DETAILS                        
-----------------------------------------
-USER ID              : 1
-FIRST NAME           : ADMIN
-LAST NAME            : USER
-DATE OF BIRTH        : 2000-01-19
-GENDER               : MALE
-ADDRESS              : Address
-E-MAIL               : admin@email.com
-ROLE                 : ADMIN
-BRANCH ID            : 1
-===============ADMIN PORTAL===============
+===============HOME===============
 Enter a number to perform the following operation : 
-1 - Get all the employees in your branch
-2 - Get all the employees of any branch
-3 - Get all the employee records
+1 - Sign in to access your information
+2 - Apply for a new account
 
-To go back, enter 0
+To exit, enter 0
 ------------------------------
-Enter your choice (0 to 8): 
+Enter your choice : 
 ----------------------------------------
-null DETAILS                            
+Thank you for visiting us
 ----------------------------------------
-USER ID              : 1
-FIRST NAME           : ADMIN
-LAST NAME            : 1
-DATE OF BIRTH        : 1970-01-01
-GENDER               : null
-ADDRESS              : -
-A valid object is expected. Please provide an appropriate object
-===============ADMIN PORTAL===============
-Enter a number to perform the following operation : 
-1 - Get all the employees in your branch
-2 - Get all the employees of any branch
-3 - Get all the employee records
-
-To go back, enter 0
-------------------------------
-Enter your choice (0 to 8): 
-No line found
-Enter your choice (0 to 8): 
-No line found
-Enter your choice (0 to 8): 
-No line found

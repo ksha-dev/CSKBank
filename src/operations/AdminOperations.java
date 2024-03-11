@@ -11,6 +11,7 @@ import helpers.Branch;
 import helpers.EmployeeRecord;
 import utility.ConstantsUtil.EmployeeType;
 import utility.ConstantsUtil.ModifiableField;
+import utility.ConstantsUtil.UserType;
 import utility.ConstantsUtil;
 import utility.ValidatorUtil;
 
@@ -35,6 +36,8 @@ public class AdminOperations {
 
 	public boolean createEmployee(EmployeeRecord employee) throws AppException {
 		ValidatorUtil.validateObject(employee);
+		employee.setType(UserType.EMPLOYEE.toString());
+		employee.setRole(EmployeeType.EMPLOYEE.toString());
 		return api.createEmployee(employee);
 	}
 
@@ -68,5 +71,4 @@ public class AdminOperations {
 
 		return api.viewAccountsInBank(branchID, pageNumber);
 	}
-
 }

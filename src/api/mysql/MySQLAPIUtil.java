@@ -153,4 +153,27 @@ class MySQLAPIUtil {
 		}
 	}
 
+	protected static void getAndUpdateUserRecord(UserRecord userRecord) throws AppException {
+		MySQLQuery queryBuilder = new MySQLQuery();
+		queryBuilder.selectColumn(Column.ALL);
+		queryBuilder.fromSchema(Schemas.USERS);
+		queryBuilder.where();
+		queryBuilder.columnEquals(Column.USER_ID);
+		queryBuilder.end();
+
+		try (PreparedStatement statement = ServerConnection.getServerConnection()
+				.prepareStatement(queryBuilder.getQuery())) {
+			statement.setInt(1, userRecord.getUserId());
+			try (ResultSet record = statement.executeQuery()) {
+				if (record.next()) {
+					MySQLConversionUtil.updateUserRecord(record, userRecord);
+				} else {
+					throw new AppException(APIExceptionMessage.USER_NOT_FOUND);
+				}
+			}
+		} catch (SQLException e) {
+			throw new AppException(e.getMessage());
+		}
+	}
+
 }

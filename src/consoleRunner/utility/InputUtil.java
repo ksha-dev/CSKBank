@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 import exceptions.AppException;
 import exceptions.messages.InvalidInputMessage;
-import utility.ConstantsUtil;
 import utility.ValidatorUtil;
 
 public class InputUtil {
@@ -89,7 +88,7 @@ public class InputUtil {
 	}
 
 	public static String getPIN() throws AppException {
-		ConstantsUtil.log.info("Enter 4 digit secure PIN to confirm your request : ");
+		LoggingUtil.DEFAULT_LOGGER.info("Enter 4 digit secure PIN to confirm your request : ");
 		String pin = getString();
 		ValidatorUtil.validatePIN(pin);
 		return pin;

@@ -1,8 +1,5 @@
 package helpers;
 
-import java.util.logging.Logger;
-
-import consoleRunner.utility.LoggingUtil;
 import exceptions.AppException;
 import utility.ValidatorUtil;
 

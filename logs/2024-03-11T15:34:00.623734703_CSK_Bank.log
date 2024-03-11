@@ -89,31 +89,32 @@ BRANCH ID            : 1
 Enter a number to perform the following operation : 
 1 - Get all the employees in your branch
 2 - Get all the employees of any branch
-3 - Get all the employee records
+3 - Create an Employee
 
 To go back, enter 0
 ------------------------------
 Enter your choice (0 to 8): 
-----------------------------------------
-null DETAILS                            
-----------------------------------------
-USER ID              : 1
-FIRST NAME           : ADMIN
-LAST NAME            : 1
-DATE OF BIRTH        : 1970-01-01
-GENDER               : null
-ADDRESS              : -
-A valid object is expected. Please provide an appropriate object
+Enter employee id of the employee to modify details : 
+1 -> FIRST_NAME
+2 -> LAST_NAME
+3 -> DATE_OF_BIRTH
+4 -> GENDER
+5 -> ADDRESS
+6 -> PHONE
+7 -> EMAIL
+8 -> ROLE
+9 -> BRANCH_ID
+Enter an associated number to modify : 
+Enter branch ID : 
+Unable to fetch details at the moment. Please try again later
 ===============ADMIN PORTAL===============
 Enter a number to perform the following operation : 
 1 - Get all the employees in your branch
 2 - Get all the employees of any branch
-3 - Get all the employee records
+3 - Create an Employee
 
 To go back, enter 0
 ------------------------------
-Enter your choice (0 to 8): 
-No line found
 Enter your choice (0 to 8): 
 No line found
 Enter your choice (0 to 8): 

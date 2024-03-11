@@ -1,6 +1,5 @@
 package helpers;
 
-import consoleRunner.utility.LoggingUtil;
 import exceptions.AppException;
 import utility.ConstantsUtil.EmployeeType;
 import utility.ValidatorUtil;

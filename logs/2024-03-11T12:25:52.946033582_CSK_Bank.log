@@ -89,32 +89,70 @@ BRANCH ID            : 1
 Enter a number to perform the following operation : 
 1 - Get all the employees in your branch
 2 - Get all the employees of any branch
-3 - Get all the employee records
+3 - Create an Employee
 
 To go back, enter 0
 ------------------------------
 Enter your choice (0 to 8): 
-----------------------------------------
-null DETAILS                            
-----------------------------------------
-USER ID              : 1
-FIRST NAME           : ADMIN
-LAST NAME            : 1
-DATE OF BIRTH        : 1970-01-01
-GENDER               : null
-ADDRESS              : -
-A valid object is expected. Please provide an appropriate object
+Enter Employee First Name : 
+The first name must contain atleast 4 characters.
 ===============ADMIN PORTAL===============
 Enter a number to perform the following operation : 
 1 - Get all the employees in your branch
 2 - Get all the employees of any branch
-3 - Get all the employee records
+3 - Create an Employee
 
 To go back, enter 0
 ------------------------------
 Enter your choice (0 to 8): 
-No line found
+Enter Employee First Name : 
+Enter Employee Last Name : 
+Enter Gender (MALE, FEMALE, OTHER): 
+Enter Date of Birth in ddmmyyyy format: 
+Enter Address : 
+Enter Phone number : 
+Enter email ID : 
+Enter Brach ID : 
+Column count doesn't match value count at row 1
+===============ADMIN PORTAL===============
+Enter a number to perform the following operation : 
+1 - Get all the employees in your branch
+2 - Get all the employees of any branch
+3 - Create an Employee
+
+To go back, enter 0
+------------------------------
 Enter your choice (0 to 8): 
-No line found
-Enter your choice (0 to 8): 
-No line found
+
+===============EMPLOYEE PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - View list of accounts of your branch
+3 - View a customer details of an account
+4 - Open a new account for a new customer
+5 - View transactions of an account
+6 - Open a new account for an existing customer
+7 - View Employee Branch Details
+8 - Deposit money into an account
+9 - Withdraw money from an account
+10 - Update Customer details
+11 - Update Password
+12 - Go to Admin Portal
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 12): 
+Enter 'YES' to confirm logout : 
+Logged out successfully.
+----------------------------------------
+===============HOME===============
+Enter a number to perform the following operation : 
+1 - Sign in to access your information
+2 - Apply for a new account
+
+To exit, enter 0
+------------------------------
+Enter your choice : 
+----------------------------------------
+Thank you for visiting us
+----------------------------------------

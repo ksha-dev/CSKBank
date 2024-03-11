@@ -4,7 +4,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +22,6 @@ import utility.ConvertorUtil;
 import utility.ConstantsUtil;
 import utility.ValidatorUtil;
 import utility.ConstantsUtil.AccountType;
-import utility.ConstantsUtil.ModifiableField;
 import utility.ConstantsUtil.Status;
 import utility.ConstantsUtil.TransactionType;
 
@@ -35,7 +33,7 @@ public class MySQLEmployeeAPI extends MySQLUserAPI implements EmployeeAPI {
 		MySQLQuery queryBuilder = new MySQLQuery();
 		queryBuilder.insertInto(Schemas.USERS);
 		queryBuilder.insertColumns(List.of(Column.FIRST_NAME, Column.LAST_NAME, Column.DATE_OF_BIRTH, Column.GENDER,
-				Column.ADDRESS, Column.PHONE, Column.EMAIL));
+				Column.ADDRESS, Column.PHONE, Column.EMAIL, Column.TYPE));
 		queryBuilder.end();
 
 		try (PreparedStatement statement = ServerConnection.getServerConnection()
@@ -47,6 +45,7 @@ public class MySQLEmployeeAPI extends MySQLUserAPI implements EmployeeAPI {
 			statement.setString(5, user.getAddress());
 			statement.setLong(6, user.getPhone());
 			statement.setString(7, user.getEmail());
+			statement.setString(8, user.getType().toString());
 
 			statement.executeUpdate();
 			try (ResultSet key = statement.getGeneratedKeys()) {
@@ -67,13 +66,14 @@ public class MySQLEmployeeAPI extends MySQLUserAPI implements EmployeeAPI {
 
 		MySQLQuery queryBuilder = new MySQLQuery();
 		queryBuilder.insertInto(Schemas.CREDENTIALS);
-		queryBuilder.insertValuePlaceholders(2);
+		queryBuilder.insertValuePlaceholders(3);
 		queryBuilder.end();
 
 		try (PreparedStatement statement = ServerConnection.getServerConnection()
 				.prepareStatement(queryBuilder.getQuery())) {
 			statement.setInt(1, user.getUserId());
 			statement.setString(2, ConvertorUtil.passwordGenerator(user));
+			statement.setString(3, ConvertorUtil.pinGenerator(user));
 			statement.executeUpdate();
 		} catch (SQLException e) {
 			throw new AppException(e.getMessage());
@@ -246,7 +246,7 @@ public class MySQLEmployeeAPI extends MySQLUserAPI implements EmployeeAPI {
 		Status currentStatus = getAccountDetails(accountNumber).getStatus();
 		if (currentStatus == Status.CLOSED) {
 			throw new AppException(APIExceptionMessage.CANNOT_MODIFY_STATUS);
-		} else if(currentStatus==status) {
+		} else if (currentStatus == status) {
 			throw new AppException("");
 		}
 

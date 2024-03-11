@@ -79,7 +79,7 @@ public class MySQLAdminAPI extends MySQLEmployeeAPI implements AdminAPI {
 				throw new AppException(APIExceptionMessage.UPDATE_FAILED);
 			}
 		} catch (SQLException e) {
-			throw new AppException(APIExceptionMessage.CANNOT_FETCH_DETAILS);
+			throw new AppException(APIExceptionMessage.UNKNOWN_USER_OR_BRANCH);
 		}
 	}
 
@@ -93,12 +93,13 @@ public class MySQLAdminAPI extends MySQLEmployeeAPI implements AdminAPI {
 		queryBuilder.columnEquals(Column.IFSC_CODE);
 		queryBuilder.end();
 
+		System.out.println(queryBuilder.getQuery());
 		try (PreparedStatement statement = ServerConnection.getServerConnection()
 				.prepareStatement(queryBuilder.getQuery())) {
 			statement.setString(1, ConvertorUtil.ifscGenerator(branchId));
 			statement.setInt(2, branchId);
 			statement.setNull(3, Types.NULL);
-
+			System.out.println(statement);
 			int response = statement.executeUpdate();
 			if (response != 1) {
 				throw new AppException(APIExceptionMessage.IFSC_CODE_UPDATE_FAILED);
@@ -115,15 +116,15 @@ public class MySQLAdminAPI extends MySQLEmployeeAPI implements AdminAPI {
 		queryBuilder.insertInto(Schemas.BRANCH);
 		queryBuilder.insertColumns(List.of(Column.ADDRESS, Column.PHONE, Column.EMAIL));
 		queryBuilder.end();
-
-		ServerConnection.startTransaction();
 		try (PreparedStatement statement = ServerConnection.getServerConnection()
 				.prepareStatement(queryBuilder.getQuery(), Statement.RETURN_GENERATED_KEYS)) {
 			statement.setString(1, branch.getAddress());
 			statement.setLong(2, branch.getPhone());
 			statement.setString(3, branch.getEmail());
+			System.out.println(statement);
 			try (ResultSet result = statement.getGeneratedKeys()) {
 				if (result.next()) {
+					System.out.println(result.getObject(1));
 					return result.getInt(1);
 				} else {
 					throw new AppException(APIExceptionMessage.BRANCH_CREATION_FAILED);
@@ -137,13 +138,10 @@ public class MySQLAdminAPI extends MySQLEmployeeAPI implements AdminAPI {
 	@Override
 	public boolean createBranch(Branch branch) throws AppException {
 		try {
-			ServerConnection.startTransaction();
 			int branchId = createBranchAndGetId(branch);
 			updateBrachIFSC(branchId);
-			ServerConnection.endTransaction();
 			return true;
 		} catch (AppException e) {
-			ServerConnection.reverseTransaction();
 			throw new AppException(e.getMessage());
 		}
 
@@ -223,7 +221,7 @@ public class MySQLAdminAPI extends MySQLEmployeeAPI implements AdminAPI {
 			try (ResultSet result = statement.executeQuery()) {
 				while (result.next()) {
 					EmployeeRecord employee = MySQLConversionUtil.convertToEmployeeRecord(result);
-					MySQLConversionUtil.updateUserRecord(result, employee);
+					MySQLAPIUtil.getAndUpdateUserRecord(employee);
 					employees.put(employee.getUserId(), employee);
 				}
 				return employees;

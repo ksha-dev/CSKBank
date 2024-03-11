@@ -2,9 +2,7 @@ package helpers;
 
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
-import java.util.logging.Logger;
 
-import consoleRunner.utility.LoggingUtil;
 import exceptions.AppException;
 import exceptions.messages.InvalidInputMessage;
 import utility.ValidatorUtil;
@@ -50,12 +48,8 @@ public abstract class UserRecord {
 	}
 
 	public void setGender(String gender) throws AppException {
-		ValidatorUtil.validateObject(gender);
-		try {
-			this.gender = Gender.valueOf(gender.toUpperCase());
-		} catch (Exception e) {
-			throw new AppException(InvalidInputMessage.INVALID_GENDER);
-		}
+		ValidatorUtil.validateGender(gender);
+		this.gender = Gender.valueOf(gender.toUpperCase());
 	}
 
 	public void setAddress(String address) throws AppException {
