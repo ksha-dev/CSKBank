@@ -21,9 +21,9 @@ class ServerConnection {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			serverConnection = DriverManager.getConnection(SERVER_URL, SERVER_USER_NAME, SERVER_PASSWORD);
-			Statement statement = serverConnection.createStatement();
-			statement.executeUpdate("USE " + DATABASE);
-			statement.close();
+			try (Statement statement = serverConnection.createStatement()) {
+				statement.executeUpdate("USE " + DATABASE);
+			}
 		} catch (ClassNotFoundException | SQLException e) {
 			LoggingUtil.DEFAULT_LOGGER.warning(APIExceptionMessage.NO_SERVER_CONNECTION.toString());
 		}

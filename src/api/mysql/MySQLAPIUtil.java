@@ -104,7 +104,6 @@ class MySQLAPIUtil {
 			statement.setLong(3, System.currentTimeMillis());
 			statement.setLong(4, accountNumber);
 			statement.setString(5, Status.CLOSED.getStatusId() + "");
-			System.out.println(statement);
 			int response = statement.executeUpdate();
 			return response == 1;
 		} catch (SQLException e) {

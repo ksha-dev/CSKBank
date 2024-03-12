@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import exceptions.AppException;
+import exceptions.messages.InvalidInputMessage;
 
 public class ConstantsUtil {
 
@@ -53,7 +54,7 @@ public class ConstantsUtil {
 			case 2:
 				return ADMIN;
 			default:
-				throw new AppException();
+				throw new AppException(InvalidInputMessage.INVALID_INTEGER_INPUT);
 			}
 		}
 	}
@@ -83,7 +84,7 @@ public class ConstantsUtil {
 				return CLOSED;
 
 			default:
-				throw new AppException();
+				throw new AppException(InvalidInputMessage.INVALID_INTEGER_INPUT);
 			}
 		}
 	}
@@ -108,7 +109,7 @@ public class ConstantsUtil {
 			case 1:
 				return CREDIT;
 			default:
-				throw new AppException();
+				throw new AppException(InvalidInputMessage.INVALID_INTEGER_INPUT);
 			}
 		}
 	}
@@ -136,7 +137,7 @@ public class ConstantsUtil {
 				return SALARY;
 
 			default:
-				throw new AppException();
+				throw new AppException(InvalidInputMessage.INVALID_INTEGER_INPUT);
 			}
 		}
 	}
@@ -164,7 +165,7 @@ public class ConstantsUtil {
 				return OTHER;
 
 			default:
-				throw new AppException();
+				throw new AppException(InvalidInputMessage.INVALID_INTEGER_INPUT);
 			}
 		}
 	}

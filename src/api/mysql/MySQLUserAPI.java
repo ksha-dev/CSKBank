@@ -255,7 +255,7 @@ public class MySQLUserAPI implements UserAPI {
 	}
 
 	@Override
-	public long transferAmount(Transaction transaction, boolean isTransferOutsideBank) throws AppException {
+	public long transferAmount(Transaction transaction, boolean isTransferWithinBank) throws AppException {
 		ValidatorUtil.validateObject(transaction);
 		try {
 			ServerConnection.startTransaction();
@@ -275,7 +275,7 @@ public class MySQLUserAPI implements UserAPI {
 			MySQLAPIUtil.createSenderTransactionRecord(transaction);
 			long transactionId = transaction.getTransactionId();
 
-			if (isTransferOutsideBank) {
+			if (isTransferWithinBank) {
 
 				// get the account details of receiver
 				Account recepientAccount = getAccountDetails(transaction.getTransactedAccountNumber());
