@@ -10,15 +10,17 @@ import api.mysql.MySQLQuery.Column;
 import api.mysql.MySQLQuery.Schemas;
 import exceptions.AppException;
 import exceptions.messages.APIExceptionMessage;
-import helpers.CustomerRecord;
-import helpers.EmployeeRecord;
-import helpers.Transaction;
-import helpers.UserRecord;
+import modules.CustomerRecord;
+import modules.EmployeeRecord;
+import modules.Transaction;
+import modules.UserRecord;
 import utility.ConstantsUtil.Status;
+import utility.ValidatorUtil;
 
 class MySQLAPIUtil {
 
-	protected static void createReceiverTransactionRecord(Transaction receiverTransaction) throws AppException {
+	static void createReceiverTransactionRecord(Transaction receiverTransaction) throws AppException {
+		ValidatorUtil.validateObject(receiverTransaction);
 		MySQLQuery queryBuilder = new MySQLQuery();
 		queryBuilder.insertInto(Schemas.TRANSACTIONS);
 		queryBuilder.insertValuePlaceholders(9);
@@ -31,7 +33,7 @@ class MySQLAPIUtil {
 			statement.setLong(3, receiverTransaction.getViewerAccountNumber());
 			statement.setLong(4, receiverTransaction.getTransactedAccountNumber());
 			statement.setDouble(5, receiverTransaction.getTransactedAmount());
-			statement.setString(6, receiverTransaction.getTransactionType().toString());
+			statement.setString(6, receiverTransaction.getTransactionType().getTransactionTypeId() + "");
 			statement.setDouble(7, receiverTransaction.getClosingBalance());
 			statement.setLong(8, System.currentTimeMillis());
 			statement.setString(9, receiverTransaction.getRemarks());
@@ -45,7 +47,8 @@ class MySQLAPIUtil {
 		}
 	}
 
-	protected static void createSenderTransactionRecord(Transaction transaction) throws AppException {
+	static void createSenderTransactionRecord(Transaction transaction) throws AppException {
+		ValidatorUtil.validateObject(transaction);
 		MySQLQuery queryBuilder = new MySQLQuery();
 		queryBuilder.insertInto(Schemas.TRANSACTIONS);
 		queryBuilder.insertColumns(List.of(Column.USER_ID, Column.VIEWER_ACCOUNT_NUMBER,
@@ -59,7 +62,7 @@ class MySQLAPIUtil {
 			statement.setLong(2, transaction.getViewerAccountNumber());
 			statement.setLong(3, transaction.getTransactedAccountNumber());
 			statement.setDouble(4, transaction.getTransactedAmount());
-			statement.setString(5, transaction.getTransactionType().toString());
+			statement.setString(5, transaction.getTransactionType().getTransactionTypeId() + "");
 			statement.setDouble(6, transaction.getClosingBalance());
 			statement.setLong(7, System.currentTimeMillis());
 			statement.setString(8, transaction.getRemarks());
@@ -77,14 +80,16 @@ class MySQLAPIUtil {
 		}
 	}
 
-	protected static boolean updateBalanceInAccount(long accountNumber, double balance) throws AppException {
+	static boolean updateBalanceInAccount(long accountNumber, double balance) throws AppException {
+		ValidatorUtil.validateId(accountNumber);
+		ValidatorUtil.validateAmount(balance);
 		MySQLQuery queryBuilder = new MySQLQuery();
 		queryBuilder.update(Schemas.ACCOUNTS);
 		queryBuilder.setColumn(Column.BALANCE);
-		queryBuilder.and();
-		queryBuilder.setColumn(Column.STATUS);
-		queryBuilder.and();
-		queryBuilder.setColumn(Column.LAST_TRANSACTED_AT);
+		queryBuilder.separator();
+		queryBuilder.columnEquals(Column.STATUS);
+		queryBuilder.separator();
+		queryBuilder.columnEquals(Column.LAST_TRANSACTED_AT);
 		queryBuilder.where();
 		queryBuilder.columnEquals(Column.ACCOUNT_NUMBER);
 		queryBuilder.and();
@@ -92,21 +97,23 @@ class MySQLAPIUtil {
 		queryBuilder.columnEquals(Column.STATUS);
 		queryBuilder.end();
 
-		try (PreparedStatement updateAccountBalance = ServerConnection.getServerConnection()
+		try (PreparedStatement statement = ServerConnection.getServerConnection()
 				.prepareStatement(queryBuilder.getQuery())) {
-			updateAccountBalance.setDouble(1, balance);
-			updateAccountBalance.setString(2, Status.ACTIVE.toString());
-			updateAccountBalance.setLong(3, System.currentTimeMillis());
-			updateAccountBalance.setLong(4, accountNumber);
-			updateAccountBalance.setString(5, Status.CLOSED.toString());
-			int response = updateAccountBalance.executeUpdate();
+			statement.setDouble(1, balance);
+			statement.setString(2, Status.ACTIVE.getStatusId() + "");
+			statement.setLong(3, System.currentTimeMillis());
+			statement.setLong(4, accountNumber);
+			statement.setString(5, Status.CLOSED.getStatusId() + "");
+			System.out.println(statement);
+			int response = statement.executeUpdate();
 			return response == 1;
 		} catch (SQLException e) {
 			throw new AppException(e.getMessage());
 		}
 	}
 
-	protected static CustomerRecord getCustomerRecord(int userId) throws AppException {
+	static CustomerRecord getCustomerRecord(int userId) throws AppException {
+		ValidatorUtil.validateId(userId);
 		MySQLQuery queryBuilder = new MySQLQuery();
 		queryBuilder.selectColumn(Column.ALL);
 		queryBuilder.fromSchema(Schemas.CUSTOMERS);
@@ -130,7 +137,8 @@ class MySQLAPIUtil {
 	}
 
 	// TRANSACTION QUERIES
-	protected static EmployeeRecord getEmployeeRecord(int userId) throws AppException {
+	static EmployeeRecord getEmployeeRecord(int userId) throws AppException {
+		ValidatorUtil.validateId(userId);
 		MySQLQuery queryBuilder = new MySQLQuery();
 		queryBuilder.selectColumn(Column.ALL);
 		queryBuilder.fromSchema(Schemas.EMPLOYEES);
@@ -153,7 +161,8 @@ class MySQLAPIUtil {
 		}
 	}
 
-	protected static void getAndUpdateUserRecord(UserRecord userRecord) throws AppException {
+	static void getAndUpdateUserRecord(UserRecord userRecord) throws AppException {
+		ValidatorUtil.validateObject(userRecord);
 		MySQLQuery queryBuilder = new MySQLQuery();
 		queryBuilder.selectColumn(Column.ALL);
 		queryBuilder.fromSchema(Schemas.USERS);

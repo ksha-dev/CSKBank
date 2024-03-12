@@ -1,4 +1,4 @@
-package helpers;
+package modules;
 
 import exceptions.AppException;
 import utility.ConstantsUtil.TransactionType;
@@ -18,12 +18,12 @@ public class Transaction {
 
 	public Transaction() throws AppException {
 	}
-	
+
 	public void setTransactionId(long transactionId) throws AppException {
 		ValidatorUtil.validatePositiveNumber(transactionId);
 		this.transactionId = transactionId;
 	}
-	
+
 	public void setUserId(int userId) throws AppException {
 		ValidatorUtil.validatePositiveNumber(userId);
 		this.userId = userId;
@@ -39,9 +39,8 @@ public class Transaction {
 		this.transactedAccountNumber = transactedAccountNumber;
 	}
 
-	public void setTransactionType(String transactionType) throws AppException {
-		ValidatorUtil.validateObject(transactionType);
-		this.transactionType = TransactionType.valueOf(transactionType);
+	public void setTransactionType(int transactionTypeId) throws AppException {
+		this.transactionType = TransactionType.getTransactionType(transactionTypeId);
 	}
 
 	public void setTransactedAmount(double amount) {

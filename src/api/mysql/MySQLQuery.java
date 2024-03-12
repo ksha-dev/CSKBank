@@ -10,7 +10,7 @@ class MySQLQuery {
 
 	private StringBuilder query;
 
-	public static enum Schemas {
+	static enum Schemas {
 		USERS, EMPLOYEES, CUSTOMERS, ACCOUNTS, TRANSACTIONS, BRANCH, CREDENTIALS;
 
 		public String toString() {
@@ -18,7 +18,7 @@ class MySQLQuery {
 		}
 	}
 
-	public static enum Column {
+	static enum Column {
 		USER_ID, PASSWORD, FIRST_NAME, LAST_NAME, DATE_OF_BIRTH, GENDER, ADDRESS, PHONE, EMAIL, STATUS, TYPE,
 		AADHAAR_NUMBER, PAN_NUMBER, ROLE, BRANCH_ID, ACCOUNT_NUMBER, OPENING_DATE, BALANCE, CLOSING_BALANCE,
 		TRANSACTION_ID, REMARKS, VIEWER_ACCOUNT_NUMBER, TRANSACTED_ACCOUNT_NUMBER, TRANSACTED_AMOUNT, TRANSACTION_TYPE,
@@ -29,75 +29,82 @@ class MySQLQuery {
 		}
 	}
 
-	public MySQLQuery() {
+	MySQLQuery() {
 		query = new StringBuilder();
 	}
 
-	public void selectColumn(Column field) throws AppException {
+	void selectColumn(Column field) throws AppException {
 		ValidatorUtil.validateObject(field);
 		query.append("select " + (field == Column.ALL ? "*" : field));
 	}
 
-	public void fromSchema(Schemas schema) throws AppException {
+	void fromSchema(Schemas schema) throws AppException {
 		ValidatorUtil.validateObject(schema);
 		query.append(" from " + schema);
 	}
 
-	public void addSchema(Schemas schema) throws AppException {
+	void separator() {
+		query.append(", ");
+	}
+
+	void addSchema(Schemas schema) throws AppException {
 		ValidatorUtil.validateObject(schema);
-		query.append(", " + schema);
+		separator();
+		query.append(schema);
 	}
 
-	public void addColumn(Column field) throws AppException {
+	void addColumn(Column field) throws AppException {
 		ValidatorUtil.validateObject(field);
-		query.append(", " + field);
+		separator();
+		query.append(field);
 	}
 
-	public void where() {
+	void where() {
 		query.append(" where");
 	}
 
-	public void and() {
+	void and() {
 		query.append(" and");
 	}
 
-	public void not() {
+	void not() {
 		query.append(" not");
 	}
 
-	public void combinationStart() {
+	void combinationStart() {
 		query.append(" (");
 	}
 
-	public void combinationEnd() {
+	void combinationEnd() {
 		query.append(")");
 	}
 
-	public void columnEquals(Column field) throws AppException {
+	void columnEquals(Column field) throws AppException {
 		ValidatorUtil.validateObject(field);
 		query.append(" " + field + " = ?");
 	}
 
-	public void columnGreaterThan(Column field) throws AppException {
+	void columnGreaterThan(Column field) throws AppException {
 		ValidatorUtil.validateObject(field);
 		query.append(" " + field + " > ?");
 	}
 
-	public void update(Schemas schema) throws AppException {
+	void update(Schemas schema) throws AppException {
 		ValidatorUtil.validateObject(schema);
 		query.append("update " + schema);
 	}
 
-	public void end() {
+	void end() {
 		query.append(";");
 	}
 
-	public void setColumn(Column field) throws AppException {
+	void setColumn(Column field) throws AppException {
 		ValidatorUtil.validateObject(field);
-		query.append(" set " + field + " = ?");
+		query.append(" set");
+		columnEquals(field);
 	}
 
-	public void sortField(Column field, boolean isDescending) throws AppException {
+	void sortField(Column field, boolean isDescending) throws AppException {
 		ValidatorUtil.validateObject(field);
 		query.append(" order by " + field);
 		if (isDescending) {
@@ -105,22 +112,22 @@ class MySQLQuery {
 		}
 	}
 
-	public void limit(int limit) throws AppException {
+	void limit(int limit) throws AppException {
 		ValidatorUtil.validatePositiveNumber(limit);
 		query.append(" limit " + limit);
 	}
 
-	public void offset(int offset) throws AppException {
+	void offset(int offset) throws AppException {
 		ValidatorUtil.validatePositiveNumber(offset);
 		query.append(" offset " + offset);
 	}
 
-	public void insertInto(Schemas schema) throws AppException {
+	void insertInto(Schemas schema) throws AppException {
 		ValidatorUtil.validateObject(schema);
 		query.append("insert into " + schema);
 	}
 
-	public void insertColumns(List<Column> fields) throws AppException {
+	void insertColumns(List<Column> fields) throws AppException {
 		ValidatorUtil.validateCollection(fields);
 		StringJoiner joinedFields = new StringJoiner(", ");
 		for (Column field : fields) {
@@ -130,7 +137,7 @@ class MySQLQuery {
 		insertValuePlaceholders(fields.size());
 	}
 
-	public void insertValuePlaceholders(int valueCount) throws AppException {
+	void insertValuePlaceholders(int valueCount) throws AppException {
 		ValidatorUtil.validatePositiveNumber(valueCount);
 		StringJoiner joinedValues = new StringJoiner(", ");
 		for (int i = 0; i < valueCount; i++) {
@@ -139,7 +146,7 @@ class MySQLQuery {
 		query.append(" value (" + joinedValues + ")");
 	}
 
-	public String getQuery() {
+	String getQuery() {
 		return query.toString();
 	}
 }

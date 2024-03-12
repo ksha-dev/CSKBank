@@ -1,0 +1,163 @@
+------------------------------
+     WELCOME TO CSK BANK
+------------------------------
+===============HOME===============
+Enter a number to perform the following operation : 
+1 - Sign in to access your information
+2 - Apply for a new account
+
+To exit, enter 0
+------------------------------
+Enter your choice : 
+Enter your User ID (or 0 to exit): 
+Enter your password : 
+The password must contain a minimum of 8 characters with both upper and lower case, start with a letter, have a special character and a number
+----------------------------------------
+===============HOME===============
+Enter a number to perform the following operation : 
+1 - Sign in to access your information
+2 - Apply for a new account
+
+To exit, enter 0
+------------------------------
+Enter your choice : 
+Enter your User ID (or 0 to exit): 
+Enter your password : 
+----------------------------------------
+CUSTOMER DETAILS                        
+----------------------------------------
+USER ID              : 2
+FIRST NAME           : Sharan
+LAST NAME            : K
+DATE OF BIRTH        : 2002-10-01
+GENDER               : MALE
+ADDRESS              : Gobichettipalayam
+E-MAIL               : sharan@gmail.com
+AADHAAR              : 999845682846
+PAN                  : HDKAU8593L
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Transactions of an Account
+4 - Transfer Amount
+5 - View Branch Details of an account
+6 - Update Profile Details
+7 - Update password
+8 - View recent transactions
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 8): 
+Select a number to update : 
+1 : ADDRESS
+2 : PHONE
+3 : EMAIL
+Enter PIN to confirm changes : 
+Enter 4 digit secure PIN to confirm your request : 
+Update successful
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Transactions of an Account
+4 - Transfer Amount
+5 - View Branch Details of an account
+6 - Update Profile Details
+7 - Update password
+8 - View recent transactions
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 8): 
+----------------------------------------
+CUSTOMER DETAILS                        
+----------------------------------------
+USER ID              : 2
+FIRST NAME           : Sharan
+LAST NAME            : K
+DATE OF BIRTH        : 2002-10-01
+GENDER               : MALE
+ADDRESS              : Gobichettipalayam
+E-MAIL               : sharanshanjay@gmail.com
+AADHAAR              : 999845682846
+PAN                  : HDKAU8593L
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Transactions of an Account
+4 - Transfer Amount
+5 - View Branch Details of an account
+6 - Update Profile Details
+7 - Update password
+8 - View recent transactions
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 8): 
+Select a number to update : 
+1 : ADDRESS
+2 : PHONE
+3 : EMAIL
+Enter PIN to confirm changes : 
+Enter 4 digit secure PIN to confirm your request : 
+Confirmation Failed. Cannot process the request
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Transactions of an Account
+4 - Transfer Amount
+5 - View Branch Details of an account
+6 - Update Profile Details
+7 - Update password
+8 - View recent transactions
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 8): 
+Enter 'YES' to confirm logout : 
+Logged out successfully.
+----------------------------------------
+===============HOME===============
+Enter a number to perform the following operation : 
+1 - Sign in to access your information
+2 - Apply for a new account
+
+To exit, enter 0
+------------------------------
+Enter your choice : 
+Enter your User ID (or 0 to exit): 
+Enter your password : 
+----------------------------------------
+ADMIN DETAILS                           
+----------------------------------------
+USER ID              : 1
+FIRST NAME           : ADMIN
+LAST NAME            : USER
+DATE OF BIRTH        : 2000-01-19
+GENDER               : MALE
+ADDRESS              : Address
+E-MAIL               : admin@email.com
+BRANCH ID            : 1
+The employee record obtained is not valid.
+----------------------------------------
+===============HOME===============
+Enter a number to perform the following operation : 
+1 - Sign in to access your information
+2 - Apply for a new account
+
+To exit, enter 0
+------------------------------
+Enter your choice : 
+No line found
+----------------------------------------
+===============HOME===============
+Enter a number to perform the following operation : 
+1 - Sign in to access your information
+2 - Apply for a new account
+
+To exit, enter 0
+------------------------------
+Enter your choice : 

@@ -8,11 +8,11 @@ import consoleRunner.utility.InputUtil;
 import consoleRunner.utility.LoggingUtil;
 import exceptions.AppException;
 import exceptions.messages.ActivityExceptionMessages;
-import helpers.Branch;
-import helpers.EmployeeRecord;
+import modules.Account;
+import modules.Branch;
+import modules.EmployeeRecord;
 import operations.AdminOperations;
 import utility.ConstantsUtil;
-import utility.ConstantsUtil.EmployeeType;
 import utility.ConstantsUtil.ModifiableField;
 import utility.ValidatorUtil;
 
@@ -24,7 +24,7 @@ class AdminRunner {
 		AdminOperations operations = new AdminOperations(employee);
 		LoggingUtil.logEmployeeRecord(employee);
 		boolean isProgramActive = true;
-		int runnerOperations = 8;
+		int runnerOperations = 7;
 
 		while (isProgramActive) {
 
@@ -37,7 +37,9 @@ class AdminRunner {
 			log.info("=".repeat(15) + "ADMIN PORTAL" + "=".repeat(15)
 					+ "\nEnter a number to perform the following operation : "
 					+ "\n1 - Get all the employees in your branch" + "\n2 - Get all the employees of any branch"
-					+ "\n3 - Create an Employee" + "\n\nTo go back, enter 0\n" + "-".repeat(30));
+					+ "\n3 - Create an Employee" + "\n4 - Modify employee details" + "\n5 - Create a branch"
+					+ "\n6 - Modify branch details" + "\n7 - View all accounts in bank" + "\n\nTo go back, enter 0\n"
+					+ "-".repeat(30));
 
 			int choice = -1;
 			do {
@@ -105,8 +107,8 @@ class AdminRunner {
 					log.info("Enter Employee Last Name : ");
 					newEmployeeRecord.setLastName(InputUtil.getString());
 
-					log.info("Enter Gender (MALE, FEMALE, OTHER): ");
-					newEmployeeRecord.setGender(InputUtil.getString());
+					log.info("Enter Gender (0 - MALE, 1 - FEMALE, 2 - OTHER): ");
+					newEmployeeRecord.setGender(InputUtil.getPositiveInteger());
 
 					log.info("Enter Date of Birth in ddmmyyyy format: ");
 					newEmployeeRecord.setDateOfBirth(InputUtil.getDate());
@@ -136,45 +138,10 @@ class AdminRunner {
 					log.info("Enter employee id of the employee to modify details : ");
 					int employeeID = InputUtil.getPositiveInteger();
 					ValidatorUtil.validateId(employeeID);
-					List<ModifiableField> fields = List.of(ModifiableField.ROLE, ModifiableField.BRANCH_ID);
-					int i = 0;
-					for (ModifiableField field : fields) {
-						log.info(++i + " -> " + field);
-					}
-					System.out.println(i);
-					log.info("Enter an associated number to modify : ");
-					i = InputUtil.getPositiveInteger();
-					if (i > fields.size()) {
-						throw new AppException("Invalid number");
-					}
-					ModifiableField selectedField = fields.get(i - 1);
-					System.out.println(selectedField);
-					Object value = null;
-					switch (selectedField) {
-					case ROLE: {
-						log.info("Enter 1 to set as Employee or 0 for Admin : ");
-						int temp = InputUtil.getPositiveInteger();
-						if (temp == 1) {
-							value = EmployeeType.EMPLOYEE.toString();
-						} else if (temp == 0) {
-							value = EmployeeType.ADMIN.toString();
-						} else {
-							throw new AppException("Invalid Selection");
-						}
-					}
-						break;
-
-					case BRANCH_ID: {
-						log.info("Enter branch ID : ");
-						int temp = InputUtil.getPositiveInteger();
-						ValidatorUtil.validateId(temp);
-						value = temp;
-					}
-						break;
-					default:
-						throw new AppException("Invalid selection");
-					}
-					if (operations.update(employeeID, selectedField, value)) {
+					log.info("Enter the branch Id to change the employee to : ");
+					int branchId = InputUtil.getPositiveInteger();
+					ValidatorUtil.validateId(branchId);
+					if (operations.update(employeeID, ModifiableField.BRANCH_ID, branchId)) {
 						log.info("Update Successful");
 					} else {
 						log.info("Update Failed");
@@ -205,7 +172,7 @@ class AdminRunner {
 					int branchId = InputUtil.getPositiveInteger();
 					ValidatorUtil.validateId(branchId);
 					List<ModifiableField> fields = List.of(ModifiableField.ADDRESS, ModifiableField.PHONE,
-							ModifiableField.PHONE);
+							ModifiableField.EMAIL);
 					int i = 0;
 					for (ModifiableField field : fields) {
 						log.info(++i + " : " + field);
@@ -243,6 +210,25 @@ class AdminRunner {
 					if (operations.updateBranchDetails(branchId, selectedField, value)) {
 						log.info("Update successful");
 					}
+				}
+					break;
+
+				case 7: {
+					int pageNumber = 1;
+					boolean isListFull = false;
+					do {
+						Map<Long, Account> accounts = operations.viewAccountsInBank(pageNumber);
+						LoggingUtil.logAccountsList(accounts);
+						isListFull = accounts.size() == ConstantsUtil.LIST_LIMIT;
+						if (isListFull) {
+							log.info("Enter 1 to go to next page (or) 0 to exit : ");
+							if (InputUtil.getPositiveInteger() == 1) {
+								pageNumber++;
+							} else {
+								isListFull = false;
+							}
+						}
+					} while (isListFull);
 				}
 					break;
 

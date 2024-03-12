@@ -7,6 +7,7 @@ public enum ActivityExceptionMessages {
 	INVALID_EMPLOYEE_RECORD("The employee record obtained is not valid."),
 	SERVER_CONNECTION_LOST("The connection to server is lost. Logging out."),
 	USER_AUTHORIZATION_FAILED("User Authorization failed."),
+	NO_CUSTOMER_RECORD_FOUND("The customer record for the following Customer ID was not found"),
 	MODIFICATION_ACCESS_DENIED("You do not have permission to modify this data"),
 	MINIMUM_DEPOSIT_REQUIRED(
 			"The deposit amount must meet the minimum required amount. The minimum deposit amount is Rs. "

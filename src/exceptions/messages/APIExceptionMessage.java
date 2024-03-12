@@ -21,6 +21,7 @@ public enum APIExceptionMessage {
 	
 	UNKNOWN_ERROR("An unexpected error occured. Please try again after sometime"),
 	CANNOT_MODIFY_STATUS("The status of a closed account cannot be changed"),
+	STATUS_ALREADY_SET("The account is already in the required state"),
 	ACCOUNT_RESTRICTED("This account has been restricted for transactions."),
 	
 
@@ -31,6 +32,7 @@ public enum APIExceptionMessage {
 	INSUFFICIENT_BALANCE("The account selected does not contain sufficient balance for the transaction"),
 	TRANSACTION_FAILED("The transaction has failed. Any changes done will be reverted in few minutes."),
 	USER_CONFIRMATION_FAILED("Confirmation Failed. Cannot process the request"),
+	SAME_PASSWORD("New password cannot be the same as old password."),
 	BRANCH_DETAILS_NOT_FOUND("Cannot find a linked branch details");
 
 	private String message;

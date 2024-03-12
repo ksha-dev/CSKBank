@@ -6,10 +6,9 @@ import api.AdminAPI;
 import api.mysql.MySQLAdminAPI;
 import exceptions.AppException;
 import exceptions.messages.ActivityExceptionMessages;
-import helpers.Account;
-import helpers.Branch;
-import helpers.EmployeeRecord;
-import utility.ConstantsUtil.EmployeeType;
+import modules.Account;
+import modules.Branch;
+import modules.EmployeeRecord;
 import utility.ConstantsUtil.ModifiableField;
 import utility.ConstantsUtil.UserType;
 import utility.ConstantsUtil;
@@ -22,7 +21,7 @@ public class AdminOperations {
 	public AdminOperations(EmployeeRecord employee) throws AppException {
 		ValidatorUtil.validateObject(employee);
 		ValidatorUtil.validateId(employee.getBranchId());
-		if (employee.getRole() != EmployeeType.ADMIN) {
+		if (employee.getType() != UserType.ADMIN) {
 			throw new AppException("You are not authorized to use this facility");
 		}
 	}
@@ -36,8 +35,7 @@ public class AdminOperations {
 
 	public boolean createEmployee(EmployeeRecord employee) throws AppException {
 		ValidatorUtil.validateObject(employee);
-		employee.setType(UserType.EMPLOYEE.toString());
-		employee.setRole(EmployeeType.EMPLOYEE.toString());
+		employee.setType(UserType.EMPLOYEE.getUserTypeId());
 		return api.createEmployee(employee);
 	}
 
@@ -65,10 +63,9 @@ public class AdminOperations {
 		return api.updateBranchDetails(branchId, field, value);
 	}
 
-	public Map<Long, Account> viewAccountsInBank(int branchID, int pageNumber) throws AppException {
-		ValidatorUtil.validateId(branchID);
+	public Map<Long, Account> viewAccountsInBank(int pageNumber) throws AppException {
 		ValidatorUtil.validateId(pageNumber);
 
-		return api.viewAccountsInBank(branchID, pageNumber);
+		return api.viewAccountsInBank(pageNumber);
 	}
 }

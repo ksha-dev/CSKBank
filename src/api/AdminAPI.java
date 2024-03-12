@@ -3,9 +3,9 @@ package api;
 import java.util.Map;
 
 import exceptions.AppException;
-import helpers.Account;
-import helpers.Branch;
-import helpers.EmployeeRecord;
+import modules.Account;
+import modules.Branch;
+import modules.EmployeeRecord;
 import utility.ConstantsUtil.ModifiableField;
 
 public interface AdminAPI extends EmployeeAPI {
@@ -20,6 +20,6 @@ public interface AdminAPI extends EmployeeAPI {
 
 	public boolean updateBranchDetails(int branchId, ModifiableField field, Object value) throws AppException;
 
-	public Map<Long, Account> viewAccountsInBank(int branchID, int pageNumber) throws AppException;
+	public Map<Long, Account> viewAccountsInBank(int pageNumber) throws AppException;
 
 }

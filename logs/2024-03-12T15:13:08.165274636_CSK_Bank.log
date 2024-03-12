@@ -14,14 +14,13 @@ Enter your password :
 ----------------------------------------
 EMPLOYEE DETAILS                        
 ----------------------------------------
-USER ID              : 1
-FIRST NAME           : ADMIN
-LAST NAME            : USER
-DATE OF BIRTH        : 2000-01-19
+USER ID              : 7
+FIRST NAME           : Surya
+LAST NAME            : Kumar
+DATE OF BIRTH        : 2000-01-12
 GENDER               : MALE
-ADDRESS              : Address
-E-MAIL               : admin@email.com
-ROLE                 : ADMIN
+ADDRESS              : Palladam
+E-MAIL               : surya.kumar@cskbank.com
 BRANCH ID            : 1
 
 ===============EMPLOYEE PORTAL===============
@@ -37,45 +36,52 @@ Enter a number to perform the following operation :
 9 - Withdraw money from an account
 10 - Update Customer details
 11 - Update Password
-12 - Go to Admin Portal
 
 To logout, enter 0
 ------------------------------
 Enter your choice (0 to 12): 
-----------------------------------------
-EMPLOYEE DETAILS                        
-----------------------------------------
-USER ID              : 1
-FIRST NAME           : ADMIN
-LAST NAME            : USER
-DATE OF BIRTH        : 2000-01-19
-GENDER               : MALE
-ADDRESS              : Address
-E-MAIL               : admin@email.com
-ROLE                 : ADMIN
-BRANCH ID            : 1
-===============ADMIN PORTAL===============
-Enter a number to perform the following operation : 
-1 - Get all the employees in your branch
-2 - Get all the employees of any branch
-3 - Create an Employee
+Enter customer Id : 
+1 : ADDRESS
+2 : PHONE
+3 : EMAIL
+4 : FIRST_NAME
+5 : LAST_NAME
+6 : GENDER
+7 : DATE_OF_BIRTH
+8 : AADHAAR_NUMBER
+9 : PAN_NUMBER
+Select a field to update. Enter the corresponding number
+Enter Change Value : 
+Update Successful
 
-To go back, enter 0
-------------------------------
-Enter your choice (0 to 8): 
-Enter Branch Address : 
-Enter Phone : 
-Enter Email ID : 
-Failed to create Branch Record
-===============ADMIN PORTAL===============
+===============EMPLOYEE PORTAL===============
 Enter a number to perform the following operation : 
-1 - Get all the employees in your branch
-2 - Get all the employees of any branch
-3 - Create an Employee
+1 - View Profile Details
+2 - View list of accounts of your branch
+3 - View a customer details of an account
+4 - Open a new account for a new customer
+5 - View transactions of an account
+6 - Open a new account for an existing customer
+7 - View Employee Branch Details
+8 - Deposit money into an account
+9 - Withdraw money from an account
+10 - Update Customer details
+11 - Update Password
 
-To go back, enter 0
+To logout, enter 0
 ------------------------------
-Enter your choice (0 to 8): 
-No line found
-Enter your choice (0 to 8): 
-No line found
+Enter your choice (0 to 12): 
+Enter 'YES' to confirm logout : 
+Logged out successfully.
+----------------------------------------
+===============HOME===============
+Enter a number to perform the following operation : 
+1 - Sign in to access your information
+2 - Apply for a new account
+
+To exit, enter 0
+------------------------------
+Enter your choice : 
+----------------------------------------
+Thank you for visiting us
+----------------------------------------

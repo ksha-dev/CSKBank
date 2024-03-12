@@ -1,4 +1,4 @@
-package helpers;
+package modules;
 
 import exceptions.AppException;
 import utility.ValidatorUtil;

@@ -14,9 +14,9 @@ import api.mysql.MySQLQuery.Column;
 import api.mysql.MySQLQuery.Schemas;
 import exceptions.AppException;
 import exceptions.messages.APIExceptionMessage;
-import helpers.Account;
-import helpers.Branch;
-import helpers.EmployeeRecord;
+import modules.Account;
+import modules.Branch;
+import modules.EmployeeRecord;
 import utility.ValidatorUtil;
 import utility.ConstantsUtil.ModifiableField;
 import utility.ConstantsUtil;
@@ -33,14 +33,13 @@ public class MySQLAdminAPI extends MySQLEmployeeAPI implements AdminAPI {
 
 			MySQLQuery queryBuilder = new MySQLQuery();
 			queryBuilder.insertInto(Schemas.EMPLOYEES);
-			queryBuilder.insertValuePlaceholders(3);
+			queryBuilder.insertValuePlaceholders(2);
 			queryBuilder.end();
 
 			PreparedStatement statement = ServerConnection.getServerConnection()
 					.prepareStatement(queryBuilder.getQuery());
 			statement.setInt(1, employee.getUserId());
-			statement.setString(2, employee.getRole().toString());
-			statement.setInt(3, employee.getBranchId());
+			statement.setInt(2, employee.getBranchId());
 			int response = statement.executeUpdate();
 			statement.close();
 			if (response == 1) {
@@ -177,7 +176,7 @@ public class MySQLAdminAPI extends MySQLEmployeeAPI implements AdminAPI {
 	}
 
 	@Override
-	public Map<Long, Account> viewAccountsInBank(int branchID, int pageNumber) throws AppException {
+	public Map<Long, Account> viewAccountsInBank(int pageNumber) throws AppException {
 
 		MySQLQuery queryBuilder = new MySQLQuery();
 		queryBuilder.selectColumn(Column.ALL);

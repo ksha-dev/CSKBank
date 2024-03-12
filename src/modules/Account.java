@@ -1,15 +1,11 @@
-package helpers;
+package modules;
 
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.util.logging.Logger;
 
-import consoleRunner.utility.LoggingUtil;
 import exceptions.AppException;
 import utility.ConstantsUtil.AccountType;
 import utility.ConstantsUtil.Status;
+import utility.ConvertorUtil;
 import utility.ValidatorUtil;
 
 public class Account {
@@ -51,14 +47,12 @@ public class Account {
 		this.openingDate = lastTransactionDateTime;
 	}
 
-	public void setStatus(String status) throws AppException {
-		ValidatorUtil.validateObject(status);
-		this.status = Status.valueOf(status);
+	public void setStatus(int statusId) throws AppException {
+		this.status = Status.getStatus(statusId);
 	}
 
-	public void setType(String type) throws AppException {
-		ValidatorUtil.validateObject(type);
-		this.type = AccountType.valueOf(type);
+	public void setType(int accountTypeId) throws AppException {
+		this.type = AccountType.getAccountType(accountTypeId);
 	}
 
 	public void setBalance(double balance) {
@@ -94,26 +88,10 @@ public class Account {
 	}
 
 	public LocalDate getOpeningDateInLocalDateTime() {
-		return LocalDate.ofInstant(Instant.ofEpochMilli(openingDate), ZoneId.systemDefault());
+		return ConvertorUtil.convertLongToLocalDate(this.openingDate);
 	}
 
 	public double getBalance() {
 		return this.balance;
 	}
-
-	public void logAccount() {
-		Logger log = LoggingUtil.DEFAULT_LOGGER;
-		log.info("-".repeat(40));
-		log.info("ACCOUNT DETAILS");
-		log.info("-".repeat(40));
-		log.info(String.format("%-20s", "ACCOUNT NUMBER") + " : " + getAccountNumber());
-		log.info(String.format("%-20s", "ACCOUNT BALANCE") + " : " + getBalance());
-		log.info(String.format("%-20s", "ACCOUNT TYPE") + " : " + getAccountType());
-		log.info(String.format("%-20s", "ACCOUNT STATUS") + " : " + getStatus());
-		log.info(String.format("%-20s", "CUSTOMER Id") + " : " + getUserId());
-		log.info(String.format("%-20s", "OPENING DATE") + " : "
-				+ getOpeningDateInLocalDateTime().format(DateTimeFormatter.ISO_DATE));
-		log.info(String.format("%-20s", "BRANCH CODE") + " : " + getBranchId());
-	}
-
 }

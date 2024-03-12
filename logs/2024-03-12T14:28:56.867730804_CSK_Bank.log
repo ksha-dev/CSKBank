@@ -1,0 +1,292 @@
+------------------------------
+     WELCOME TO CSK BANK
+------------------------------
+===============HOME===============
+Enter a number to perform the following operation : 
+1 - Sign in to access your information
+2 - Apply for a new account
+
+To exit, enter 0
+------------------------------
+Enter your choice : 
+Enter your User ID (or 0 to exit): 
+Enter your password : 
+----------------------------------------
+CUSTOMER DETAILS                        
+----------------------------------------
+USER ID              : 2
+FIRST NAME           : Sharan
+LAST NAME            : K
+DATE OF BIRTH        : 2002-10-01
+GENDER               : MALE
+ADDRESS              : KCT, Coimbatore
+E-MAIL               : sharan@gmail.com
+AADHAAR              : 999845682846
+PAN                  : HDKAU8593L
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Transactions of an Account
+4 - Transfer Amount
+5 - View Branch Details of an account
+6 - Update Profile Details
+7 - Update password
+8 - View recent transactions
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 8): 
+----------------------------------------
+CUSTOMER DETAILS                        
+----------------------------------------
+USER ID              : 2
+FIRST NAME           : Sharan
+LAST NAME            : K
+DATE OF BIRTH        : 2002-10-01
+GENDER               : MALE
+ADDRESS              : KCT, Coimbatore
+E-MAIL               : sharan@gmail.com
+AADHAAR              : 999845682846
+PAN                  : HDKAU8593L
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Transactions of an Account
+4 - Transfer Amount
+5 - View Branch Details of an account
+6 - Update Profile Details
+7 - Update password
+8 - View recent transactions
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 8): 
+-----------------------------------------------------------------
+ACCOUNT NUMBER | CUSTOMER ID | START DATE |  BALANCE   | STATUS
+-----------------------------------------------------------------
+             1 |           2 | 2024-03-06 |   12500.00 | ACTIVE
+             2 |           2 | 2024-03-06 |    8400.00 | ACTIVE
+-----------------------------------------------------------------
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Transactions of an Account
+4 - Transfer Amount
+5 - View Branch Details of an account
+6 - Update Profile Details
+7 - Update password
+8 - View recent transactions
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 8): 
+-----------------------------------------------------------------
+ACCOUNT NUMBER | CUSTOMER ID | START DATE |  BALANCE   | STATUS
+-----------------------------------------------------------------
+             1 |           2 | 2024-03-06 |   12500.00 | ACTIVE
+             2 |           2 | 2024-03-06 |    8400.00 | ACTIVE
+-----------------------------------------------------------------
+Enter account number : 
+Enter Transaction History Size : (1, 3, or 6 months) 
+-------------------------------------------------------------------------------------------------------------------
+   ID   | PARTICULARS                              | ACCOUNT NUMBER |    DATE    |   AMOUNT   |   BALANCE  | TYPE
+-------------------------------------------------------------------------------------------------------------------
+ 17     | Self transfer                            |              2 | 2024-03-06 |    1000.00 |   12500.00 | CREDIT 
+ 16     | Self Transfer                            |              2 | 2024-03-05 |    5000.00 |   11500.00 | CREDIT 
+ 15     | Git                                      |              5 | 2024-03-05 |    5000.00 |    6500.00 | DEBIT 
+ 13     | Simply                                   |              2 | 2024-03-05 |    1000.00 |   11500.00 | DEBIT 
+ 12     | Self                                     |              2 | 2024-03-05 |    2000.00 |   12500.00 | CREDIT 
+ 11     | Self                                     |              2 | 2024-03-05 |    1000.00 |   10500.00 | DEBIT 
+ 10     | Groceries                                |              5 | 2024-03-05 |    2500.00 |   11500.00 | CREDIT 
+ 9      | Books                                    |              5 | 2024-03-05 |    1000.00 |    9000.00 | CREDIT 
+ 5      | BANK_WITHDRAWAL                          |              0 | 2024-03-04 |    1000.00 |    8000.00 | DEBIT 
+ 4      | BANK_WITHDRAWAL                          |              0 | 2024-03-04 |    1000.00 |   11000.00 | DEBIT 
+-------------------------------------------------------------------------------------------------------------------
+Enter 1 to go to next page (or) 0 to exit : 
+-------------------------------------------------------------------------------------------------------------------
+   ID   | PARTICULARS                              | ACCOUNT NUMBER |    DATE    |   AMOUNT   |   BALANCE  | TYPE
+-------------------------------------------------------------------------------------------------------------------
+ 3      | BANK_DEPOSIT                             |              0 | 2024-03-04 |    1000.00 |   10000.00 | CREDIT 
+ 1      | Self Transfer                            |              2 | 2024-03-01 |    1000.00 |    9000.00 | DEBIT 
+-------------------------------------------------------------------------------------------------------------------
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Transactions of an Account
+4 - Transfer Amount
+5 - View Branch Details of an account
+6 - Update Profile Details
+7 - Update password
+8 - View recent transactions
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 8): 
+Is transfer within bank or outside bank : (Enter y for within (or) hit enter for outside)
+Enter account number : 
+Invalid Selection
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Transactions of an Account
+4 - Transfer Amount
+5 - View Branch Details of an account
+6 - Update Profile Details
+7 - Update password
+8 - View recent transactions
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 8): 
+-----------------------------------------------------------------
+ACCOUNT NUMBER | CUSTOMER ID | START DATE |  BALANCE   | STATUS
+-----------------------------------------------------------------
+             1 |           2 | 2024-03-06 |   12500.00 | ACTIVE
+             2 |           2 | 2024-03-06 |    8400.00 | ACTIVE
+-----------------------------------------------------------------
+Enter account number : 
+----------------------------------------
+BRANCH DETAILS                          
+----------------------------------------
+ID                   : 1
+ADDRESS              : Karaikudi
+PHONE                : 9775635324
+EMAIL                : karakudi@cskbank.in
+IFSC CODE            : CSKB0000001
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Transactions of an Account
+4 - Transfer Amount
+5 - View Branch Details of an account
+6 - Update Profile Details
+7 - Update password
+8 - View recent transactions
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 8): 
+-----------------------------------------------------------------
+ACCOUNT NUMBER | CUSTOMER ID | START DATE |  BALANCE   | STATUS
+-----------------------------------------------------------------
+             1 |           2 | 2024-03-06 |   12500.00 | ACTIVE
+             2 |           2 | 2024-03-06 |    8400.00 | ACTIVE
+-----------------------------------------------------------------
+Enter account number : 
+----------------------------------------
+BRANCH DETAILS                          
+----------------------------------------
+ID                   : 1
+ADDRESS              : Karaikudi
+PHONE                : 9775635324
+EMAIL                : karakudi@cskbank.in
+IFSC CODE            : CSKB0000001
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Transactions of an Account
+4 - Transfer Amount
+5 - View Branch Details of an account
+6 - Update Profile Details
+7 - Update password
+8 - View recent transactions
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 8): 
+Select a number to update : 
+1 : ADDRESS
+2 : PHONE
+3 : EMAIL
+4 : FIRST_NAME
+5 : LAST_NAME
+6 : GENDER
+7 : DATE_OF_BIRTH
+8 : AADHAAR_NUMBER
+9 : PAN_NUMBER
+10 : BRANCH_ID
+Enter PIN to confirm changes : 
+Enter 4 digit secure PIN to confirm your request : 
+Update successful
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Transactions of an Account
+4 - Transfer Amount
+5 - View Branch Details of an account
+6 - Update Profile Details
+7 - Update password
+8 - View recent transactions
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 8): 
+----------------------------------------
+CUSTOMER DETAILS                        
+----------------------------------------
+USER ID              : 2
+FIRST NAME           : Sharan
+LAST NAME            : K
+DATE OF BIRTH        : 2002-10-01
+GENDER               : MALE
+ADDRESS              : Gobichettipalayam
+E-MAIL               : sharan@gmail.com
+AADHAAR              : 999845682846
+PAN                  : HDKAU8593L
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Transactions of an Account
+4 - Transfer Amount
+5 - View Branch Details of an account
+6 - Update Profile Details
+7 - Update password
+8 - View recent transactions
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 8): 
+-----------------------------------------------------------------
+ACCOUNT NUMBER | CUSTOMER ID | START DATE |  BALANCE   | STATUS
+-----------------------------------------------------------------
+             1 |           2 | 2024-03-06 |   12500.00 | ACTIVE
+             2 |           2 | 2024-03-06 |    8400.00 | ACTIVE
+-----------------------------------------------------------------
+Enter account number : 
+-------------------------------------------------------------------------------------------------------------------
+   ID   | PARTICULARS                              | ACCOUNT NUMBER |    DATE    |   AMOUNT   |   BALANCE  | TYPE
+-------------------------------------------------------------------------------------------------------------------
+ 17     | Self transfer                            |              2 | 2024-03-06 |    1000.00 |   12500.00 | CREDIT 
+ 16     | Self Transfer                            |              2 | 2024-03-05 |    5000.00 |   11500.00 | CREDIT 
+ 15     | Git                                      |              5 | 2024-03-05 |    5000.00 |    6500.00 | DEBIT 
+ 13     | Simply                                   |              2 | 2024-03-05 |    1000.00 |   11500.00 | DEBIT 
+ 12     | Self                                     |              2 | 2024-03-05 |    2000.00 |   12500.00 | CREDIT 
+ 11     | Self                                     |              2 | 2024-03-05 |    1000.00 |   10500.00 | DEBIT 
+ 10     | Groceries                                |              5 | 2024-03-05 |    2500.00 |   11500.00 | CREDIT 
+ 9      | Books                                    |              5 | 2024-03-05 |    1000.00 |    9000.00 | CREDIT 
+ 5      | BANK_WITHDRAWAL                          |              0 | 2024-03-04 |    1000.00 |    8000.00 | DEBIT 
+ 4      | BANK_WITHDRAWAL                          |              0 | 2024-03-04 |    1000.00 |   11000.00 | DEBIT 
+-------------------------------------------------------------------------------------------------------------------
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Transactions of an Account
+4 - Transfer Amount
+5 - View Branch Details of an account
+6 - Update Profile Details
+7 - Update password
+8 - View recent transactions
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 8): 

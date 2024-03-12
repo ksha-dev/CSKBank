@@ -1,0 +1,572 @@
+------------------------------
+     WELCOME TO CSK BANK
+------------------------------
+===============HOME===============
+Enter a number to perform the following operation : 
+1 - Sign in to access your information
+2 - Apply for a new account
+
+To exit, enter 0
+------------------------------
+Enter your choice : 
+Invalid number. Please enter a number between 0 and 3
+Enter your choice : 
+Enter your User ID (or 0 to exit): 
+Enter your password : 
+----------------------------------------
+EMPLOYEE DETAILS                        
+----------------------------------------
+USER ID              : 7
+FIRST NAME           : Surya
+LAST NAME            : Kumar
+DATE OF BIRTH        : 2000-01-12
+GENDER               : MALE
+ADDRESS              : Palladam
+E-MAIL               : surya.kumar@cskbank.com
+BRANCH ID            : 1
+
+===============EMPLOYEE PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - View list of accounts of your branch
+3 - View a customer details of an account
+4 - Open a new account for a new customer
+5 - View transactions of an account
+6 - Open a new account for an existing customer
+7 - View Employee Branch Details
+8 - Deposit money into an account
+9 - Withdraw money from an account
+10 - Update Customer details
+11 - Update Password
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 12): 
+Enter the following details : 
+Enter First name : 
+Enter Last name : 
+Enter Gender (0 - Male, 1 - Female, 2 - Other): 
+Enter Phone number : 
+Enter Email : 
+Enter Address : 
+Enter Date of birth in DDMMYYYY Format : 
+Enter Aadhaar Number : 
+Enter PAN Number : 
+----------------------------------------
+null DETAILS                            
+----------------------------------------
+USER ID              : 0
+FIRST NAME           : Harish
+LAST NAME            : SM
+DATE OF BIRTH        : 2000-01-01
+GENDER               : MALE
+ADDRESS              : Karur
+E-MAIL               : harishsm@gmail.com
+AADHAAR              : 886759305639
+PAN                  : GJRTH8504J
+Enter deposit amount : 
+Enter 'y' to confirm creation, 'N' to cancel
+1 : SAVINGS
+2 : CURRENT
+3 : SALARY
+Enter the associated number to select the type of account : 
+----------------------------------------
+CUSTOMER AND ACCOUNT HAS BEEN CREATED SUCCESSFULLY
+----------------------------------------
+ACCOUNT DETAILS
+----------------------------------------
+ACCOUNT NUMBER       : 7
+ACCOUNT BALANCE      : 100000.0
+ACCOUNT TYPE         : SAVINGS
+ACCOUNT STATUS       : ACTIVE
+CUSTOMER Id          : 8
+OPENING DATE         : 2024-03-12
+BRANCH CODE          : 1
+
+===============EMPLOYEE PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - View list of accounts of your branch
+3 - View a customer details of an account
+4 - Open a new account for a new customer
+5 - View transactions of an account
+6 - Open a new account for an existing customer
+7 - View Employee Branch Details
+8 - Deposit money into an account
+9 - Withdraw money from an account
+10 - Update Customer details
+11 - Update Password
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 12): 
+Enter 'YES' to confirm logout : 
+Logged out successfully.
+----------------------------------------
+===============HOME===============
+Enter a number to perform the following operation : 
+1 - Sign in to access your information
+2 - Apply for a new account
+
+To exit, enter 0
+------------------------------
+Enter your choice : 
+Invalid number. Please enter a number between 0 and 3
+Enter your choice : 
+Enter your User ID (or 0 to exit): 
+Enter your password : 
+----------------------------------------
+CUSTOMER DETAILS                        
+----------------------------------------
+USER ID              : 8
+FIRST NAME           : Harish
+LAST NAME            : SM
+DATE OF BIRTH        : 2000-01-01
+GENDER               : MALE
+ADDRESS              : Karur
+E-MAIL               : harishsm@gmail.com
+AADHAAR              : 886759305639
+PAN                  : GJRTH8504J
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Transactions of an Account
+4 - Transfer Amount
+5 - View Branch Details of an account
+6 - Update Profile Details
+7 - Update password
+8 - View recent transactions
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 8): 
+-------------------------------------------------------------------------------------------------------------------
+   ID   | PARTICULARS                              | ACCOUNT NUMBER |    DATE    |   AMOUNT   |   BALANCE  | TYPE
+-------------------------------------------------------------------------------------------------------------------
+ 22     | Bank-Deposit/BranchId-1/EmployeeId-7     |              0 | 2024-03-12 |  100000.00 |  100000.00 | CREDIT 
+-------------------------------------------------------------------------------------------------------------------
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Transactions of an Account
+4 - Transfer Amount
+5 - View Branch Details of an account
+6 - Update Profile Details
+7 - Update password
+8 - View recent transactions
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 8): 
+-----------------------------------------------------------------
+ACCOUNT NUMBER | CUSTOMER ID | START DATE |  BALANCE   | STATUS
+-----------------------------------------------------------------
+             7 |           8 | 2024-03-12 |  100000.00 | ACTIVE
+-----------------------------------------------------------------
+----------------------------------------
+BRANCH DETAILS                          
+----------------------------------------
+ID                   : 1
+ADDRESS              : Karaikudi
+PHONE                : 9775635324
+EMAIL                : karakudi@cskbank.in
+IFSC CODE            : CSKB0000001
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Transactions of an Account
+4 - Transfer Amount
+5 - View Branch Details of an account
+6 - Update Profile Details
+7 - Update password
+8 - View recent transactions
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 8): 
+Is transfer within bank or outside bank : (Enter y for within (or) hit enter for outside)
+7
+Enter Account number of the account to transfer the money into : 
+A number is expected. Please enter a valid integer.
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Transactions of an Account
+4 - Transfer Amount
+5 - View Branch Details of an account
+6 - Update Profile Details
+7 - Update password
+8 - View recent transactions
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 8): 
+Is transfer within bank or outside bank : (Enter y for within (or) hit enter for outside)
+7
+Enter Account number of the account to transfer the money into : 
+A number is expected. Please enter a valid integer.
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Transactions of an Account
+4 - Transfer Amount
+5 - View Branch Details of an account
+6 - Update Profile Details
+7 - Update password
+8 - View recent transactions
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 8): 
+Is transfer within bank or outside bank : (Enter y for within (or) hit enter for outside)
+7
+Enter Account number of the account to transfer the money into : 
+Enter the amount to tranfer : 
+Enter Remarks : 
+Enter PIN to confirm : 
+Enter 4 digit secure PIN to confirm your request : 
+Confirmation Failed. Cannot process the request
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Transactions of an Account
+4 - Transfer Amount
+5 - View Branch Details of an account
+6 - Update Profile Details
+7 - Update password
+8 - View recent transactions
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 8): 
+----------------------------------------
+CUSTOMER DETAILS                        
+----------------------------------------
+USER ID              : 8
+FIRST NAME           : Harish
+LAST NAME            : SM
+DATE OF BIRTH        : 2000-01-01
+GENDER               : MALE
+ADDRESS              : Karur
+E-MAIL               : harishsm@gmail.com
+AADHAAR              : 886759305639
+PAN                  : GJRTH8504J
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Transactions of an Account
+4 - Transfer Amount
+5 - View Branch Details of an account
+6 - Update Profile Details
+7 - Update password
+8 - View recent transactions
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 8): 
+Is transfer within bank or outside bank : (Enter y for within (or) hit enter for outside)
+7
+Enter Account number of the account to transfer the money into : 
+Enter the amount to tranfer : 
+Enter Remarks : 
+Enter PIN to confirm : 
+Enter 4 digit secure PIN to confirm your request : 
+Confirmation Failed. Cannot process the request
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Transactions of an Account
+4 - Transfer Amount
+5 - View Branch Details of an account
+6 - Update Profile Details
+7 - Update password
+8 - View recent transactions
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 8): 
+-----------------------------------------------------------------
+ACCOUNT NUMBER | CUSTOMER ID | START DATE |  BALANCE   | STATUS
+-----------------------------------------------------------------
+             7 |           8 | 2024-03-12 |  100000.00 | ACTIVE
+-----------------------------------------------------------------
+----------------------------------------
+BRANCH DETAILS                          
+----------------------------------------
+ID                   : 1
+ADDRESS              : Karaikudi
+PHONE                : 9775635324
+EMAIL                : karakudi@cskbank.in
+IFSC CODE            : CSKB0000001
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Transactions of an Account
+4 - Transfer Amount
+5 - View Branch Details of an account
+6 - Update Profile Details
+7 - Update password
+8 - View recent transactions
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 8): 
+Is transfer within bank or outside bank : (Enter y for within (or) hit enter for outside)
+7
+Enter Account number of the account to transfer the money into : 
+Enter the amount to tranfer : 
+Enter Remarks : 
+Enter PIN to confirm : 
+Enter 4 digit secure PIN to confirm your request : 
+----------------------------------------
+ACCOUNT DETAILS
+----------------------------------------
+ACCOUNT NUMBER       : 7
+ACCOUNT BALANCE      : 100000.0
+ACCOUNT TYPE         : SAVINGS
+ACCOUNT STATUS       : ACTIVE
+CUSTOMER Id          : 8
+OPENING DATE         : 2024-03-12
+BRANCH CODE          : 1
+Transaction Successful
+Transaction Id : 23
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Transactions of an Account
+4 - Transfer Amount
+5 - View Branch Details of an account
+6 - Update Profile Details
+7 - Update password
+8 - View recent transactions
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 8): 
+-------------------------------------------------------------------------------------------------------------------
+   ID   | PARTICULARS                              | ACCOUNT NUMBER |    DATE    |   AMOUNT   |   BALANCE  | TYPE
+-------------------------------------------------------------------------------------------------------------------
+ 23     | A/c No:5830575839294853/Food             | 5830575839294853 | 2024-03-12 |    1000.00 |   99000.00 | DEBIT 
+ 22     | Bank-Deposit/BranchId-1/EmployeeId-7     |              0 | 2024-03-12 |  100000.00 |  100000.00 | CREDIT 
+-------------------------------------------------------------------------------------------------------------------
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Transactions of an Account
+4 - Transfer Amount
+5 - View Branch Details of an account
+6 - Update Profile Details
+7 - Update password
+8 - View recent transactions
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 8): 
+Enter current password : 
+Enter new password : 
+Re-enter new password for confirmation : 
+Enter your 4 digit PIN to confirm : 
+Enter 4 digit secure PIN to confirm your request : 
+Your password has been changed.
+Logging out.
+----------------------------------------
+===============HOME===============
+Enter a number to perform the following operation : 
+1 - Sign in to access your information
+2 - Apply for a new account
+
+To exit, enter 0
+------------------------------
+Enter your choice : 
+Invalid number. Please enter a number between 0 and 3
+Enter your choice : 
+Enter your User ID (or 0 to exit): 
+Enter your password : 
+----------------------------------------
+CUSTOMER DETAILS                        
+----------------------------------------
+USER ID              : 8
+FIRST NAME           : Harish
+LAST NAME            : SM
+DATE OF BIRTH        : 2000-01-01
+GENDER               : MALE
+ADDRESS              : Karur
+E-MAIL               : harishsm@gmail.com
+AADHAAR              : 886759305639
+PAN                  : GJRTH8504J
+===============CUSTOMER PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - Accounts
+3 - View Transactions of an Account
+4 - Transfer Amount
+5 - View Branch Details of an account
+6 - Update Profile Details
+7 - Update password
+8 - View recent transactions
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 8): 
+Enter 'YES' to confirm logout : 
+Logged out successfully.
+----------------------------------------
+===============HOME===============
+Enter a number to perform the following operation : 
+1 - Sign in to access your information
+2 - Apply for a new account
+
+To exit, enter 0
+------------------------------
+Enter your choice : 
+Enter your User ID (or 0 to exit): 
+Enter your password : 
+----------------------------------------
+ADMIN DETAILS                           
+----------------------------------------
+USER ID              : 1
+FIRST NAME           : ADMIN
+LAST NAME            : USER
+DATE OF BIRTH        : 2000-01-19
+GENDER               : MALE
+ADDRESS              : Address
+E-MAIL               : admin@email.com
+BRANCH ID            : 1
+
+===============EMPLOYEE PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - View list of accounts of your branch
+3 - View a customer details of an account
+4 - Open a new account for a new customer
+5 - View transactions of an account
+6 - Open a new account for an existing customer
+7 - View Employee Branch Details
+8 - Deposit money into an account
+9 - Withdraw money from an account
+10 - Update Customer details
+11 - Update Password
+12 - Go to Admin Portal
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 12): 
+Enter account number to withdraw amount : 
+Enter amount to withdraw : 
+Withdrawal Successful!.
+Transaction Id : 24
+
+===============EMPLOYEE PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - View list of accounts of your branch
+3 - View a customer details of an account
+4 - Open a new account for a new customer
+5 - View transactions of an account
+6 - Open a new account for an existing customer
+7 - View Employee Branch Details
+8 - Deposit money into an account
+9 - Withdraw money from an account
+10 - Update Customer details
+11 - Update Password
+12 - Go to Admin Portal
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 12): 
+Enter account number to get transactions : 
+Enter Transaction History Size : (0 - Recent, 1, 3, or 6 months) 
+-------------------------------------------------------------------------------------------------------------------
+   ID   | PARTICULARS                              | ACCOUNT NUMBER |    DATE    |   AMOUNT   |   BALANCE  | TYPE
+-------------------------------------------------------------------------------------------------------------------
+ 24     | Bank-Withdrawal/BranchId-1/EmployeeId-1  |              0 | 2024-03-12 |    1000.00 |    9500.00 | DEBIT 
+ 21     | Fees                                     |              5 | 2024-03-12 |    2000.00 |   10500.00 | DEBIT 
+ 17     | Self transfer                            |              2 | 2024-03-06 |    1000.00 |   12500.00 | CREDIT 
+ 16     | Self Transfer                            |              2 | 2024-03-05 |    5000.00 |   11500.00 | CREDIT 
+ 15     | Git                                      |              5 | 2024-03-05 |    5000.00 |    6500.00 | DEBIT 
+ 13     | Simply                                   |              2 | 2024-03-05 |    1000.00 |   11500.00 | DEBIT 
+ 12     | Self                                     |              2 | 2024-03-05 |    2000.00 |   12500.00 | CREDIT 
+ 11     | Self                                     |              2 | 2024-03-05 |    1000.00 |   10500.00 | DEBIT 
+ 10     | Groceries                                |              5 | 2024-03-05 |    2500.00 |   11500.00 | CREDIT 
+ 9      | Books                                    |              5 | 2024-03-05 |    1000.00 |    9000.00 | CREDIT 
+-------------------------------------------------------------------------------------------------------------------
+Enter 1 to go to next page (or) 0 to exit : 
+
+===============EMPLOYEE PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - View list of accounts of your branch
+3 - View a customer details of an account
+4 - Open a new account for a new customer
+5 - View transactions of an account
+6 - Open a new account for an existing customer
+7 - View Employee Branch Details
+8 - Deposit money into an account
+9 - Withdraw money from an account
+10 - Update Customer details
+11 - Update Password
+12 - Go to Admin Portal
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 12): 
+Enter customer Id : 
+1 : ADDRESS
+2 : PHONE
+3 : EMAIL
+4 : DATE_OF_BIRTH
+5 : GENDER
+6 : AADHAAR_NUMBER
+7 : PAN_NUMBER
+8 : FIRST_NAME
+9 : LAST_NAME
+10 : BRANCH_ID
+11 : STATUS
+12 : TYPE
+Select a field to update. Enter the corresponding number
+Enter Change Value : 
+Update Successful
+
+===============EMPLOYEE PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - View list of accounts of your branch
+3 - View a customer details of an account
+4 - Open a new account for a new customer
+5 - View transactions of an account
+6 - Open a new account for an existing customer
+7 - View Employee Branch Details
+8 - Deposit money into an account
+9 - Withdraw money from an account
+10 - Update Customer details
+11 - Update Password
+12 - Go to Admin Portal
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 12): 
+Enter 'YES' to confirm logout : 
+Logged out successfully.
+----------------------------------------
+===============HOME===============
+Enter a number to perform the following operation : 
+1 - Sign in to access your information
+2 - Apply for a new account
+
+To exit, enter 0
+------------------------------
+Enter your choice : 
+----------------------------------------
+Thank you for visiting us
+----------------------------------------

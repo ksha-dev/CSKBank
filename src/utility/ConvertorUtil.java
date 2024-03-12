@@ -8,7 +8,7 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 import exceptions.AppException;
-import helpers.UserRecord;
+import modules.UserRecord;
 
 public class ConvertorUtil {
 

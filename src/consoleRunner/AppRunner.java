@@ -6,10 +6,10 @@ import java.util.logging.Logger;
 
 import consoleRunner.utility.InputUtil;
 import consoleRunner.utility.LoggingUtil;
-import helpers.CustomerRecord;
-import helpers.EmployeeRecord;
-import helpers.UserRecord;
-import operations.HomeOperations;
+import modules.CustomerRecord;
+import modules.EmployeeRecord;
+import modules.UserRecord;
+import operations.AppOperations;
 import utility.ValidatorUtil;
 import utility.ConstantsUtil.UserType;
 
@@ -21,6 +21,9 @@ public class AppRunner {
 	public static void runConsoleApp(String... args) {
 		int runnerChoices = 3;
 		boolean isAppActive = true;
+
+		AppOperations operations = new AppOperations();
+
 		log.info("-".repeat(30) + "\n" + String.format("%25s", "WELCOME TO CSK BANK\n") + "-".repeat(30));
 		while (isAppActive) {
 
@@ -31,7 +34,6 @@ public class AppRunner {
 			int choice = -1;
 			try {
 				do {
-
 					log.info("Enter your choice : ");
 					choice = InputUtil.getPositiveInteger();
 					if (choice < 0 || choice > runnerChoices) {
@@ -47,7 +49,6 @@ public class AppRunner {
 					break;
 
 				case 1: {
-					HomeOperations activity = new HomeOperations();
 					UserRecord user = null;
 
 					log.info("Enter your User ID (or 0 to exit): ");
@@ -58,19 +59,21 @@ public class AppRunner {
 					log.info("Enter your password : ");
 					String password = InputUtil.getString();
 					ValidatorUtil.validatePassword(password);
-					user = activity.authenticateUser(userID, password);
-					if (user.getType().equals(UserType.EMPLOYEE)) {
-						LoggingUtil.logEmployeeRecord((EmployeeRecord) user);
-						EmployeeRunner.run((EmployeeRecord) user);
-					} else if (user.getType().equals(UserType.CUSTOMER)) {
+					user = operations.getUser(userID, password);
+					if (user.getType() == UserType.CUSTOMER) {
 						LoggingUtil.logCustomerRecord((CustomerRecord) user);
 						CustomerRunner.run((CustomerRecord) user);
+					} else if (user.getType() == UserType.EMPLOYEE || user.getType() == UserType.ADMIN) {
+						LoggingUtil.logEmployeeRecord((EmployeeRecord) user);
+						EmployeeRunner.run((EmployeeRecord) user);
 					}
 				}
 					break;
 				}
 			} catch (Exception e) {
+
 				LoggingUtil.logSever(e);
+				e.printStackTrace();
 			}
 			log.info("-".repeat(40));
 		}

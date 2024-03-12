@@ -3,13 +3,13 @@ package operations;
 import api.UserAPI;
 import api.mysql.MySQLUserAPI;
 import exceptions.AppException;
-import helpers.UserRecord;
+import modules.UserRecord;
 
-public class HomeOperations {
+public class AppOperations {
 
 	private UserAPI api = new MySQLUserAPI();
 
-	public UserRecord authenticateUser(int userID, String password) throws AppException {
+	public UserRecord getUser(int userID, String password) throws AppException {
 		if (new MySQLUserAPI().userAuthentication(userID, password)) {
 			return api.getUserDetails(userID);
 		}

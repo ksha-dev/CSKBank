@@ -8,10 +8,10 @@ import consoleRunner.utility.InputUtil;
 import consoleRunner.utility.LoggingUtil;
 import exceptions.AppException;
 import exceptions.messages.ActivityExceptionMessages;
-import helpers.Account;
-import helpers.Branch;
-import helpers.CustomerRecord;
-import helpers.Transaction;
+import modules.Account;
+import modules.Branch;
+import modules.CustomerRecord;
+import modules.Transaction;
 import operations.CustomerOperations;
 import utility.ValidatorUtil;
 import utility.ConstantsUtil;
@@ -26,7 +26,7 @@ class CustomerRunner {
 	public static void run(CustomerRecord customer) throws AppException {
 		boolean isProgramActive = true;
 		int runnerOperations = 8;
-		CustomerOperations activity = new CustomerOperations(customer);
+		CustomerOperations operations = new CustomerOperations(customer);
 
 		while (isProgramActive) {
 
@@ -67,18 +67,18 @@ class CustomerRunner {
 				}
 
 				case 1: {
-					LoggingUtil.logCustomerRecord(activity.getCustomerRecord());
+					LoggingUtil.logCustomerRecord(operations.getCustomerRecord());
 					break;
 				}
 
 				case 2: {
-					Map<Long, Account> accounts = activity.getAssociatedAccounts();
+					Map<Long, Account> accounts = operations.getAssociatedAccounts();
 					LoggingUtil.logAccountsList(accounts);
 					break;
 				}
 
 				case 3: {
-					Map<Long, Account> accounts = activity.getAssociatedAccounts();
+					Map<Long, Account> accounts = operations.getAssociatedAccounts();
 					long accountNumber = 0;
 					if (accounts.size() == 1) {
 						accountNumber = (long) accounts.keySet().toArray()[0];
@@ -107,7 +107,7 @@ class CustomerRunner {
 							throw new IllegalArgumentException("Invalid Transaction history Limit");
 						}
 						while (!isTransactionListObtained) {
-							List<Transaction> transactions = (activity.getTransactionsOfAccount(accountNumber,
+							List<Transaction> transactions = (operations.getTransactionsOfAccount(accountNumber,
 									pageNumber, limit));
 							LoggingUtil.logTransactionsList(transactions);
 							if (transactions.size() == ConstantsUtil.LIST_LIMIT) {
@@ -135,14 +135,14 @@ class CustomerRunner {
 					if (InputUtil.getString().equals("y")) {
 						isTransferInsideBank = true;
 					}
-					Map<Long, Account> accounts = activity.getAssociatedAccounts();
+					Map<Long, Account> accounts = operations.getAssociatedAccounts();
 					Transaction transaction = new Transaction();
 					long accountNumber = 0;
 					if (accounts.size() == 1) {
 						accountNumber = (long) accounts.keySet().toArray()[0];
 						log.info(accountNumber + "");
 					} else {
-						log.info("Enter account number : ");
+						log.info("Enter account number to transfer amount from: ");
 						accountNumber = InputUtil.getPositiveLong();
 
 					}
@@ -167,20 +167,20 @@ class CustomerRunner {
 					} else {
 						transaction.setRemarks("A/c No:" + transferAccountNumber + "/" + remarks);
 					}
-					transaction.setTransactionType(TransactionType.DEBIT.toString());
+					transaction.setTransactionType(TransactionType.DEBIT.getTransactionTypeId());
 					transaction.setUserId(customer.getUserId());
 
 					log.info("Enter PIN to confirm : ");
 					String pin = InputUtil.getPIN();
 
-					long id = activity.tranferMoney(transaction, isTransferInsideBank, pin);
+					long id = operations.tranferMoney(transaction, isTransferInsideBank, pin);
 					log.info("Transaction Successful");
 					log.info("Transaction Id : " + id);
 				}
 					break;
 
 				case 5: {
-					Map<Long, Account> accounts = activity.getAssociatedAccounts();
+					Map<Long, Account> accounts = operations.getAssociatedAccounts();
 					LoggingUtil.logAccountsList(accounts);
 					long accountNumber = 0;
 					if (accounts.size() == 1) {
@@ -190,7 +190,7 @@ class CustomerRunner {
 						accountNumber = InputUtil.getPositiveLong();
 					}
 					if (accounts.containsKey(accountNumber)) {
-						Branch branch = activity.getBranchDetailsOfAccount(accounts.get(accountNumber).getBranchId());
+						Branch branch = operations.getBranchDetailsOfAccount(accounts.get(accountNumber).getBranchId());
 						LoggingUtil.logBrach(branch);
 					}
 				}
@@ -218,7 +218,7 @@ class CustomerRunner {
 						}
 						log.info("Enter PIN to confirm changes : ");
 						String pin = InputUtil.getPIN();
-						if (activity.updateUserDetails(customer.getUserId(), selectedField, change, pin)) {
+						if (operations.updateUserDetails(customer.getUserId(), selectedField, change, pin)) {
 							log.info("Update successful");
 						}
 					}
@@ -239,7 +239,7 @@ class CustomerRunner {
 					log.info("Enter your 4 digit PIN to confirm : ");
 					String pin = InputUtil.getPIN();
 					if (newPassword.equals(newPasswordConfirm)) {
-						if (activity.updatePassword(customer.getUserId(), currentPassword, newPasswordConfirm, pin)) {
+						if (operations.updatePassword(customer.getUserId(), currentPassword, newPasswordConfirm, pin)) {
 							log.info("Your password has been changed.");
 							log.info("Logging out.");
 							isProgramActive = false;
@@ -249,7 +249,7 @@ class CustomerRunner {
 					break;
 
 				case 8: {
-					Map<Long, Account> accounts = activity.getAssociatedAccounts();
+					Map<Long, Account> accounts = operations.getAssociatedAccounts();
 					long accountNumber = 0;
 					if (accounts.size() == 1) {
 						accountNumber = (long) accounts.keySet().toArray()[0];
@@ -259,7 +259,7 @@ class CustomerRunner {
 						accountNumber = InputUtil.getPositiveLong();
 					}
 					if (accounts.containsKey(accountNumber)) {
-						List<Transaction> transactions = (activity.getTransactionsOfAccount(accountNumber, 1,
+						List<Transaction> transactions = (operations.getTransactionsOfAccount(accountNumber, 1,
 								TransactionHistoryLimit.RECENT));
 						LoggingUtil.logTransactionsList(transactions);
 
@@ -274,6 +274,7 @@ class CustomerRunner {
 					break;
 				}
 			} catch (Exception e) {
+				e.printStackTrace();
 				log.info(e.getMessage());
 			}
 		}

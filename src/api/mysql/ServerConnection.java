@@ -29,14 +29,14 @@ class ServerConnection {
 		}
 	}
 
-	public static Connection getServerConnection() throws AppException {
+	static Connection getServerConnection() throws AppException {
 		if (ValidatorUtil.isObjectNull(serverConnection)) {
 			throw new AppException(APIExceptionMessage.NO_SERVER_CONNECTION);
 		}
 		return serverConnection;
 	}
 
-	public static void closeServerConnection() {
+	static void closeServerConnection() {
 		if (!ValidatorUtil.isObjectNull(serverConnection)) {
 			try {
 				serverConnection.close();
@@ -45,7 +45,7 @@ class ServerConnection {
 		}
 	}
 
-	public static void startTransaction() throws AppException {
+	static void startTransaction() throws AppException {
 		try {
 			getServerConnection().setAutoCommit(false);
 		} catch (SQLException e) {
@@ -53,7 +53,7 @@ class ServerConnection {
 		}
 	}
 
-	public static void endTransaction() throws AppException {
+	static void endTransaction() throws AppException {
 		try {
 			getServerConnection().commit();
 			getServerConnection().setAutoCommit(true);
@@ -62,12 +62,17 @@ class ServerConnection {
 		}
 	}
 
-	public static void reverseTransaction() throws AppException {
+	static void reverseTransaction() throws AppException {
 		try {
 			getServerConnection().rollback();
-			getServerConnection().setAutoCommit(true);
 		} catch (SQLException e) {
 			throw new AppException(e.getMessage());
+		} finally {
+			try {
+				getServerConnection().setAutoCommit(true);
+			} catch (SQLException e) {
+				throw new AppException(e.getMessage());
+			}
 		}
 	}
 }

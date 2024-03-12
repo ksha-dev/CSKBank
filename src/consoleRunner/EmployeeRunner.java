@@ -8,17 +8,17 @@ import consoleRunner.utility.InputUtil;
 import consoleRunner.utility.LoggingUtil;
 import exceptions.AppException;
 import exceptions.messages.ActivityExceptionMessages;
-import helpers.Account;
-import helpers.Branch;
-import helpers.CustomerRecord;
-import helpers.EmployeeRecord;
-import helpers.Transaction;
+import modules.Account;
+import modules.Branch;
+import modules.CustomerRecord;
+import modules.EmployeeRecord;
+import modules.Transaction;
 import operations.EmployeeOperations;
 import utility.ValidatorUtil;
 import utility.ConstantsUtil.AccountType;
-import utility.ConstantsUtil.EmployeeType;
 import utility.ConstantsUtil.ModifiableField;
 import utility.ConstantsUtil.TransactionHistoryLimit;
+import utility.ConstantsUtil.UserType;
 import utility.ConstantsUtil;
 
 class EmployeeRunner {
@@ -28,7 +28,7 @@ class EmployeeRunner {
 	public static void run(EmployeeRecord employee) throws AppException {
 		boolean isProgramActive = true;
 		int runnerOperations = 12;
-		EmployeeOperations activity = new EmployeeOperations(employee);
+		EmployeeOperations operations = new EmployeeOperations(employee);
 
 		while (isProgramActive) {
 
@@ -45,7 +45,7 @@ class EmployeeRunner {
 					+ "\n6 - Open a new account for an existing customer" + "\n7 - View Employee Branch Details"
 					+ "\n8 - Deposit money into an account" + "\n9 - Withdraw money from an account"
 					+ "\n10 - Update Customer details" + "\n11 - Update Password"
-					+ (employee.getRole() == EmployeeType.ADMIN ? "\n12 - Go to Admin Portal" : "")
+					+ (employee.getType() == UserType.ADMIN ? "\n12 - Go to Admin Portal" : "")
 					+ "\n\nTo logout, enter 0\n" + "-".repeat(30));
 
 			int choice = -1;
@@ -71,14 +71,14 @@ class EmployeeRunner {
 					break;
 
 				case 1:
-					LoggingUtil.logEmployeeRecord(activity.getEmployeeRecord());
+					LoggingUtil.logEmployeeRecord(operations.getEmployeeRecord());
 					break;
 
 				case 2: {
 					int pageNumber = 1;
 					boolean isListObtained = false;
 					while (!isListObtained) {
-						Map<Long, Account> accounts = activity.getListOfAccountsInBranch(pageNumber);
+						Map<Long, Account> accounts = operations.getListOfAccountsInBranch(pageNumber);
 						LoggingUtil.logAccountsList(accounts);
 						if (accounts.size() == ConstantsUtil.LIST_LIMIT) {
 							log.info("Enter 1 to go to next page (or) 0 to exit : ");
@@ -99,13 +99,13 @@ class EmployeeRunner {
 					log.info("Enter customer Id : ");
 					int customerId = InputUtil.getPositiveInteger();
 					if (customerId > 0) {
-						LoggingUtil.logCustomerRecord(activity.getCustomerRecord(customerId));
+						LoggingUtil.logCustomerRecord(operations.getCustomerRecord(customerId));
 					}
 				}
 					break;
 
 				case 4:
-					createCustomer(activity);
+					createCustomer(operations);
 					break;
 
 				case 5: {
@@ -134,7 +134,7 @@ class EmployeeRunner {
 							throw new AppException("Invalid Transaction history Limit");
 						}
 						while (!isListObtained) {
-							List<Transaction> transactions = activity.getListOfTransactions(accountNumber, pageNumber,
+							List<Transaction> transactions = operations.getListOfTransactions(accountNumber, pageNumber,
 									limit);
 							LoggingUtil.logTransactionsList(transactions);
 							if (transactions.size() == ConstantsUtil.LIST_LIMIT) {
@@ -156,7 +156,7 @@ class EmployeeRunner {
 				case 6: {
 					log.info("Enter Customer Id : ");
 					int customerId = InputUtil.getPositiveInteger();
-					CustomerRecord customer = activity.getCustomerRecord(customerId);
+					CustomerRecord customer = operations.getCustomerRecord(customerId);
 					log.info("Enter deposit amount : ");
 					double amount = InputUtil.getPositiveDouble();
 
@@ -167,11 +167,11 @@ class EmployeeRunner {
 					log.info("Enter the associated number to select the type of account : ");
 					int typeSelection = InputUtil.getInteger();
 					if (typeSelection > 0 && typeSelection <= (i + 1)) {
-						Account account = activity.createAccountForExistingCustomer(customer.getUserId(),
+						Account account = operations.createAccountForExistingCustomer(customer.getUserId(),
 								AccountType.values()[typeSelection - 1], amount);
 						log.info("-".repeat(40));
 						log.info("ACCOUNT HAS BEEN CREATED SUCCESSFULLY");
-						account.logAccount();
+						LoggingUtil.logAccount(account);
 					} else {
 						log.info("Invalid Selection");
 					}
@@ -180,7 +180,7 @@ class EmployeeRunner {
 					break;
 
 				case 7: {
-					Branch branch = activity.getBrachDetails(employee.getBranchId());
+					Branch branch = operations.getBrachDetails(employee.getBranchId());
 					LoggingUtil.logBrach(branch);
 				}
 					break;
@@ -192,7 +192,7 @@ class EmployeeRunner {
 					log.info("Enter deposit amount : ");
 					double amount = InputUtil.getPositiveDouble();
 
-					long transactionId = activity.depositAmount(accountNumber, amount);
+					long transactionId = operations.depositAmount(accountNumber, amount);
 
 					log.info("Deposit Successful!.\nTransaction Id : " + transactionId);
 				}
@@ -203,7 +203,7 @@ class EmployeeRunner {
 					long accountNumber = InputUtil.getPositiveLong();
 					log.info("Enter amount to withdraw : ");
 					double amount = InputUtil.getPositiveDouble();
-					long transactionId = activity.withdrawAmount(accountNumber, amount);
+					long transactionId = operations.withdrawAmount(accountNumber, amount);
 					log.info("Withdrawal Successful!.\nTransaction Id : " + transactionId);
 				}
 					break;
@@ -215,7 +215,7 @@ class EmployeeRunner {
 						log.info("Customer Id cannot be 0");
 					} else {
 						int i = 0;
-						for (ModifiableField modifyField : ModifiableField.values()) {
+						for (ModifiableField modifyField : ConstantsUtil.EMPLOYEE_MODIFIABLE_FIELDS) {
 							log.info((i += 1) + " : " + modifyField);
 						}
 						log.info("Select a field to update. Enter the corresponding number");
@@ -247,7 +247,7 @@ class EmployeeRunner {
 								value = InputUtil.getString();
 							}
 
-							if (activity.updateCustomerDetails(customerId, field, value)) {
+							if (operations.updateCustomerDetails(customerId, field, value)) {
 								log.info("Update Successful");
 							}
 						}
@@ -266,7 +266,7 @@ class EmployeeRunner {
 					ValidatorUtil.validatePassword(currentPassword);
 					ValidatorUtil.validatePassword(newPasswordConfirm);
 					if (newPassword.equals(newPasswordConfirm)) {
-						if (activity.updatePassword(employee.getUserId(), currentPassword, newPasswordConfirm)) {
+						if (operations.updatePassword(employee.getUserId(), currentPassword, newPasswordConfirm)) {
 							log.info("Your password has been changed.");
 							log.info("Logging out.");
 							isProgramActive = false;
@@ -277,7 +277,7 @@ class EmployeeRunner {
 					break;
 
 				case 12: {
-					if (employee.getRole() == EmployeeType.ADMIN) {
+					if (employee.getType() == UserType.ADMIN) {
 						new AdminRunner().run(employee);
 					}
 				}
@@ -302,8 +302,8 @@ class EmployeeRunner {
 		log.info("Enter Last name : ");
 		customer.setLastName(InputUtil.getString());
 
-		log.info("Enter Gender : ");
-		customer.setGender(InputUtil.getString());
+		log.info("Enter Gender (0 - Male, 1 - Female, 2 - Other): ");
+		customer.setGender(InputUtil.getPositiveInteger());
 
 		log.info("Enter Phone number : ");
 		customer.setPhone(InputUtil.getPositiveLong());
@@ -332,7 +332,7 @@ class EmployeeRunner {
 		if (InputUtil.getString().charAt(0) == 'y') {
 			int i = 0;
 			for (AccountType type : AccountType.values()) {
-				log.info((i + 1) + " : " + type);
+				log.info((++i) + " : " + type);
 			}
 			log.info("Enter the associated number to select the type of account : ");
 			int typeSelection = InputUtil.getInteger();
@@ -342,7 +342,7 @@ class EmployeeRunner {
 				log.info("-".repeat(40));
 				log.info("CUSTOMER AND ACCOUNT HAS BEEN CREATED SUCCESSFULLY");
 				activity.getCustomerRecord(account.getUserId());
-				account.logAccount();
+				LoggingUtil.logAccount(account);
 			} else {
 				log.info("Invalid Selection");
 			}

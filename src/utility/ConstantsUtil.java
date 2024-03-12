@@ -3,6 +3,8 @@ package utility;
 import java.util.ArrayList;
 import java.util.List;
 
+import exceptions.AppException;
+
 public class ConstantsUtil {
 
 	public static final int LIST_LIMIT = 10;
@@ -14,51 +16,156 @@ public class ConstantsUtil {
 	static {
 		List<ModifiableField> tempList = new ArrayList<>();
 		tempList.addAll(List.of(ModifiableField.ADDRESS, ModifiableField.PHONE, ModifiableField.EMAIL));
-		USER_MODIFIABLE_FIELDS = tempList;
+		USER_MODIFIABLE_FIELDS = List.copyOf(tempList);
 
 		tempList.addAll(List.of(ModifiableField.FIRST_NAME, ModifiableField.LAST_NAME, ModifiableField.GENDER,
 				ModifiableField.DATE_OF_BIRTH, ModifiableField.AADHAAR_NUMBER, ModifiableField.PAN_NUMBER));
-		EMPLOYEE_MODIFIABLE_FIELDS = tempList;
+		EMPLOYEE_MODIFIABLE_FIELDS = List.copyOf(tempList);
 
-		tempList.addAll(List.of(ModifiableField.ROLE, ModifiableField.BRANCH_ID));
-		ADMIN_MODIFIABLE_FIELDS = tempList;
+		tempList.addAll(List.of(ModifiableField.BRANCH_ID));
+		ADMIN_MODIFIABLE_FIELDS = List.copyOf(tempList);
 	}
 
 	public static enum ModifiableField {
-		ADDRESS, PHONE, EMAIL, DATE_OF_BIRTH, GENDER, AADHAAR_NUMBER, PAN_NUMBER, FIRST_NAME, LAST_NAME, ROLE,
-		BRANCH_ID, STATUS, TYPE
+		ADDRESS, PHONE, EMAIL, DATE_OF_BIRTH, GENDER, AADHAAR_NUMBER, PAN_NUMBER, FIRST_NAME, LAST_NAME, BRANCH_ID,
+		STATUS, TYPE
 	}
 
 	public static enum UserType {
-		CUSTOMER, EMPLOYEE
-	}
+		CUSTOMER(0), EMPLOYEE(1), ADMIN(2);
 
-	public static enum EmployeeType {
-		EMPLOYEE, ADMIN
+		private int userTypeId;
+
+		private UserType(int userTypeId) {
+			this.userTypeId = userTypeId;
+		}
+
+		public int getUserTypeId() {
+			return this.userTypeId;
+		}
+
+		public static UserType getUserType(int userTypeId) throws AppException {
+			switch (userTypeId) {
+			case 0:
+				return CUSTOMER;
+			case 1:
+				return EMPLOYEE;
+			case 2:
+				return ADMIN;
+			default:
+				throw new AppException();
+			}
+		}
 	}
 
 	public static enum Status {
-		ACTIVE, INACTIVE, CLOSED, FROZEN
+		ACTIVE(0), INACTIVE(1), CLOSED(3), FROZEN(2);
+
+		private int statusId;
+
+		Status(int statusID) {
+			this.statusId = statusID;
+		}
+
+		public int getStatusId() {
+			return this.statusId;
+		}
+
+		public static Status getStatus(int statusId) throws AppException {
+			switch (statusId) {
+			case 0:
+				return ACTIVE;
+			case 1:
+				return INACTIVE;
+			case 2:
+				return FROZEN;
+			case 3:
+				return CLOSED;
+
+			default:
+				throw new AppException();
+			}
+		}
 	}
 
 	public static enum TransactionType {
-		CREDIT, DEBIT
+		CREDIT(1), DEBIT(0);
+
+		private int transactionTypeId;
+
+		private TransactionType(int transactionTypeId) {
+			this.transactionTypeId = transactionTypeId;
+		}
+
+		public int getTransactionTypeId() {
+			return this.transactionTypeId;
+		}
+
+		public static TransactionType getTransactionType(int transactionTypeId) throws AppException {
+			switch (transactionTypeId) {
+			case 0:
+				return DEBIT;
+			case 1:
+				return CREDIT;
+			default:
+				throw new AppException();
+			}
+		}
 	}
 
 	public static enum AccountType {
-		SAVINGS, CURRENT, SALARY
+		SAVINGS(0), CURRENT(1), SALARY(2);
+
+		private int accountTypeId;
+
+		private AccountType(int accountTypeId) {
+			this.accountTypeId = accountTypeId;
+		}
+
+		public int getAccountTypeId() {
+			return this.accountTypeId;
+		}
+
+		public static AccountType getAccountType(int accountTypeId) throws AppException {
+			switch (accountTypeId) {
+			case 0:
+				return SAVINGS;
+			case 1:
+				return CURRENT;
+			case 2:
+				return SALARY;
+
+			default:
+				throw new AppException();
+			}
+		}
 	}
 
 	public static enum Gender {
-		MALE, FEMALE, OTHER;
+		MALE(0), FEMALE(1), OTHER(2);
 
-		public String getGendersString() {
-			StringBuilder string = new StringBuilder();
+		private int genderId;
 
-			for (Gender gender : Gender.values()) {
-				string.append(gender.toString() + " ");
+		private Gender(int genderId) {
+			this.genderId = genderId;
+		}
+
+		public int getGenderId() {
+			return this.genderId;
+		}
+
+		public static Gender getGender(int genderId) throws AppException {
+			switch (genderId) {
+			case 0:
+				return MALE;
+			case 1:
+				return FEMALE;
+			case 2:
+				return OTHER;
+
+			default:
+				throw new AppException();
 			}
-			return string.toString();
 		}
 	}
 

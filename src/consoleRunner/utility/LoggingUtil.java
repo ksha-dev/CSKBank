@@ -12,12 +12,12 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 import exceptions.AppException;
-import helpers.Account;
-import helpers.Branch;
-import helpers.CustomerRecord;
-import helpers.EmployeeRecord;
-import helpers.Transaction;
-import helpers.UserRecord;
+import modules.Account;
+import modules.Branch;
+import modules.CustomerRecord;
+import modules.EmployeeRecord;
+import modules.Transaction;
+import modules.UserRecord;
 import utility.ConvertorUtil;
 import utility.ValidatorUtil;
 
@@ -85,6 +85,7 @@ public class LoggingUtil {
 		DEFAULT_LOGGER.info(String.format("%-20s", "DATE OF BIRTH") + " : " + user.getDateOfBirthInLocalDate());
 		DEFAULT_LOGGER.info(String.format("%-20s", "GENDER") + " : " + user.getGender());
 		DEFAULT_LOGGER.info(String.format("%-20s", "ADDRESS") + " : " + user.getAddress());
+		DEFAULT_LOGGER.info(String.format("%-20s", "PHONE") + " : " + user.getPhone());
 		DEFAULT_LOGGER.info(String.format("%-20s", "E-MAIL") + " : " + user.getEmail());
 	}
 
@@ -96,7 +97,6 @@ public class LoggingUtil {
 
 	public static void logEmployeeRecord(EmployeeRecord employee) throws AppException {
 		logUserRecord(employee);
-		LoggingUtil.DEFAULT_LOGGER.info(String.format("%-20s", "ROLE") + " : " + employee.getRole());
 		LoggingUtil.DEFAULT_LOGGER.info(String.format("%-20s", "BRANCH ID") + " : " + employee.getBranchId());
 
 	}
@@ -141,4 +141,19 @@ public class LoggingUtil {
 		DEFAULT_LOGGER.info(String.format("%-20s", "EMAIL") + " : " + branch.getEmail());
 		DEFAULT_LOGGER.info(String.format("%-20s", "IFSC CODE") + " : " + branch.getIfscCode());
 	}
+
+	public static void logAccount(Account account) {
+		DEFAULT_LOGGER.info("-".repeat(40));
+		DEFAULT_LOGGER.info("ACCOUNT DETAILS");
+		DEFAULT_LOGGER.info("-".repeat(40));
+		DEFAULT_LOGGER.info(String.format("%-20s", "ACCOUNT NUMBER") + " : " + account.getAccountNumber());
+		DEFAULT_LOGGER.info(String.format("%-20s", "ACCOUNT BALANCE") + " : " + account.getBalance());
+		DEFAULT_LOGGER.info(String.format("%-20s", "ACCOUNT TYPE") + " : " + account.getAccountType());
+		DEFAULT_LOGGER.info(String.format("%-20s", "ACCOUNT STATUS") + " : " + account.getStatus());
+		DEFAULT_LOGGER.info(String.format("%-20s", "CUSTOMER Id") + " : " + account.getUserId());
+		DEFAULT_LOGGER.info(String.format("%-20s", "OPENING DATE") + " : "
+				+ account.getOpeningDateInLocalDateTime().format(DateTimeFormatter.ISO_DATE));
+		DEFAULT_LOGGER.info(String.format("%-20s", "BRANCH CODE") + " : " + account.getBranchId());
+	}
+
 }

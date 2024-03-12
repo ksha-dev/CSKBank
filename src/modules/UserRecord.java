@@ -1,10 +1,9 @@
-package helpers;
+package modules;
 
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 
 import exceptions.AppException;
-import exceptions.messages.InvalidInputMessage;
 import utility.ValidatorUtil;
 import utility.ConstantsUtil.Gender;
 import utility.ConstantsUtil.UserType;
@@ -47,9 +46,8 @@ public abstract class UserRecord {
 		this.dateOfBirth = temp;
 	}
 
-	public void setGender(String gender) throws AppException {
-		ValidatorUtil.validateGender(gender);
-		this.gender = Gender.valueOf(gender.toUpperCase());
+	public void setGender(int genderId) throws AppException {
+		this.gender = Gender.getGender(genderId);
 	}
 
 	public void setAddress(String address) throws AppException {
@@ -67,9 +65,8 @@ public abstract class UserRecord {
 		this.email = email;
 	}
 
-	public void setType(String type) throws AppException {
-		ValidatorUtil.validateObject(type);
-		this.type = UserType.valueOf(type);
+	public void setType(int userTypeId) throws AppException {
+		this.type = UserType.getUserType(userTypeId);
 	}
 
 	public int getUserId() {

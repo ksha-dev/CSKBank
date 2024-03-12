@@ -109,6 +109,12 @@ public class ValidatorUtil {
 		}
 	}
 
+	public static void validateAmount(double amount) throws AppException {
+		if (amount < 1) {
+			throw new AppException(InvalidInputMessage.INVALID_AMOUNT);
+		}
+	}
+
 	public static void validateGender(String gender) throws AppException {
 		try {
 			Gender.valueOf(gender.toUpperCase());

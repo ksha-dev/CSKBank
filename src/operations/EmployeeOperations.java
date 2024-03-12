@@ -6,14 +6,13 @@ import java.util.Map;
 import api.EmployeeAPI;
 import api.mysql.MySQLEmployeeAPI;
 import exceptions.AppException;
-import exceptions.messages.APIExceptionMessage;
 import exceptions.messages.ActivityExceptionMessages;
-import helpers.Account;
-import helpers.Branch;
-import helpers.CustomerRecord;
-import helpers.EmployeeRecord;
-import helpers.Transaction;
-import helpers.UserRecord;
+import modules.Account;
+import modules.Branch;
+import modules.CustomerRecord;
+import modules.EmployeeRecord;
+import modules.Transaction;
+import modules.UserRecord;
 import utility.ValidatorUtil;
 import utility.ConstantsUtil;
 import utility.ConstantsUtil.AccountType;
@@ -28,7 +27,7 @@ public class EmployeeOperations {
 	public EmployeeOperations(EmployeeRecord employee) throws AppException {
 		ValidatorUtil.validateObject(employee);
 		ValidatorUtil.validateId(employee.getUserId());
-		if (employee.getType() != UserType.EMPLOYEE) {
+		if (!(employee.getType() == UserType.EMPLOYEE || employee.getType() == UserType.ADMIN)) {
 			throw new AppException(ActivityExceptionMessages.INVALID_EMPLOYEE_RECORD);
 		}
 		this.employee = employee;
@@ -47,14 +46,14 @@ public class EmployeeOperations {
 		ValidatorUtil.validateId(customerId);
 		UserRecord user = api.getUserDetails(customerId);
 		if (!(user instanceof CustomerRecord)) {
-			throw new AppException(APIExceptionMessage.NO_RECORDS_FOUND);
+			throw new AppException(ActivityExceptionMessages.NO_CUSTOMER_RECORD_FOUND);
 		}
 		return (CustomerRecord) user;
 	}
 
 	public Account createNewCustomerAndAccount(CustomerRecord customer, AccountType accountType, double depositAmount)
 			throws AppException {
-		customer.setType(UserType.CUSTOMER.toString());
+		customer.setType(UserType.CUSTOMER.getUserTypeId());
 		ValidatorUtil.validateObject(customer);
 
 		api.createCustomer(customer);
@@ -106,6 +105,7 @@ public class EmployeeOperations {
 			throw new AppException(ActivityExceptionMessages.MODIFICATION_ACCESS_DENIED);
 		}
 		ValidatorUtil.validateObject(value);
+		getCustomerRecord(customerId);
 		return api.updateProfileDetails(customerId, field, value);
 	}
 
