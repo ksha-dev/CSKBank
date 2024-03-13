@@ -1,7 +1,5 @@
 package consoleRunner;
 
-// Github token - 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
-
 import java.util.logging.Logger;
 
 import consoleRunner.utility.InputUtil;

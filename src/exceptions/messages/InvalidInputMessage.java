@@ -1,7 +1,5 @@
 package exceptions.messages;
 
-import utility.ConstantsUtil.Gender;
-
 public enum InvalidInputMessage {
 	INVALID_FIRST_NAME("The first name must contain atleast 4 characters."),
 	INVALID_LAST_NAME("The last name must contain atleast 1 characters."),

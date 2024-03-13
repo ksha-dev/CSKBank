@@ -5,6 +5,9 @@ import java.util.Map;
 
 import api.EmployeeAPI;
 import api.mysql.MySQLEmployeeAPI;
+import cache.Cache;
+import cache.CustomerRecordCache;
+import cache.LRUCache;
 import exceptions.AppException;
 import exceptions.messages.ActivityExceptionMessages;
 import modules.Account;
@@ -23,6 +26,8 @@ import utility.ConstantsUtil.UserType;
 public class EmployeeOperations {
 	private EmployeeRecord employee;
 	private EmployeeAPI api = new MySQLEmployeeAPI();
+
+	private Cache<Integer, CustomerRecord> customerRecordCache = new CustomerRecordCache(50, api);
 
 	public EmployeeOperations(EmployeeRecord employee) throws AppException {
 		ValidatorUtil.validateObject(employee);
@@ -44,11 +49,7 @@ public class EmployeeOperations {
 
 	public CustomerRecord getCustomerRecord(int customerId) throws AppException {
 		ValidatorUtil.validateId(customerId);
-		UserRecord user = api.getUserDetails(customerId);
-		if (!(user instanceof CustomerRecord)) {
-			throw new AppException(ActivityExceptionMessages.NO_CUSTOMER_RECORD_FOUND);
-		}
-		return (CustomerRecord) user;
+		return customerRecordCache.get(customerId);
 	}
 
 	public Account createNewCustomerAndAccount(CustomerRecord customer, AccountType accountType, double depositAmount)
