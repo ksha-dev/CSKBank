@@ -1,0 +1,106 @@
+------------------------------
+     WELCOME TO CSK BANK
+------------------------------
+===============HOME===============
+Enter a number to perform the following operation : 
+1 - Sign in to access your information
+2 - Apply for a new account
+
+To exit, enter 0
+------------------------------
+Enter your choice : 
+Enter your User ID (or 0 to exit): 
+Enter your password : 
+----------------------------------------
+ADMIN DETAILS                           
+----------------------------------------
+USER ID              : 1
+FIRST NAME           : ADMIN
+LAST NAME            : USER
+DATE OF BIRTH        : 2000-01-19
+GENDER               : MALE
+ADDRESS              : Coimbatore
+PHONE                : 9876543210
+E-MAIL               : admin@email.com
+BRANCH ID            : 1
+
+===============EMPLOYEE PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - View list of accounts of your branch
+3 - View a customer details of an account
+4 - Open a new account for a new customer
+5 - View transactions of an account
+6 - Open a new account for an existing customer
+7 - View Employee Branch Details
+8 - Deposit money into an account
+9 - Withdraw money from an account
+10 - Update Customer details
+11 - Update Password
+12 - Go to Admin Portal
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 12): 
+----------------------------------------
+ADMIN DETAILS                           
+----------------------------------------
+USER ID              : 1
+FIRST NAME           : ADMIN
+LAST NAME            : USER
+DATE OF BIRTH        : 2000-01-19
+GENDER               : MALE
+ADDRESS              : Coimbatore
+PHONE                : 9876543210
+E-MAIL               : admin@email.com
+BRANCH ID            : 1
+
+===============EMPLOYEE PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - View list of accounts of your branch
+3 - View a customer details of an account
+4 - Open a new account for a new customer
+5 - View transactions of an account
+6 - Open a new account for an existing customer
+7 - View Employee Branch Details
+8 - Deposit money into an account
+9 - Withdraw money from an account
+10 - Update Customer details
+11 - Update Password
+12 - Go to Admin Portal
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 12): 
+----------------------------------------
+ADMIN DETAILS                           
+----------------------------------------
+USER ID              : 1
+FIRST NAME           : ADMIN
+LAST NAME            : USER
+DATE OF BIRTH        : 2000-01-19
+GENDER               : MALE
+ADDRESS              : Coimbatore
+PHONE                : 9876543210
+E-MAIL               : admin@email.com
+BRANCH ID            : 1
+
+===============EMPLOYEE PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - View list of accounts of your branch
+3 - View a customer details of an account
+4 - Open a new account for a new customer
+5 - View transactions of an account
+6 - Open a new account for an existing customer
+7 - View Employee Branch Details
+8 - Deposit money into an account
+9 - Withdraw money from an account
+10 - Update Customer details
+11 - Update Password
+12 - Go to Admin Portal
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 12): 

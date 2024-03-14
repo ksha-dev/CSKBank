@@ -20,8 +20,6 @@ public class AppRunner {
 		int runnerChoices = 3;
 		boolean isAppActive = true;
 
-		AppOperations operations = new AppOperations();
-
 		log.info("-".repeat(30) + "\n" + String.format("%25s", "WELCOME TO CSK BANK\n") + "-".repeat(30));
 		while (isAppActive) {
 
@@ -31,6 +29,7 @@ public class AppRunner {
 
 			int choice = -1;
 			try {
+
 				do {
 					log.info("Enter your choice : ");
 					choice = InputUtil.getPositiveInteger();
@@ -39,13 +38,13 @@ public class AppRunner {
 					}
 				} while (choice < 0 || choice > runnerChoices);
 
+				AppOperations operations = new AppOperations();
 				switch (choice) {
 				case 0:
 					log.info("-".repeat(40));
 					log.info("Thank you for visiting us");
 					isAppActive = false;
 					break;
-
 				case 1: {
 					UserRecord user = null;
 
@@ -69,7 +68,6 @@ public class AppRunner {
 					break;
 				}
 			} catch (Exception e) {
-
 				LoggingUtil.logSever(e);
 				e.printStackTrace();
 			}

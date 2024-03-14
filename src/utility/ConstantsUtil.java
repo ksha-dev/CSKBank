@@ -13,6 +13,9 @@ public class ConstantsUtil {
 	public static final List<ModifiableField> USER_MODIFIABLE_FIELDS;
 	public static final List<ModifiableField> EMPLOYEE_MODIFIABLE_FIELDS;
 	public static final List<ModifiableField> ADMIN_MODIFIABLE_FIELDS;
+	
+	public static final int CACHE_SIZE = 3;
+
 
 	static {
 		List<ModifiableField> tempList = new ArrayList<>();

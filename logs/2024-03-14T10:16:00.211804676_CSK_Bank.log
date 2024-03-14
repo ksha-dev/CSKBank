@@ -1,0 +1,341 @@
+------------------------------
+     WELCOME TO CSK BANK
+------------------------------
+===============HOME===============
+Enter a number to perform the following operation : 
+1 - Sign in to access your information
+2 - Apply for a new account
+
+To exit, enter 0
+------------------------------
+Enter your choice : 
+Enter your User ID (or 0 to exit): 
+Enter your password : 
+----------------------------------------
+ADMIN DETAILS                           
+----------------------------------------
+USER ID              : 1
+FIRST NAME           : ADMIN
+LAST NAME            : USER
+DATE OF BIRTH        : 2000-01-19
+GENDER               : MALE
+ADDRESS              : Coimbatore
+PHONE                : 9876543210
+E-MAIL               : admin@email.com
+BRANCH ID            : 1
+
+===============EMPLOYEE PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - View list of accounts of your branch
+3 - View a customer details of an account
+4 - Open a new account for a new customer
+5 - View transactions of an account
+6 - Open a new account for an existing customer
+7 - View Employee Branch Details
+8 - Deposit money into an account
+9 - Withdraw money from an account
+10 - Update Customer details
+11 - Update Password
+12 - Go to Admin Portal
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 12): 
+Enter customer Id : 
+----------------------------------------
+CUSTOMER DETAILS                        
+----------------------------------------
+USER ID              : 2
+FIRST NAME           : Sharan
+LAST NAME            : K
+DATE OF BIRTH        : 2002-10-01
+GENDER               : MALE
+ADDRESS              : Gobichettipalayam
+PHONE                : 9987647808
+E-MAIL               : sharanshanjay@gmail.com
+AADHAAR              : 999845682846
+PAN                  : HDKAU8593L
+
+===============EMPLOYEE PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - View list of accounts of your branch
+3 - View a customer details of an account
+4 - Open a new account for a new customer
+5 - View transactions of an account
+6 - Open a new account for an existing customer
+7 - View Employee Branch Details
+8 - Deposit money into an account
+9 - Withdraw money from an account
+10 - Update Customer details
+11 - Update Password
+12 - Go to Admin Portal
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 12): 
+Enter customer Id : 
+----------------------------------------
+CUSTOMER DETAILS                        
+----------------------------------------
+USER ID              : 4
+FIRST NAME           : Niveth
+LAST NAME            : S
+DATE OF BIRTH        : 2003-01-09
+GENDER               : MALE
+ADDRESS              : Coimbatore
+PHONE                : 9987678976
+E-MAIL               : niveth.s@gmail.com
+AADHAAR              : 946395734937
+PAN                  : KFHTN3955K
+
+===============EMPLOYEE PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - View list of accounts of your branch
+3 - View a customer details of an account
+4 - Open a new account for a new customer
+5 - View transactions of an account
+6 - Open a new account for an existing customer
+7 - View Employee Branch Details
+8 - Deposit money into an account
+9 - Withdraw money from an account
+10 - Update Customer details
+11 - Update Password
+12 - Go to Admin Portal
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 12): 
+Enter customer Id : 
+----------------------------------------
+CUSTOMER DETAILS                        
+----------------------------------------
+USER ID              : 4
+FIRST NAME           : Niveth
+LAST NAME            : S
+DATE OF BIRTH        : 2003-01-09
+GENDER               : MALE
+ADDRESS              : Coimbatore
+PHONE                : 9987678976
+E-MAIL               : niveth.s@gmail.com
+AADHAAR              : 946395734937
+PAN                  : KFHTN3955K
+
+===============EMPLOYEE PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - View list of accounts of your branch
+3 - View a customer details of an account
+4 - Open a new account for a new customer
+5 - View transactions of an account
+6 - Open a new account for an existing customer
+7 - View Employee Branch Details
+8 - Deposit money into an account
+9 - Withdraw money from an account
+10 - Update Customer details
+11 - Update Password
+12 - Go to Admin Portal
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 12): 
+Enter customer Id : 
+----------------------------------------
+CUSTOMER DETAILS                        
+----------------------------------------
+USER ID              : 5
+FIRST NAME           : Saai
+LAST NAME            : Vignesh
+DATE OF BIRTH        : 2002-10-14
+GENDER               : MALE
+ADDRESS              : Coimbatore
+PHONE                : 9987608765
+E-MAIL               : saaivignesh@gmail.com
+AADHAAR              : 385749374937
+PAN                  : JFLAH3953J
+
+===============EMPLOYEE PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - View list of accounts of your branch
+3 - View a customer details of an account
+4 - Open a new account for a new customer
+5 - View transactions of an account
+6 - Open a new account for an existing customer
+7 - View Employee Branch Details
+8 - Deposit money into an account
+9 - Withdraw money from an account
+10 - Update Customer details
+11 - Update Password
+12 - Go to Admin Portal
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 12): 
+Enter customer Id : 
+----------------------------------------
+CUSTOMER DETAILS                        
+----------------------------------------
+USER ID              : 8
+FIRST NAME           : Harish
+LAST NAME            : SM
+DATE OF BIRTH        : 2000-01-01
+GENDER               : MALE
+ADDRESS              : Karur
+PHONE                : 9987646354
+E-MAIL               : harishsm@gmail.com
+AADHAAR              : 886759305639
+PAN                  : GJRTH8504J
+
+===============EMPLOYEE PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - View list of accounts of your branch
+3 - View a customer details of an account
+4 - Open a new account for a new customer
+5 - View transactions of an account
+6 - Open a new account for an existing customer
+7 - View Employee Branch Details
+8 - Deposit money into an account
+9 - Withdraw money from an account
+10 - Update Customer details
+11 - Update Password
+12 - Go to Admin Portal
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 12): 
+Enter customer Id : 
+----------------------------------------
+CUSTOMER DETAILS                        
+----------------------------------------
+USER ID              : 2
+FIRST NAME           : Sharan
+LAST NAME            : K
+DATE OF BIRTH        : 2002-10-01
+GENDER               : MALE
+ADDRESS              : Gobichettipalayam
+PHONE                : 9987647808
+E-MAIL               : sharanshanjay@gmail.com
+AADHAAR              : 999845682846
+PAN                  : HDKAU8593L
+
+===============EMPLOYEE PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - View list of accounts of your branch
+3 - View a customer details of an account
+4 - Open a new account for a new customer
+5 - View transactions of an account
+6 - Open a new account for an existing customer
+7 - View Employee Branch Details
+8 - Deposit money into an account
+9 - Withdraw money from an account
+10 - Update Customer details
+11 - Update Password
+12 - Go to Admin Portal
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 12): 
+Enter customer Id : 
+----------------------------------------
+CUSTOMER DETAILS                        
+----------------------------------------
+USER ID              : 4
+FIRST NAME           : Niveth
+LAST NAME            : S
+DATE OF BIRTH        : 2003-01-09
+GENDER               : MALE
+ADDRESS              : Coimbatore
+PHONE                : 9987678976
+E-MAIL               : niveth.s@gmail.com
+AADHAAR              : 946395734937
+PAN                  : KFHTN3955K
+
+===============EMPLOYEE PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - View list of accounts of your branch
+3 - View a customer details of an account
+4 - Open a new account for a new customer
+5 - View transactions of an account
+6 - Open a new account for an existing customer
+7 - View Employee Branch Details
+8 - Deposit money into an account
+9 - Withdraw money from an account
+10 - Update Customer details
+11 - Update Password
+12 - Go to Admin Portal
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 12): 
+Enter customer Id : 
+----------------------------------------
+CUSTOMER DETAILS                        
+----------------------------------------
+USER ID              : 2
+FIRST NAME           : Sharan
+LAST NAME            : K
+DATE OF BIRTH        : 2002-10-01
+GENDER               : MALE
+ADDRESS              : Gobichettipalayam
+PHONE                : 9987647808
+E-MAIL               : sharanshanjay@gmail.com
+AADHAAR              : 999845682846
+PAN                  : HDKAU8593L
+
+===============EMPLOYEE PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - View list of accounts of your branch
+3 - View a customer details of an account
+4 - Open a new account for a new customer
+5 - View transactions of an account
+6 - Open a new account for an existing customer
+7 - View Employee Branch Details
+8 - Deposit money into an account
+9 - Withdraw money from an account
+10 - Update Customer details
+11 - Update Password
+12 - Go to Admin Portal
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 12): 
+Enter customer Id : 
+----------------------------------------
+CUSTOMER DETAILS                        
+----------------------------------------
+USER ID              : 8
+FIRST NAME           : Harish
+LAST NAME            : SM
+DATE OF BIRTH        : 2000-01-01
+GENDER               : MALE
+ADDRESS              : Karur
+PHONE                : 9987646354
+E-MAIL               : harishsm@gmail.com
+AADHAAR              : 886759305639
+PAN                  : GJRTH8504J
+
+===============EMPLOYEE PORTAL===============
+Enter a number to perform the following operation : 
+1 - View Profile Details
+2 - View list of accounts of your branch
+3 - View a customer details of an account
+4 - Open a new account for a new customer
+5 - View transactions of an account
+6 - Open a new account for an existing customer
+7 - View Employee Branch Details
+8 - Deposit money into an account
+9 - Withdraw money from an account
+10 - Update Customer details
+11 - Update Password
+12 - Go to Admin Portal
+
+To logout, enter 0
+------------------------------
+Enter your choice (0 to 12): 

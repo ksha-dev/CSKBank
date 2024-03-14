@@ -5,9 +5,7 @@ import java.util.Map;
 
 import api.EmployeeAPI;
 import api.mysql.MySQLEmployeeAPI;
-import cache.Cache;
-import cache.CustomerRecordCache;
-import cache.LRUCache;
+import cache.CachePool;
 import exceptions.AppException;
 import exceptions.messages.ActivityExceptionMessages;
 import modules.Account;
@@ -27,8 +25,6 @@ public class EmployeeOperations {
 	private EmployeeRecord employee;
 	private EmployeeAPI api = new MySQLEmployeeAPI();
 
-	private Cache<Integer, CustomerRecord> customerRecordCache = new CustomerRecordCache(50, api);
-
 	public EmployeeOperations(EmployeeRecord employee) throws AppException {
 		ValidatorUtil.validateObject(employee);
 		ValidatorUtil.validateId(employee.getUserId());
@@ -39,7 +35,15 @@ public class EmployeeOperations {
 	}
 
 	public EmployeeRecord getEmployeeRecord() throws AppException {
-		return (EmployeeRecord) api.getUserDetails(employee.getUserId());
+		UserRecord user = CachePool.getUserRecordCache().get(employee.getUserId());
+		if (!(employee.getType() == UserType.EMPLOYEE || employee.getType() == UserType.ADMIN)) {
+			throw new AppException(ActivityExceptionMessages.INVALID_EMPLOYEE_RECORD);
+		}
+		return (EmployeeRecord) user;
+	}
+
+	public Account getAccountDetails(long accountNumber) throws AppException {
+		return CachePool.getAccountCache().get(accountNumber);
 	}
 
 	public Map<Long, Account> getListOfAccountsInBranch(int pageNumber) throws AppException {
@@ -47,9 +51,14 @@ public class EmployeeOperations {
 		return api.viewAccountsInBranch(employee.getBranchId(), pageNumber);
 	}
 
+
 	public CustomerRecord getCustomerRecord(int customerId) throws AppException {
 		ValidatorUtil.validateId(customerId);
-		return customerRecordCache.get(customerId);
+		UserRecord user = CachePool.getUserRecordCache().get(customerId);
+		if (user.getType() != UserType.CUSTOMER) {
+			throw new AppException(ActivityExceptionMessages.NO_CUSTOMER_RECORD_FOUND);
+		}
+		return (CustomerRecord) user;
 	}
 
 	public Account createNewCustomerAndAccount(CustomerRecord customer, AccountType accountType, double depositAmount)
@@ -72,7 +81,7 @@ public class EmployeeOperations {
 		}
 		long accountNumber = api.createAccount(customerId, accountType, employee.getBranchId());
 		depositAmount(accountNumber, depositAmount);
-		return api.getAccountDetails(accountNumber);
+		return CachePool.getAccountCache().get(accountNumber);
 	}
 
 	public List<Transaction> getListOfTransactions(long accountNumber, int pageNumber, TransactionHistoryLimit limit)
