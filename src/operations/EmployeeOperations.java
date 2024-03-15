@@ -22,21 +22,11 @@ import utility.ConstantsUtil.TransactionHistoryLimit;
 import utility.ConstantsUtil.UserType;
 
 public class EmployeeOperations {
-	private EmployeeRecord employee;
 	private EmployeeAPI api = new MySQLEmployeeAPI();
 
-	public EmployeeOperations(EmployeeRecord employee) throws AppException {
-		ValidatorUtil.validateObject(employee);
-		ValidatorUtil.validateId(employee.getUserId());
-		if (!(employee.getType() == UserType.EMPLOYEE || employee.getType() == UserType.ADMIN)) {
-			throw new AppException(ActivityExceptionMessages.INVALID_EMPLOYEE_RECORD);
-		}
-		this.employee = employee;
-	}
-
-	public EmployeeRecord getEmployeeRecord() throws AppException {
-		UserRecord user = CachePool.getUserRecordCache().get(employee.getUserId());
-		if (!(employee.getType() == UserType.EMPLOYEE || employee.getType() == UserType.ADMIN)) {
+	public EmployeeRecord getEmployeeRecord(int employeeId) throws AppException {
+		UserRecord user = CachePool.getUserRecordCache().get(employeeId);
+		if (!(user.getType() == UserType.EMPLOYEE || user.getType() == UserType.ADMIN)) {
 			throw new AppException(ActivityExceptionMessages.INVALID_EMPLOYEE_RECORD);
 		}
 		return (EmployeeRecord) user;
@@ -45,12 +35,6 @@ public class EmployeeOperations {
 	public Account getAccountDetails(long accountNumber) throws AppException {
 		return CachePool.getAccountCache().get(accountNumber);
 	}
-
-	public Map<Long, Account> getListOfAccountsInBranch(int pageNumber) throws AppException {
-		ValidatorUtil.validateId(pageNumber);
-		return api.viewAccountsInBranch(employee.getBranchId(), pageNumber);
-	}
-
 
 	public CustomerRecord getCustomerRecord(int customerId) throws AppException {
 		ValidatorUtil.validateId(customerId);
@@ -61,26 +45,36 @@ public class EmployeeOperations {
 		return (CustomerRecord) user;
 	}
 
-	public Account createNewCustomerAndAccount(CustomerRecord customer, AccountType accountType, double depositAmount)
-			throws AppException {
+	public Branch getBrachDetails(int branchId) throws AppException {
+		return CachePool.getBranchCache().get(branchId);
+	}
+
+	public Map<Long, Account> getListOfAccountsInBranch(int employeeId, int pageNumber) throws AppException {
+		ValidatorUtil.validateId(pageNumber);
+		return api.viewAccountsInBranch(employeeId, pageNumber);
+	}
+
+	public Account createNewCustomerAndAccount(CustomerRecord customer, AccountType accountType, double depositAmount,
+			int employeeId) throws AppException {
 		customer.setType(UserType.CUSTOMER.getUserTypeId());
 		ValidatorUtil.validateObject(customer);
 
-		api.createCustomer(customer);
-		return createAccountForExistingCustomer(customer.getUserId(), accountType, depositAmount);
+		CustomerRecord createdCustomer = getCustomerRecord(api.createCustomer(customer));
+		return createAccountForExistingCustomer(createdCustomer.getUserId(), accountType, depositAmount, employeeId);
 	}
 
-	public Account createAccountForExistingCustomer(int customerId, AccountType accountType, double depositAmount)
-			throws AppException {
+	public Account createAccountForExistingCustomer(int customerId, AccountType accountType, double depositAmount,
+			int employeeId) throws AppException {
 		ValidatorUtil.validateId(customerId);
+		ValidatorUtil.validateId(employeeId);
 		ValidatorUtil.validateObject(accountType);
 		ValidatorUtil.validatePositiveNumber((long) depositAmount);
 
 		if (accountType == AccountType.SAVINGS && depositAmount < ConstantsUtil.MINIMUM_DEPOSIT_AMOUNT) {
 			throw new AppException(ActivityExceptionMessages.MINIMUM_DEPOSIT_REQUIRED);
 		}
-		long accountNumber = api.createAccount(customerId, accountType, employee.getBranchId());
-		depositAmount(accountNumber, depositAmount);
+		long accountNumber = api.createAccount(customerId, accountType, getEmployeeRecord(employeeId).getBranchId());
+		depositAmount(employeeId, accountNumber, depositAmount);
 		return CachePool.getAccountCache().get(accountNumber);
 	}
 
@@ -92,20 +86,16 @@ public class EmployeeOperations {
 		return api.getTransactionsOfAccount(accountNumber, pageNumber, limit);
 	}
 
-	public Branch getBrachDetails(int branchId) throws AppException {
-		return api.getBrachDetails(branchId);
-	}
-
-	public long depositAmount(long accountNumber, double amount) throws AppException {
+	public long depositAmount(int employeeId, long accountNumber, double amount) throws AppException {
 		ValidatorUtil.validateId(accountNumber);
 		ValidatorUtil.validatePositiveNumber((long) amount);
-		return api.depositAmount(accountNumber, amount, employee);
+		return api.depositAmount(accountNumber, amount, getEmployeeRecord(employeeId));
 	}
 
-	public long withdrawAmount(long accountNumber, double amount) throws AppException {
+	public long withdrawAmount(int employeeId, long accountNumber, double amount) throws AppException {
 		ValidatorUtil.validateId(accountNumber);
 		ValidatorUtil.validatePositiveNumber((long) amount);
-		return api.withdrawAmount(accountNumber, amount, employee);
+		return api.withdrawAmount(accountNumber, amount, getEmployeeRecord(employeeId));
 	}
 
 	public boolean updateCustomerDetails(int customerId, ModifiableField field, Object value) throws AppException {

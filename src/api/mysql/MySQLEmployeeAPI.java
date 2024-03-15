@@ -81,7 +81,7 @@ public class MySQLEmployeeAPI extends MySQLUserAPI implements EmployeeAPI {
 	}
 
 	@Override
-	public boolean createCustomer(CustomerRecord customer) throws AppException {
+	public int createCustomer(CustomerRecord customer) throws AppException {
 		try {
 			ServerConnection.startTransaction();
 			createUserRecord(customer);
@@ -99,7 +99,7 @@ public class MySQLEmployeeAPI extends MySQLUserAPI implements EmployeeAPI {
 				int response = statement.executeUpdate();
 				if (response == 1) {
 					ServerConnection.endTransaction();
-					return true;
+					return customer.getUserId();
 				} else {
 					throw new AppException(APIExceptionMessage.USER_CREATION_FAILED);
 				}

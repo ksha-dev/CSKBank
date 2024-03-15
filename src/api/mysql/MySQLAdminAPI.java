@@ -88,17 +88,12 @@ public class MySQLAdminAPI extends MySQLEmployeeAPI implements AdminAPI {
 		queryBuilder.setColumn(Column.IFSC_CODE);
 		queryBuilder.where();
 		queryBuilder.columnEquals(Column.BRANCH_ID);
-		queryBuilder.and();
-		queryBuilder.columnEquals(Column.IFSC_CODE);
 		queryBuilder.end();
 
-		System.out.println(queryBuilder.getQuery());
 		try (PreparedStatement statement = ServerConnection.getServerConnection()
 				.prepareStatement(queryBuilder.getQuery())) {
 			statement.setString(1, ConvertorUtil.ifscGenerator(branchId));
 			statement.setInt(2, branchId);
-			statement.setNull(3, Types.NULL);
-			System.out.println(statement);
 			int response = statement.executeUpdate();
 			if (response != 1) {
 				throw new AppException(APIExceptionMessage.IFSC_CODE_UPDATE_FAILED);
@@ -120,10 +115,9 @@ public class MySQLAdminAPI extends MySQLEmployeeAPI implements AdminAPI {
 			statement.setString(1, branch.getAddress());
 			statement.setLong(2, branch.getPhone());
 			statement.setString(3, branch.getEmail());
-			System.out.println(statement);
+			statement.executeUpdate();
 			try (ResultSet result = statement.getGeneratedKeys()) {
 				if (result.next()) {
-					System.out.println(result.getObject(1));
 					return result.getInt(1);
 				} else {
 					throw new AppException(APIExceptionMessage.BRANCH_CREATION_FAILED);
@@ -135,11 +129,11 @@ public class MySQLAdminAPI extends MySQLEmployeeAPI implements AdminAPI {
 	}
 
 	@Override
-	public boolean createBranch(Branch branch) throws AppException {
+	public int createBranch(Branch branch) throws AppException {
 		try {
 			int branchId = createBranchAndGetId(branch);
 			updateBrachIFSC(branchId);
-			return true;
+			return branchId;
 		} catch (AppException e) {
 			throw new AppException(e.getMessage());
 		}

@@ -25,8 +25,8 @@ class CustomerRunner {
 
 	public static void run(CustomerRecord customer) throws AppException {
 		boolean isProgramActive = true;
-		int runnerOperations = 8;
-		CustomerOperations operations = new CustomerOperations(customer);
+		int runnerOperations = 9;
+		CustomerOperations operations = new CustomerOperations();
 
 		while (isProgramActive) {
 
@@ -40,8 +40,8 @@ class CustomerRunner {
 					+ "\nEnter a number to perform the following operation : " + "\n1 - View Profile Details"
 					+ "\n2 - Accounts" + "\n3 - View Transactions of an Account" + "\n4 - Transfer Amount"
 					+ "\n5 - View Branch Details of an account" + "\n6 - Update Profile Details"
-					+ "\n7 - Update password" + "\n8 - View recent transactions" + "\n\nTo logout, enter 0\n"
-					+ "-".repeat(30));
+					+ "\n7 - Update password" + "\n8 - View recent transactions" + "\n9 - View Account Details"
+					+ "\n\nTo logout, enter 0\n" + "-".repeat(30));
 
 			int choice = -1;
 			do {
@@ -67,18 +67,18 @@ class CustomerRunner {
 				}
 
 				case 1: {
-					LoggingUtil.logCustomerRecord(operations.getCustomerRecord());
+					LoggingUtil.logCustomerRecord(operations.getCustomerRecord(customer.getUserId()));
 					break;
 				}
 
 				case 2: {
-					Map<Long, Account> accounts = operations.getAssociatedAccounts();
+					Map<Long, Account> accounts = operations.getAssociatedAccounts(customer.getUserId());
 					LoggingUtil.logAccountsList(accounts);
 					break;
 				}
 
 				case 3: {
-					Map<Long, Account> accounts = operations.getAssociatedAccounts();
+					Map<Long, Account> accounts = operations.getAssociatedAccounts(customer.getUserId());
 					long accountNumber = 0;
 					if (accounts.size() == 1) {
 						accountNumber = (long) accounts.keySet().toArray()[0];
@@ -135,7 +135,7 @@ class CustomerRunner {
 					if (InputUtil.getString().equals("y")) {
 						isTransferInsideBank = true;
 					}
-					Map<Long, Account> accounts = operations.getAssociatedAccounts();
+					Map<Long, Account> accounts = operations.getAssociatedAccounts(customer.getUserId());
 					Transaction transaction = new Transaction();
 					long accountNumber = 0;
 					if (accounts.size() == 1) {
@@ -180,7 +180,7 @@ class CustomerRunner {
 					break;
 
 				case 5: {
-					Map<Long, Account> accounts = operations.getAssociatedAccounts();
+					Map<Long, Account> accounts = operations.getAssociatedAccounts(customer.getUserId());
 					LoggingUtil.logAccountsList(accounts);
 					long accountNumber = 0;
 					if (accounts.size() == 1) {
@@ -249,7 +249,7 @@ class CustomerRunner {
 					break;
 
 				case 8: {
-					Map<Long, Account> accounts = operations.getAssociatedAccounts();
+					Map<Long, Account> accounts = operations.getAssociatedAccounts(customer.getUserId());
 					long accountNumber = 0;
 					if (accounts.size() == 1) {
 						accountNumber = (long) accounts.keySet().toArray()[0];
@@ -268,6 +268,12 @@ class CustomerRunner {
 					}
 				}
 					break;
+
+				case 9: {
+					log.info("Enter the account number : ");
+					long accountNumber = InputUtil.getPositiveLong();
+					LoggingUtil.logAccount(operations.getAccountDetails(accountNumber, customer.getUserId()));
+				}
 
 				default:
 					log.info("The choice is invalid");

@@ -14,7 +14,7 @@ public class ConstantsUtil {
 	public static final List<ModifiableField> EMPLOYEE_MODIFIABLE_FIELDS;
 	public static final List<ModifiableField> ADMIN_MODIFIABLE_FIELDS;
 	
-	public static final int CACHE_SIZE = 3;
+	public static final int CACHE_SIZE = 30;
 
 
 	static {

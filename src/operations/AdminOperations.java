@@ -4,6 +4,7 @@ import java.util.Map;
 
 import api.AdminAPI;
 import api.mysql.MySQLAdminAPI;
+import cache.CachePool;
 import exceptions.AppException;
 import exceptions.messages.ActivityExceptionMessages;
 import modules.Account;
@@ -17,14 +18,6 @@ import utility.ValidatorUtil;
 public class AdminOperations {
 
 	private AdminAPI api = new MySQLAdminAPI();
-
-	public AdminOperations(EmployeeRecord employee) throws AppException {
-		ValidatorUtil.validateObject(employee);
-		ValidatorUtil.validateId(employee.getBranchId());
-		if (employee.getType() != UserType.ADMIN) {
-			throw new AppException("You are not authorized to use this facility");
-		}
-	}
 
 	public Map<Integer, EmployeeRecord> getEmployeesInBrach(int branchID, int pageNumber) throws AppException {
 		ValidatorUtil.validateId(branchID);
@@ -47,9 +40,10 @@ public class AdminOperations {
 		return api.updateEmployeeDetails(employeeId, field, value);
 	}
 
-	public boolean createBranch(Branch branch) throws AppException {
+	public Branch createBranch(Branch branch) throws AppException {
 		ValidatorUtil.validateObject(branch);
-		return api.createBranch(branch);
+		int branchId = api.createBranch(branch);
+		return CachePool.getBranchCache().get(branchId);
 	}
 
 	public boolean updateBranchDetails(int branchId, ModifiableField field, Object value) throws AppException {

@@ -13,6 +13,7 @@ import utility.ConstantsUtil.TransactionHistoryLimit;
 
 public interface UserAPI {
 
+	// User
 	public boolean userAuthentication(int userID, String password) throws AppException;
 
 	public boolean userConfimration(int userID, String pin) throws AppException;
@@ -23,13 +24,13 @@ public interface UserAPI {
 
 	public boolean updatePassword(int customerID, String oldPassword, String newPassword) throws AppException;
 
+	// Branch
 	public Branch getBrachDetails(int branchID) throws AppException;
 
+	// Accounts
 	public Map<Long, Account> getAccountsOfUser(int userID) throws AppException;
 
 	public Account getAccountDetails(long accountNumber) throws AppException;
-
-	public double getBalanceInAccount(long accoutNumber) throws AppException;
 
 	public long transferAmount(Transaction transaction, boolean isTransferOutsideBank) throws AppException;
 

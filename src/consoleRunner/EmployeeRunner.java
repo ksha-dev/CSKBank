@@ -28,7 +28,7 @@ class EmployeeRunner {
 	public static void run(EmployeeRecord employee) throws AppException {
 		boolean isProgramActive = true;
 		int runnerOperations = 12;
-		EmployeeOperations operations = new EmployeeOperations(employee);
+		EmployeeOperations operations = new EmployeeOperations();
 
 		while (isProgramActive) {
 
@@ -71,14 +71,15 @@ class EmployeeRunner {
 					break;
 
 				case 1:
-					LoggingUtil.logEmployeeRecord(operations.getEmployeeRecord());
+					LoggingUtil.logEmployeeRecord(operations.getEmployeeRecord(employee.getUserId()));
 					break;
 
 				case 2: {
 					int pageNumber = 1;
 					boolean isListObtained = false;
 					while (!isListObtained) {
-						Map<Long, Account> accounts = operations.getListOfAccountsInBranch(pageNumber);
+						Map<Long, Account> accounts = operations.getListOfAccountsInBranch(employee.getUserId(),
+								pageNumber);
 						LoggingUtil.logAccountsList(accounts);
 						if (accounts.size() == ConstantsUtil.LIST_LIMIT) {
 							log.info("Enter 1 to go to next page (or) 0 to exit : ");
@@ -105,7 +106,7 @@ class EmployeeRunner {
 					break;
 
 				case 4:
-					createCustomer(operations);
+					createCustomer(operations, employee.getUserId());
 					break;
 
 				case 5: {
@@ -168,7 +169,7 @@ class EmployeeRunner {
 					int typeSelection = InputUtil.getInteger();
 					if (typeSelection > 0 && typeSelection <= (i + 1)) {
 						Account account = operations.createAccountForExistingCustomer(customer.getUserId(),
-								AccountType.values()[typeSelection - 1], amount);
+								AccountType.values()[typeSelection - 1], amount, employee.getUserId());
 						log.info("-".repeat(40));
 						log.info("ACCOUNT HAS BEEN CREATED SUCCESSFULLY");
 						LoggingUtil.logAccount(account);
@@ -192,7 +193,7 @@ class EmployeeRunner {
 					log.info("Enter deposit amount : ");
 					double amount = InputUtil.getPositiveDouble();
 
-					long transactionId = operations.depositAmount(accountNumber, amount);
+					long transactionId = operations.depositAmount(employee.getUserId(), accountNumber, amount);
 
 					log.info("Deposit Successful!.\nTransaction Id : " + transactionId);
 				}
@@ -203,7 +204,7 @@ class EmployeeRunner {
 					long accountNumber = InputUtil.getPositiveLong();
 					log.info("Enter amount to withdraw : ");
 					double amount = InputUtil.getPositiveDouble();
-					long transactionId = operations.withdrawAmount(accountNumber, amount);
+					long transactionId = operations.withdrawAmount(employee.getUserId(), accountNumber, amount);
 					log.info("Withdrawal Successful!.\nTransaction Id : " + transactionId);
 				}
 					break;
@@ -292,7 +293,7 @@ class EmployeeRunner {
 		}
 	}
 
-	private static void createCustomer(EmployeeOperations activity) throws AppException {
+	private static void createCustomer(EmployeeOperations activity, int employeeId) throws AppException {
 		CustomerRecord customer = new CustomerRecord();
 		log.info("Enter the following details : ");
 
@@ -338,7 +339,7 @@ class EmployeeRunner {
 			int typeSelection = InputUtil.getInteger();
 			if (typeSelection > 0 && typeSelection <= (i + 1)) {
 				Account account = activity.createNewCustomerAndAccount(customer,
-						AccountType.values()[typeSelection - 1], amount);
+						AccountType.values()[typeSelection - 1], amount, employeeId);
 				log.info("-".repeat(40));
 				log.info("CUSTOMER AND ACCOUNT HAS BEEN CREATED SUCCESSFULLY");
 				activity.getCustomerRecord(account.getUserId());

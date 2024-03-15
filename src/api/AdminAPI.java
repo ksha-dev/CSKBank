@@ -16,7 +16,7 @@ public interface AdminAPI extends EmployeeAPI {
 
 	public boolean updateEmployeeDetails(int employeeId, ModifiableField field, Object value) throws AppException;
 
-	public boolean createBranch(Branch branch) throws AppException;
+	public int createBranch(Branch branch) throws AppException;
 
 	public boolean updateBranchDetails(int branchId, ModifiableField field, Object value) throws AppException;
 

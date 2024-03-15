@@ -20,9 +20,9 @@ class AdminRunner {
 
 	public Logger log = LoggingUtil.DEFAULT_LOGGER;
 
-	public void run(EmployeeRecord employee) throws AppException {
-		AdminOperations operations = new AdminOperations(employee);
-		LoggingUtil.logEmployeeRecord(employee);
+	public void run(EmployeeRecord admin) throws AppException {
+		AdminOperations operations = new AdminOperations();
+		LoggingUtil.logEmployeeRecord(admin);
 		boolean isProgramActive = true;
 		int runnerOperations = 7;
 
@@ -62,7 +62,7 @@ class AdminRunner {
 					int pageNumber = 1;
 					boolean isListFull = false;
 					do {
-						Map<Integer, EmployeeRecord> employees = operations.getEmployeesInBrach(employee.getBranchId(),
+						Map<Integer, EmployeeRecord> employees = operations.getEmployeesInBrach(admin.getBranchId(),
 								pageNumber);
 						LoggingUtil.logEmployeeRecordList(employees);
 						isListFull = employees.size() == ConstantsUtil.LIST_LIMIT;
@@ -160,10 +160,10 @@ class AdminRunner {
 					log.info("Enter Email ID : ");
 					newBranch.setEmail(InputUtil.getString());
 
-					if (operations.createBranch(newBranch)) {
-						log.info("Branch Successfully created");
+					Branch branch = operations.createBranch(newBranch);
+					log.info("Branch Successfully created");
+					LoggingUtil.logBrach(branch);
 
-					}
 				}
 					break;
 

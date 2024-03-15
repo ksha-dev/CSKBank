@@ -225,36 +225,6 @@ public class MySQLUserAPI implements UserAPI {
 	}
 
 	@Override
-	public double getBalanceInAccount(long accountNumber) throws AppException {
-		ValidatorUtil.validateId(accountNumber);
-
-		MySQLQuery queryBuilder = new MySQLQuery();
-		queryBuilder.selectColumn(Column.BALANCE);
-		queryBuilder.fromSchema(Schemas.ACCOUNTS);
-		queryBuilder.where();
-		queryBuilder.columnEquals(Column.ACCOUNT_NUMBER);
-		queryBuilder.and();
-		queryBuilder.not();
-		queryBuilder.columnEquals(Column.STATUS);
-		queryBuilder.end();
-
-		try (PreparedStatement statement = ServerConnection.getServerConnection()
-				.prepareStatement(queryBuilder.getQuery())) {
-			statement.setLong(1, accountNumber);
-			statement.setString(2, Status.CLOSED.getStatusId() + "");
-			try (ResultSet result = statement.executeQuery()) {
-				if (result.next()) {
-					return result.getDouble(1);
-				} else {
-					throw new AppException(APIExceptionMessage.BALANCE_ACQUISITION_FAILED);
-				}
-			}
-		} catch (SQLException e) {
-			throw new AppException(e.getMessage());
-		}
-	}
-
-	@Override
 	public long transferAmount(Transaction transaction, boolean isTransferWithinBank) throws AppException {
 		ValidatorUtil.validateObject(transaction);
 		try {

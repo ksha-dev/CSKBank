@@ -12,5 +12,10 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="jar/json-1.6.jar"/>
+	<classpathentry kind="lib" path="/home/sharan-pt-7373/Documents/GitHub/CSKBank/jar/jedis-5.1.2.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

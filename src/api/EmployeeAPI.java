@@ -11,7 +11,7 @@ import utility.ConstantsUtil.Status;
 
 public interface EmployeeAPI extends UserAPI {
 
-	public boolean createCustomer(CustomerRecord customer) throws AppException;
+	public int createCustomer(CustomerRecord customer) throws AppException;
 
 	public long createAccount(int customerID, AccountType type, int branchID) throws AppException;
 
