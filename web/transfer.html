@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+
+<body>
+    <section id="menu">
+        <div class="logo">
+            <img src="images/logo.png" alt="CSK Bank Logo">
+            <h2>CSK Bank</h2>
+        </div>
+
+        <div class="items">
+            <li><i class="material-icons">account_balance</i><a href="accounts.html">Account</a> </li>
+            <li><i class="material-icons">receipt_long</i><a href="transactions.html">Transactions</a></li>
+            <li style=" border-left: 5px solid #fff; background: #0d1117; color: white;"><i
+                    class="material-icons">payments</i><a href="#">Transfer</a></li>
+            <li><i class="material-icons">settings</i><a href="#">Settings</a></li>
+            <li><i class="material-icons">logout</i><a href="#">Logout</a></li>
+        </div>
+    </section>
+
+
+    <section id="content-area">
+        <div class="nav-bar">
+            <div class="search">
+                <i class="material-icons">search</i>
+                <input type="text" placeholder="Search">
+            </div>
+
+            <div class="profile">
+                <i class="material-icons">account_circle</i>
+                <img src="images/profile.jpg" alt="Profile">
+            </div>
+        </div>
+
+
+        <h3 class="i-title">Transfer Fund</h3>
+
+        <form action="" class="container">
+            <div class="dual-element-row">
+                <label for="transferWithinBank">Transfer Within Bank</label>
+                <input type="checkbox" name="transferWithinBank">
+            </div>
+            <div class="dual-element-row">
+                <label for="from-account">Select Account</label>
+                <select name="from-account" id="from-account" required>
+                    <option value="1">123412341234 - Salary</option>
+                    <option value="2">123412348695 - Savings</option>
+                    <option value="3">123412345749 - Savings</option>
+                    <option value="4">123412345749 - Current</option>
+                </select>
+            </div>
+
+            <div class="dual-element-row">
+                <label for="to-account">Receipent Account Number</label>
+                <input type="number" placeholder="Account Number" required>
+            </div>
+
+            <div class="dual-element-row">
+                <label for="amount">Amount to Transfer</label>
+                <input type="number" placeholder="Amount" required>
+            </div>
+
+            <input type="submit" value="Trasfer Amount">
+        </form>
+
+
+    </section>
+
+
+</body>
+
+</html>

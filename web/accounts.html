@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="script.js"></script>
+</head>
+
+<body>
+    <section id="menu">
+        <div class="logo">
+            <img src="images/logo.png" alt="CSK Bank Logo">
+            <h2>CSK Bank</h2>
+        </div>
+
+        <div class="items">
+            <li style=" border-left: 5px solid #fff; background: #0d1117; color: white;"><i
+                    class="material-icons">account_balance</i><a href="#">Account</a></li>
+            <li><i class="material-icons">receipt_long</i><a href="transactions.html">Transactions</a></li>
+            <li><i class="material-icons">payments</i><a href="transfer.html">Transfer</a></li>
+            <li><i class="material-icons">settings</i><a href="#">Settings</a></li>
+            <li><i class="material-icons">logout</i><a href="#">Logout</a></li>
+        </div>
+    </section>
+
+
+    <section id="content-area">
+        <div class="nav-bar">
+            <div id="searchInput" class="search">
+                <i class="material-icons">search</i>
+                <input type="text" placeholder="Search">
+            </div>
+
+            <div class="profile">
+                <i class="material-icons">account_circle</i>
+                <img src="images/profile.jpg" alt="Profile">
+            </div>
+        </div>
+
+
+        <h3 class="i-title">Accounts</h3>
+
+        <div id="accountsTable" class="i-table">
+            <table width="100%">
+                <thead>
+                    <tr>
+                        <td>Account Number</td>
+                        <td>Account Holder Name</td>
+                        <td>Account Type</td>
+                        <td>Available Balance</td>
+                        <td>Status</td>
+                        <td> </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1234123412341234</td>
+                        <td>Holder Name</td>
+                        <td>Savings</td>
+                        <td>Rs. 20,000</td>
+                        <td>Active</td>
+                        <td><a href="#"><i class="material-icons">keyboard_arrow_right</i></a></td>
+                    </tr>
+                    <tr>
+                        <td>1234123412341234</td>
+                        <td>Holder Name</td>
+                        <td>Savings</td>
+                        <td>Rs. 20,000</td>
+                        <td>Active</td>
+                        <td><a href="#"><i class="material-icons">keyboard_arrow_right</i></a></td>
+
+                    </tr>
+                    <tr>
+                        <td>1234123412341234</td>
+                        <td>Holder Name</td>
+                        <td>Savings</td>
+                        <td>Rs. 20,000</td>
+                        <td>Active</td>
+                        <td><a href="#"><i class="material-icons">keyboard_arrow_right</i></a></td>
+
+                    </tr>
+                    <tr>
+                        <td>1234123412341234</td>
+                        <td>Holder Name</td>
+                        <td>Savings</td>
+                        <td>Rs. 20,000</td>
+                        <td>Active</td>
+                        <td><a href="#"><i class="material-icons">keyboard_arrow_right</i></a></td>
+
+                    </tr>
+                    <tr>
+                        <td>1234123412341234</td>
+                        <td>Holder Name</td>
+                        <td>Savings</td>
+                        <td>Rs. 20,000</td>
+                        <td>Active</td>
+                        <td><a href="#"><i class="material-icons">keyboard_arrow_right</i></a></td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </section>
+
+
+</body>
+
+</html>

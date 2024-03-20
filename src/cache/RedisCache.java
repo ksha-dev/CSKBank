@@ -59,12 +59,12 @@ public class RedisCache<K, V> extends Cache<K, V> {
 
 	@Override
 	protected void put(K key, V value) {
-		if (REDIS_CONNECTOR.hlen(CACHE_KEY.getBytes()) > CACHE_SIZE) {
-			K keyRemoved = cacheKeyOrder.removeLast();
-			cacheData.remove(keyRemoved);
-		}
-		cacheKeyOrder.addFirst(key);
-		cacheData.put(key, val);
+//		if (REDIS_CONNECTOR.hlen(CACHE_KEY.getBytes()) > CACHE_SIZE) {
+//			K keyRemoved = cacheKeyOrder.removeLast();
+//			cacheData.remove(keyRemoved);
+//		}
+//		cacheKeyOrder.addFirst(key);
+//		cacheData.put(key, val);
 	}
 
 	@Override

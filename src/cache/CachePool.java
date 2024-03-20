@@ -22,6 +22,7 @@ public class CachePool {
 		}
 	}
 
+
 	private CachePool() {
 	}
 
@@ -34,7 +35,7 @@ public class CachePool {
 					userRecordCache = new UserRecordCache(userAPI, ConstantsUtil.CACHE_SIZE);
 					accountCache = new AccountCache(userAPI, ConstantsUtil.CACHE_SIZE);
 					branchCache = new BranchCache(userAPI, ConstantsUtil.CACHE_SIZE);
-				}
+				} 
 			}
 		}
 	}
