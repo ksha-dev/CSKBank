@@ -22,7 +22,7 @@
             <li style=" border-left: 5px solid #fff; background: #0d1117; color: white;"><i
                     class="material-icons">payments</i><a href="#">Transfer</a></li>
             <li><i class="material-icons">settings</i><a href="#">Settings</a></li>
-            <li><i class="material-icons">logout</i><a href="#">Logout</a></li>
+            <li><i class="material-icons">logout</i><a href="login.html">Logout</a></li>
         </div>
     </section>
 
@@ -36,17 +36,21 @@
 
             <div class="profile">
                 <i class="material-icons">account_circle</i>
-                <img src="images/profile.jpg" alt="Profile">
+                <a href="profile.html">
+                    <img src="images/profile.jpg" alt="Profile">
+                </a>
             </div>
         </div>
 
 
-        <h3 class="i-title">Transfer Fund</h3>
+        <h3 class="i-title">Transfer</h3>
 
-        <form action="" class="container">
+        <form action="" class="container" style="width: 50%;">
             <div class="dual-element-row">
                 <label for="transferWithinBank">Transfer Within Bank</label>
-                <input type="checkbox" name="transferWithinBank">
+                <div style="justify-content: start; width: 45%;">
+                    <input type="checkbox" name="transferWithinBank">
+                </div>
             </div>
             <div class="dual-element-row">
                 <label for="from-account">Select Account</label>
@@ -60,15 +64,25 @@
 
             <div class="dual-element-row">
                 <label for="to-account">Receipent Account Number</label>
-                <input type="number" placeholder="Account Number" required>
+                <input type="number" placeholder="Enter Account Number" required>
+            </div>
+
+            <div class="dual-element-row">
+                <label for="to-account">Receipent IFSC Code</label>
+                <input type="text" placeholder="Enter IFSC Code" required>
             </div>
 
             <div class="dual-element-row">
                 <label for="amount">Amount to Transfer</label>
-                <input type="number" placeholder="Amount" required>
+                <input type="number" placeholder="Enter Amount" inputmode="numeric" required>
             </div>
 
-            <input type="submit" value="Trasfer Amount">
+            <div class="dual-element-row">
+                <label for="to-account">Remarks</label>
+                <input type="text" placeholder="Enter remarks" required>
+            </div>
+
+            <input class="dual-element-row" type="submit" value="Proceed">
         </form>
 
 
